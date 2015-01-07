@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<META name="description" content="red de inmobiliarias">
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <title>RedInmo</title>
+
+  <link href="theme/dist/css/bootstrap.css" rel="stylesheet">
+  <link href="theme/dist/css/propio.css" rel="stylesheet">  
+  <link href="theme/css/navbar-fixed-top.css" rel="stylesheet">
+  <link href="theme/css/sticky-footer.css" rel="stylesheet">  
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="theme/assets/js/html5shiv.js"></script>
+      <script src="theme/assets/js/respond.min.js"></script>
+    <![endif]-->  
+</head>
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <img style="padding-top:0.2em" src="theme/img/logo-inm.png"></img> <b>InmoAvisos.com</b>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="lonuevo.php">Buscar <span class="glyphicon glyphicon-search"></a></li>
+            <li><a href="agregar.php?paso=1">Publicar <span class="glyphicon glyphicon-plus"></a></li>			
+          </ul>
+	  
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <b class="caret"></b> <span class="glyphicon glyphicon-user"></a>
+              <ul class="dropdown-menu">
+                <li><a href="ingresar.php">Ingresar</a></li>
+                <li><a href="usuario.php">Nuevo Usuario</a></li>
+                <li class="divider"></li>
+				<li><a href="retpass.php">Olvide mi contrase?a</a></li>		
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron" style="padding:2em; background-color: #E1F5A9;">
+		  <div class="row">
+			<div class="col-md-8"><h1>InmoAvisos.com</h1><p>La herramienta online para los que buscan y ofrecen inmuebles en Argentina. <br>Venta y alquiler de departamentos, casas, PH, terrenos, locales, oficinas, quintas, cocheras y más en InmoAvisos.com</p></div>
+			<div class="col-md-4">
+			<center><img style="padding-top:0.2em" src="theme/img/splash.png" class="img-responsive" alt="Responsive image"></img></center>
+			</div>
+
+		  </div>	 
+      </div>
+
+	<div class="jumbotron" style="padding:0.5em; background-color: #F5ECCE">
+				<div class="row">
+					<div class="col-md-8">
+					<div class="row">
+						<div class="col-md-3">
+							Tipo de Operación:
+							<select class="form-control">
+								  <option>Venta</option>
+								  <option>Alquiler</option>
+								  <option>Alquiler Temporario</option>
+							</select>
+						</div>
+						<div class="col-md-3">
+							Tipo de Propiedad:
+							<select class="form-control">
+								  <option>Casa</option>
+								  <option>Departamento</option>
+								  <option>Cochera</option>
+							</select>	
+						</div>
+						<div class="col-md-6">
+							Ciudad:
+							<input type="text" class="form-control">
+						</div>			
+					</div>
+					</div>
+					<div class="col-xs-4">
+							<button type="submit" class="btn btn-default btn-lg" style="margin-top:10px">Buscar</button>							
+					</div>
+				</div>
+	</div>
+			
+	<div class="row">
+			<div class="col-md-3">
+				<div class="panel panel-info">
+				<div class="panel-heading">Buscar avisos por ciudad</div>
+				<div class="panel-body">
+					Avisos en Capital Federal<br>
+					Avisos en Rosario<br>
+					Avisos en Codoba<br>
+					Avisos en Santa Fe<br>
+					Avisos en Mendoza<br>
+					Avisos en Tucuman<br>
+					Avisos en plumas verdes
+
+				</div>
+				</div>
+			</div>
+				
+			<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">Ultimos avisos publicados:</div>
+				<div class="panel-body">
+					<div class="row">
+					<div class="media">
+					  <a class="media-left" href="#">
+						<img src="theme/imgavisos/1.jpg" height="125" width="125" class="img-rounded" alt="Rounded Image">
+					  </a>
+					  <div class="media-body">
+						<h4 class="media-heading">Departamento en Venta en Capital Federal</h4>
+						Ubicado en Capital Federal, 45 mt2, 2 ambientes, 1 baño. $4500
+					  </div>
+					</div>
+					
+					<div class="media">
+					  <a class="media-left" href="#">
+						<img src="theme/imgavisos/2.jpg" height="125" width="125" class="img-rounded" alt="Rounded Image">
+					  </a>
+					  <div class="media-body">
+						<h4 class="media-heading">Departamento en Venta en Capital Federal</h4>
+						Ubicado en Capital Federal, 45 mt2, 2 ambientes, 1 baño. $4500
+					  </div>
+					</div>
+					
+					<div class="media">
+					  <a class="media-left" href="#">
+						<img src="theme/imgavisos/3.jpg" height="125" width="125" class="img-rounded" alt="Rounded Image">
+					  </a>
+					  <div class="media-body">
+						<h4 class="media-heading">Departamento en Venta en Capital Federal</h4>
+						Ubicado en Capital Federal, 45 mt2, 2 ambientes, 1 baño. $4500
+					  </div>
+					</div>	
+
+				</div>
+					
+				</div>
+				</div>
+
+			</div>
+		
+			<div class="col-md-3">			
+			<div class="panel panel-info">
+				<div class="panel-heading">Ultimas inmobiliarias registradas</div>
+				<div class="panel-body">
+
+					algo a</a><br>
+					algo b<br>
+
+				</div>	
+				</div>
+			</div>	
+
+	</div>
+	
+    </div> <!-- /container -->	
+
+
+    <script src="theme/assets/js/jquery.js"></script>
+    <script src="theme/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
