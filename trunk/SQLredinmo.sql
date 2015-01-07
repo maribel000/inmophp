@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `avisos` (
 INSERT INTO `avisos` (`id`, `tipo_op`, `tipo_inm`, `provincia`, `ciudad`, `barrio`, `direccion`, `ambientes`, `dormitorios`, `banios`, `metros2`, `estado`, `anio`, `precio`, `detalles`) VALUES
 (1, 0, 0, 'Santa Fe', 'ciudad 123456', 'barrio', 'direccion', 1, 2, 3, 4, '5', 6, 7777, 'detallessss'),
 (2, 1, 2, 'Santa Fe', 'rosario', 'empalme', 'cavour 554', 0, 0, 0, 0, '', 0, 450, 'muy buena cochera!'),
-(3, 1, 2, 'Santa Fe', 'baigorria', 'empalme', 'cavour 554', 0, 0, 0, 0, '', 0, 450, 'muy buena cochera!'),
+(3, 1, 2, 'Santa Fe', 'baigorria', 'empalme', 'cavour 554', 0, 0, 0, 0, '', 0, 450, 'muy mala cochera!'),
 (4, 0, 0, 'Santa Fe', '', '', '', 0, 0, 0, 0, '', 0, 0, 'deta');
 
 -- --------------------------------------------------------
