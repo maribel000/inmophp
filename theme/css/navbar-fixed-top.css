@@ -59,3 +59,21 @@ body{min-height:500px;padding-top:70px}
 		background-color: #a8dfab;
 	}
 }
+
+.media {
+    margin:0;
+	padding:1em;
+	border-bottom: dotted 1px gray;
+}
+.media:hover {
+	background-color:#E6E6E6;
+}
+
+.tab-content {
+
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}

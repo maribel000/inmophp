@@ -44,6 +44,21 @@ class Auth extends CI_Controller {
 		}
 	}
 
+	function user()
+	{
+		if (!$this->ion_auth->logged_in()) redirect('auth/login'); //esta pagina es solo para usuarios
+		$this->data['is_logged'] = 1;
+		$this->data['title'] = "Usuario";
+		$user = $this->ion_auth->user()->row();
+		$this->data['user'] = $user;
+		//echo $user->email;
+		if ($this->ion_auth->in_group("inmobiliarias")) $this->data['rol'] = "Inmobiliaria";
+		if ($this->ion_auth->in_group("particulares")) $this->data['rol'] = "Particuares";
+		if ($this->ion_auth->in_group("clientes")) $this->data['rol'] = "Clientes";
+		$this->_render_page('auth/user', $this->data);
+		
+	}
+	
 	//log the user in
 	function login()
 	{
@@ -794,6 +809,13 @@ class Auth extends CI_Controller {
 	function _render_page($view, $data=null, $render=false)
 	{
 
+		if ($this->ion_auth->logged_in()){
+			$dato['user'] = $this->ion_auth->user()->row();
+			$data["menu"] = $this->load->view('menu_us', $dato, true);
+		}else{
+			$data["menu"] = $this->load->view('menu_nu');
+		}	
+		
 		$this->viewdata = (empty($data)) ? $this->data: $data;
 
 		$view_html = $this->load->view($view, $this->viewdata, $render);

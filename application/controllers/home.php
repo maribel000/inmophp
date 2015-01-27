@@ -24,11 +24,48 @@ class Home extends CI_Controller {
 	{
 
 	$this->load->helper('url');
-	$datos["msj"] = "hola mundo";
+	$this->load->library('ion_auth');
+	$datos["ultimos_avisos"] = $this->traer_ultimos_avisos();
+	$datos["ultimas_inmobi"] = $this->traer_ultimas_inmobi();
+	if ($this->ion_auth->logged_in()){
+		$data['user'] = $this->ion_auth->user()->row();
+		$datos["menu"] = $this->load->view('menu_us', $data, true);
+	}else{
+		$datos["menu"] = $this->load->view('menu_nu');
+	}
+
 	$this->load->view('home', $datos);
 	
 	}
-	
+
+	function traer_ultimos_avisos() {
+		$this->load->model('Avisos_model', '', TRUE);
+		$ultimosavisos = $this->Avisos_model->get_ult_avisos();
+		$html = '';
+		foreach ($ultimosavisos as $aviso) {
+			$html = '
+				<div class="media">
+				  <a class="media-left" href="#">
+					<img src="http://localhost/redinmo/theme/imgavisos/'.$aviso['foto'].'" height="125" width="125" class="img-rounded" alt="Rounded Image">
+				  </a>
+				  <div class="media-body">
+					<h4 class="media-heading">'.$aviso['titulo'].'</h4>
+					'.$aviso['texto'].'
+				  </div>
+				</div>
+			'.$html;
+		}
+
+		return $html;
+
+		return $ultimosavisos;
+	}
+
+	function traer_ultimas_inmobi() {
+		$this->load->model('Avisos_model', '', TRUE);
+		$ultimasinmos = $this->Avisos_model->get_ult_inmobi();
+		return $ultimasinmos;
+	}
 }
 
 /* End of file home.php */
