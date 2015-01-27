@@ -20,37 +20,7 @@
 </head>
 <body>
 
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <img style="padding-top:0.2em" src="<?php echo base_url();?>theme/img/logo-inm.png"></img> <b>RedInmobiliaria</b>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="lonuevo.php">Buscar Propiedad <span class="glyphicon glyphicon-search"></a></li>
-            <li><a href="agregar.php?paso=1">Publicar Aviso <span class="glyphicon glyphicon-plus"></a></li>			
-          </ul>
-	  
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <b class="caret"></b> <span class="glyphicon glyphicon-user"></a>
-              <ul class="dropdown-menu">
-                <li><a href="ingresar.php">Ingresar</a></li>
-                <li><a href="usuario.php">Nuevo Usuario</a></li>
-                <li class="divider"></li>
-				<li><a href="retpass.php">Olvide mi contraseña</a></li>		
-              </ul>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-
+<?php echo $menu; ?>
 
     <div class="container">
 	<center>

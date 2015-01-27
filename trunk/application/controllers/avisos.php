@@ -5,9 +5,18 @@ class Avisos extends CI_Controller {
 	 
 	public function index()
 	{
-	$this->load->helper('url');
-	$datos["msj"] = "agregar";
-	$this->load->view('agregar', $datos);
+		$this->load->helper('url');
+		$this->load->library('ion_auth');	
+		$datos["msj"] = "agregar";
+	
+		if ($this->ion_auth->logged_in()){
+			$data['user'] = $this->ion_auth->user()->row();
+			$datos["menu"] = $this->load->view('menu_us', $data, true);
+		}else{
+			$datos["menu"] = $this->load->view('menu_nu');
+		}	
+		
+		$this->load->view('agregar', $datos);
 	
 	}
 	
@@ -15,7 +24,7 @@ class Avisos extends CI_Controller {
 	public function agregar()
 	{
 
-
+		$this->load->library('ion_auth');	
 		$this->load->library('form_validation');	
 		$this->load->helper('url');
 		$datos["msj"] = "agregar";
@@ -27,7 +36,13 @@ class Avisos extends CI_Controller {
 		$this->form_validation->set_rules('detalles', 'Detalles del inmueble', 'required');		
 	
 		if ($this->form_validation->run() == FALSE){
-			$this->load->view('agregar');
+			if ($this->ion_auth->logged_in()){
+				$datos['user'] = $this->ion_auth->user()->row();
+				$data["menu"] = $this->load->view('menu_us', $datos, true);
+			}else{
+				$data["menu"] = $this->load->view('menu_nu');
+			}			
+			$this->load->view('agregar', $data);
 		}else{
 		
 		
@@ -51,6 +66,13 @@ class Avisos extends CI_Controller {
 
 			if ($res) { $msj = "Aviso Agregado"; } else { $msj = "El aviso no pudo ser agregado :(";}
 			$data = array('msj' => $msj);
+			
+			if ($this->ion_auth->logged_in()){
+				$datos['user'] = $this->ion_auth->user()->row();
+				$data["menu"] = $this->load->view('menu_us', $datos, true);
+			}else{
+				$data["menu"] = $this->load->view('menu_nu');
+			}				
 			$this->load->view('addaviso-ok', $data);			
 		
 		}			
@@ -60,6 +82,7 @@ class Avisos extends CI_Controller {
 	public function editar($id)
 	{
 		$this->load->library('form_validation');		
+		$this->load->library('ion_auth');			
 	    $this->load->helper(array('form', 'url'));
 
 		$this->form_validation->set_rules('tipoop', 'Tipo de operacion', 'required');
@@ -88,7 +111,12 @@ class Avisos extends CI_Controller {
 						   'precio' => $todo->precio,
 						   'detalles' => utf8_decode($todo->detalles),
 						);
-			
+			if ($this->ion_auth->logged_in()){
+				$data['user'] = $this->ion_auth->user()->row();
+				$datos["menu"] = $this->load->view('menu_us', $data, true);
+			}else{
+				$datos["menu"] = $this->load->view('menu_nu');
+			}				
 			$this->load->view('editaviso', $datos);
 			
 		}else{
@@ -114,6 +142,12 @@ class Avisos extends CI_Controller {
 
 			if ($res) { $msj = "Aviso editado"; } else { $msj = "El aviso no pudo ser editado :(";}
 			$data = array('msj' => $msj);
+			if ($this->ion_auth->logged_in()){
+				$dato['user'] = $this->ion_auth->user()->row();
+				$data["menu"] = $this->load->view('menu_us', $dato, true);
+			}else{
+				$data["menu"] = $this->load->view('menu_nu');
+			}				
 			$this->load->view('editaviso-ok', $data);			
 		}		
 		
@@ -146,10 +180,17 @@ class Avisos extends CI_Controller {
 	{
 
 	    $this->load->helper(array('form', 'url'));
+		$this->load->library('ion_auth');	
 		$this->load->model('Avisos_model', '', TRUE); 
 		$todo = $this->Avisos_model->get_aviso($id); 	
 		$todo = $todo[0];
 		$datos = array('tipo_op' => $todo->tipo_op, 'tipo_inm' => $todo->tipo_inm, 'detalles' => $todo->detalles); 			
+		if ($this->ion_auth->logged_in()){
+			$data['user'] = $this->ion_auth->user()->row();
+			$datos["menu"] = $this->load->view('menu_us', $data, true);
+		}else{
+			$datos["menu"] = $this->load->view('menu_nu');
+		}			
 		$this->load->view('veraviso', $datos);
 
 		
