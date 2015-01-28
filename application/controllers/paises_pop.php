@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Paises extends CI_Controller {
+class Paises_pop extends CI_Controller {
 
 	 
 	/*public function index()
@@ -15,12 +15,12 @@ class Paises extends CI_Controller {
 	{
 		$this->load->helper('url');
 
-		$this->load->model('paises_model');
+		$this->load->model('paises_pop_model');
 
-		$data['result'] = $this->paises_model->get_paises();
+		$data['result'] = $this->paises_pop_model->get_paises();
     	$data['page_title'] = "RedInmo - Paises";
 
-		$this->load->view('paises_view'/*,$data*/);
+		$this->load->view('paises_pop_view'/*,$data*/);
 	}
 	
 	
