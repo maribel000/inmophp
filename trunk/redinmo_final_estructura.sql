@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-01-2015 a las 16:02:30
+-- Tiempo de generación: 29-01-2015 a las 15:44:33
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -31,9 +31,9 @@ USE `redinmo`;
 DROP TABLE IF EXISTS `avisos`;
 CREATE TABLE IF NOT EXISTS `avisos` (
 `id` int(11) NOT NULL,
-  `id_tipo_inmueble` tinyint(4) NOT NULL,
+  `id_tipo_inmueble` int(11) unsigned NOT NULL,
   `tipo_op` tinyint(4) NOT NULL,
-  `id_barrio` varchar(255) NOT NULL,
+  `id_barrio` int(11) unsigned NOT NULL,
   `direccion` varchar(255) NOT NULL,
   `metros_cuadrados` int(11) NOT NULL,
   `cant_ambientes` int(11) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `avisos` (
   `id_usuario` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
   `estado_aviso` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `avisos` (
 
 DROP TABLE IF EXISTS `aviso_fotos`;
 CREATE TABLE IF NOT EXISTS `aviso_fotos` (
-  `id` int(11) NOT NULL,
+  `id_foto` int(11) NOT NULL,
   `id_aviso` int(11) NOT NULL,
   `url` varchar(90) NOT NULL,
   `descripcion` varchar(40) NOT NULL
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `aviso_fotos` (
 
 DROP TABLE IF EXISTS `barrios`;
 CREATE TABLE IF NOT EXISTS `barrios` (
-`id` int(11) NOT NULL,
+`id` int(11) unsigned NOT NULL,
   `nombre` varchar(40) NOT NULL,
   `id_localidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `barrios` (
 
 DROP TABLE IF EXISTS `enviado_mail`;
 CREATE TABLE IF NOT EXISTS `enviado_mail` (
-  `id` int(11) NOT NULL,
+  `id_mail` int(11) NOT NULL,
   `id_aviso` int(11) NOT NULL,
   `email` varchar(40) NOT NULL,
   `ip_address` varchar(15) NOT NULL,
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
 
 DROP TABLE IF EXISTS `inmuebles_caracteristicas`;
 CREATE TABLE IF NOT EXISTS `inmuebles_caracteristicas` (
-  `id` int(11) NOT NULL,
+  `id_caracteristica` int(11) unsigned NOT NULL,
   `id_aviso` int(11) NOT NULL,
   `descripcion` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -151,9 +151,9 @@ CREATE TABLE IF NOT EXISTS `login_attempts` (
 
 DROP TABLE IF EXISTS `mensajes`;
 CREATE TABLE IF NOT EXISTS `mensajes` (
-  `id` int(11) NOT NULL,
+  `id_mensaje` int(11) NOT NULL,
   `id_aviso` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id_usuario` int(11) unsigned NOT NULL,
   `fecha` datetime NOT NULL,
   `mensaje` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -192,8 +192,8 @@ CREATE TABLE IF NOT EXISTS `provincias` (
 
 DROP TABLE IF EXISTS `tipos_inmuebles`;
 CREATE TABLE IF NOT EXISTS `tipos_inmuebles` (
-`id` int(11) NOT NULL,
-  `descripcion` text
+`id` int(11) unsigned NOT NULL,
+  `descripcion` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `tipos_inmuebles` (
 
 DROP TABLE IF EXISTS `tipos_inmuebles_caracteristicas`;
 CREATE TABLE IF NOT EXISTS `tipos_inmuebles_caracteristicas` (
-  `id` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL,
   `nombre` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -233,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `apellido` varchar(50) DEFAULT NULL,
   `id_localidad` int(11) DEFAULT NULL,
   `nro_tel` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -256,8 +256,8 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
 
 DROP TABLE IF EXISTS `usuario_busquedas`;
 CREATE TABLE IF NOT EXISTS `usuario_busquedas` (
-  `id_usuario` int(11) unsigned NOT NULL,
-  `id_busqueda` int(11) NOT NULL,
+  `id_usuario` int(10) unsigned NOT NULL,
+  `id_busqueda` int(10) unsigned NOT NULL,
   `fecha_hora` datetime NOT NULL,
   `cadena` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -270,8 +270,8 @@ CREATE TABLE IF NOT EXISTS `usuario_busquedas` (
 
 DROP TABLE IF EXISTS `usuario_favoritos`;
 CREATE TABLE IF NOT EXISTS `usuario_favoritos` (
-  `id_usuario` int(11) NOT NULL,
-  `id_aviso` int(11) NOT NULL,
+  `id_usuario` int(11) unsigned NOT NULL,
+  `id_aviso` int(11) unsigned NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -283,9 +283,9 @@ CREATE TABLE IF NOT EXISTS `usuario_favoritos` (
 
 DROP TABLE IF EXISTS `usuario_pedidos`;
 CREATE TABLE IF NOT EXISTS `usuario_pedidos` (
-  `id_usuario` int(11) NOT NULL,
-  `id_pedido` int(11) NOT NULL,
-  `id_tipo_inmueble` tinyint(4) NOT NULL,
+  `id_usuario` int(11) unsigned NOT NULL,
+  `id_pedido` int(11) unsigned NOT NULL,
+  `id_tipo_inmueble` int(11) unsigned NOT NULL,
   `tipo_op` tinyint(4) NOT NULL,
   `id_ciudad` int(11) NOT NULL,
   `precio_min` int(11) NOT NULL,
@@ -301,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `usuario_pedidos` (
 
 DROP TABLE IF EXISTS `ver_datos`;
 CREATE TABLE IF NOT EXISTS `ver_datos` (
-  `id` int(11) NOT NULL,
+  `id_ver_datos` int(11) NOT NULL,
   `id_aviso` int(11) NOT NULL,
   `ip_address` varchar(15) NOT NULL,
   `fecha_hora` datetime NOT NULL
@@ -315,7 +315,7 @@ CREATE TABLE IF NOT EXISTS `ver_datos` (
 
 DROP TABLE IF EXISTS `visualizaciones`;
 CREATE TABLE IF NOT EXISTS `visualizaciones` (
-  `id` int(11) NOT NULL,
+  `id_visualizacion` int(11) NOT NULL,
   `id_aviso` int(11) NOT NULL,
   `ip_address` int(15) NOT NULL,
   `fecha_hora` datetime NOT NULL
@@ -329,13 +329,13 @@ CREATE TABLE IF NOT EXISTS `visualizaciones` (
 -- Indices de la tabla `avisos`
 --
 ALTER TABLE `avisos`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `id_tipo_inmueble` (`id_tipo_inmueble`), ADD KEY `id_barrio` (`id_barrio`);
 
 --
 -- Indices de la tabla `aviso_fotos`
 --
 ALTER TABLE `aviso_fotos`
- ADD PRIMARY KEY (`id`,`id_aviso`);
+ ADD PRIMARY KEY (`id_foto`,`id_aviso`), ADD KEY `id_aviso` (`id_aviso`);
 
 --
 -- Indices de la tabla `barrios`
@@ -347,7 +347,7 @@ ALTER TABLE `barrios`
 -- Indices de la tabla `enviado_mail`
 --
 ALTER TABLE `enviado_mail`
- ADD PRIMARY KEY (`id`,`id_aviso`);
+ ADD PRIMARY KEY (`id_mail`,`id_aviso`), ADD KEY `id_aviso` (`id_aviso`);
 
 --
 -- Indices de la tabla `groups`
@@ -359,7 +359,7 @@ ALTER TABLE `groups`
 -- Indices de la tabla `inmuebles_caracteristicas`
 --
 ALTER TABLE `inmuebles_caracteristicas`
- ADD PRIMARY KEY (`id`,`id_aviso`);
+ ADD PRIMARY KEY (`id_caracteristica`,`id_aviso`), ADD KEY `id_aviso` (`id_aviso`);
 
 --
 -- Indices de la tabla `localidades`
@@ -377,7 +377,7 @@ ALTER TABLE `login_attempts`
 -- Indices de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
- ADD PRIMARY KEY (`id`,`id_aviso`);
+ ADD PRIMARY KEY (`id_mensaje`,`id_aviso`), ADD KEY `id_usuario` (`id_usuario`), ADD KEY `id_aviso` (`id_aviso`);
 
 --
 -- Indices de la tabla `paises`
@@ -419,7 +419,7 @@ ALTER TABLE `users_groups`
 -- Indices de la tabla `usuario_busquedas`
 --
 ALTER TABLE `usuario_busquedas`
- ADD PRIMARY KEY (`id_busqueda`,`id_usuario`), ADD UNIQUE KEY `id_usuario_3` (`id_busqueda`), ADD UNIQUE KEY `id_usuario_4` (`id_busqueda`), ADD UNIQUE KEY `id_busqueda` (`id_busqueda`), ADD UNIQUE KEY `id_usuario_6` (`id_busqueda`), ADD UNIQUE KEY `id_busqueda_2` (`id_busqueda`,`id_usuario`), ADD UNIQUE KEY `id_busqueda_3` (`id_busqueda`), ADD KEY `id_usuario` (`id_busqueda`), ADD KEY `id_usuario_2` (`id_usuario`), ADD KEY `id_busqueda_4` (`id_busqueda`);
+ ADD PRIMARY KEY (`id_usuario`,`id_busqueda`);
 
 --
 -- Indices de la tabla `usuario_favoritos`
@@ -431,13 +431,19 @@ ALTER TABLE `usuario_favoritos`
 -- Indices de la tabla `usuario_pedidos`
 --
 ALTER TABLE `usuario_pedidos`
- ADD PRIMARY KEY (`id_usuario`,`id_pedido`);
+ ADD PRIMARY KEY (`id_usuario`,`id_pedido`), ADD KEY `id_tipo_inmueble` (`id_tipo_inmueble`), ADD KEY `id_tipo_inmueble_2` (`id_tipo_inmueble`);
 
 --
 -- Indices de la tabla `ver_datos`
 --
 ALTER TABLE `ver_datos`
- ADD PRIMARY KEY (`id`,`id_aviso`);
+ ADD PRIMARY KEY (`id_ver_datos`,`id_aviso`), ADD KEY `id_aviso` (`id_aviso`);
+
+--
+-- Indices de la tabla `visualizaciones`
+--
+ALTER TABLE `visualizaciones`
+ ADD PRIMARY KEY (`id_visualizacion`,`id_aviso`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -447,12 +453,12 @@ ALTER TABLE `ver_datos`
 -- AUTO_INCREMENT de la tabla `avisos`
 --
 ALTER TABLE `avisos`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `barrios`
 --
 ALTER TABLE `barrios`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `groups`
 --
@@ -482,12 +488,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT de la tabla `tipos_inmuebles`
 --
 ALTER TABLE `tipos_inmuebles`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `users_groups`
 --
@@ -498,10 +504,29 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 --
 
 --
+-- Filtros para la tabla `aviso_fotos`
+--
+ALTER TABLE `aviso_fotos`
+ADD CONSTRAINT `aviso_fotos_ibfk_1` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `barrios`
 --
 ALTER TABLE `barrios`
-ADD CONSTRAINT `barrios_ibfk_1` FOREIGN KEY (`id_localidad`) REFERENCES `localidades` (`id`);
+ADD CONSTRAINT `barrios_ibfk_1` FOREIGN KEY (`id_localidad`) REFERENCES `localidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `enviado_mail`
+--
+ALTER TABLE `enviado_mail`
+ADD CONSTRAINT `enviado_mail_ibfk_1` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `inmuebles_caracteristicas`
+--
+ALTER TABLE `inmuebles_caracteristicas`
+ADD CONSTRAINT `inmuebles_caracteristicas_ibfk_1` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `inmuebles_caracteristicas_ibfk_2` FOREIGN KEY (`id_caracteristica`) REFERENCES `tipos_inmuebles_caracteristicas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `localidades`
@@ -510,29 +535,55 @@ ALTER TABLE `localidades`
 ADD CONSTRAINT `localidades_ibfk_1` FOREIGN KEY (`id_provincia`) REFERENCES `provincias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+ADD CONSTRAINT `mensajes_ibfk_1` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `mensajes_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `provincias`
 --
 ALTER TABLE `provincias`
-ADD CONSTRAINT `provincias_ibfk_1` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `provincias_ibfk_1` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `users`
 --
 ALTER TABLE `users`
-ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_localidad`) REFERENCES `localidades` (`id`);
+ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_localidad`) REFERENCES `localidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `users_groups`
 --
 ALTER TABLE `users_groups`
-ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_busquedas`
 --
 ALTER TABLE `usuario_busquedas`
-ADD CONSTRAINT `usuario_busquedas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`);
+ADD CONSTRAINT `usuario_busquedas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `usuario_favoritos`
+--
+ALTER TABLE `usuario_favoritos`
+ADD CONSTRAINT `usuario_favoritos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `usuario_pedidos`
+--
+ALTER TABLE `usuario_pedidos`
+ADD CONSTRAINT `usuario_pedidos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `usuario_pedidos_ibfk_2` FOREIGN KEY (`id_tipo_inmueble`) REFERENCES `tipos_inmuebles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `ver_datos`
+--
+ALTER TABLE `ver_datos`
+ADD CONSTRAINT `ver_datos_ibfk_1` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
