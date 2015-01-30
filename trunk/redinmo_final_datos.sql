@@ -26,7 +26,7 @@ USE `redinmo`;
 --
 -- Paises
 --
-TRUNCATE TABLE `redinmo`.`paises`;
+-- TRUNCATE TABLE `redinmo`.`paises`;
 INSERT INTO `redinmo`.`paises` (`id`, `codigo`, `nombre`) VALUES
   (1, 'AR', 'Argentina'),
   (2, 'BO', 'Bolivia'),
@@ -35,7 +35,7 @@ INSERT INTO `redinmo`.`paises` (`id`, `codigo`, `nombre`) VALUES
 --
 -- Provincias
 --
-TRUNCATE TABLE `redinmo`.`provincias`;
+-- TRUNCATE TABLE `redinmo`.`provincias`;
 INSERT INTO `redinmo`.`provincias` (`id`, `nombre`, `id_pais`) VALUES
 -- Provincias de Argentina
   (1, 'Buenos Aires', 1),
@@ -73,7 +73,7 @@ INSERT INTO `redinmo`.`provincias` (`id`, `nombre`, `id_pais`) VALUES
 --
 -- Localidades
 --
-TRUNCATE TABLE `redinmo`.`localidades`;
+-- TRUNCATE TABLE `redinmo`.`localidades`;
 INSERT INTO `redinmo`.`localidades` (`id`, `id_provincia`, `nombre`) VALUES
 -- Localidades de Argentina
   (1, 1, '25 de Mayo'),
