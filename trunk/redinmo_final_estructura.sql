@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-01-2015 a las 15:44:33
+-- Tiempo de generación: 30-01-2015 a las 15:36:31
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -125,8 +125,8 @@ CREATE TABLE IF NOT EXISTS `inmuebles_caracteristicas` (
 DROP TABLE IF EXISTS `localidades`;
 CREATE TABLE IF NOT EXISTS `localidades` (
 `id` int(11) NOT NULL,
-  `nombre` varchar(40) NOT NULL,
-  `id_provincia` int(11) NOT NULL
+  `id_provincia` int(11) NOT NULL,
+  `nombre` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
