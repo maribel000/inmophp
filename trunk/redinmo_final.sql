@@ -28,7 +28,7 @@ CREATE TABLE `aviso_fotos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_aviso` int(11) NOT NULL,
   `default` int(11) NOT NULL DEFAULT '0',
-  `url` varchar(45) NOT NULL,
+  `url` varchar(200) NOT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`,`id_aviso`),
   KEY `id_aviso` (`id_aviso`),
@@ -42,7 +42,7 @@ CREATE TABLE `aviso_fotos` (
 
 LOCK TABLES `aviso_fotos` WRITE;
 /*!40000 ALTER TABLE `aviso_fotos` DISABLE KEYS */;
-INSERT INTO `aviso_fotos` VALUES (1,1,1,'http://gpi-blog.s3.amazonaws.com/wp-content/u',NULL),(2,1,0,'http://www.defachadas.com/wp-content/uploads/',NULL),(3,2,1,'http://www.stilo.com.mx/files/projects/pictur',NULL),(4,2,0,'http://www.arqhys.com/arquitectura/Departamen','Living'),(5,2,0,'http://www.stilo.com.mx/files/projects/pictur','Comedor'),(6,3,1,'http://imganuncios.mitula.net/departamento_de','Edificio'),(7,3,0,'www.foro3d.com/attachments/115363d1255772266-','Sala');
+INSERT INTO `aviso_fotos` VALUES (1,1,1,'http://www.stilo.com.mx/files/projects/pictures/50/Departamento_Anatole_France_-_Kababie_Arquitectos_-_Sala_1_-_L.jpg',NULL),(2,1,0,'http://www.arqhys.com/arquitectura/Departamento%20barato.jpg',NULL),(3,2,1,'http://www.stilo.com.mx/files/projects/pictures/50/Departamento_F_-_Kababie_Arquitectos_-_F.jpg',NULL),(4,2,0,'http://imganuncios.mitula.net/departamento_de_1_dormitorio_en_edificio_betania_xi_100561109283652243.jpg','Living'),(5,2,0,'http://cuyopropiedades.com/wp-content/uploads/2014/05/departamentos-en-venta-palermo-belgrano-puerto-madero-parabuenosaires1.jpg','Comedor'),(6,3,1,'http://www.uco.es/organiza/departamentos/anatomia-y-anat-patologica/images/sanidad.jpg','Edificio'),(7,3,0,'http://imgempryprop1.elinmobiliario.com/2144/big_32791.jpg','Sala');
 /*!40000 ALTER TABLE `aviso_fotos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -640,4 +640,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-09 18:43:14
+-- Dump completed on 2015-02-09 19:50:16
