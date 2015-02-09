@@ -110,17 +110,16 @@
               { ?>
 
                 <div class="media">
-              <a class="media-left" href="#">
-                <img src="theme/imgavisos/3.jpg" height="125" width="125" class="thumbnail" alt="Rounded Image">
-              </a>
-              <div class="media-body">
-                <a href="<?php echo base_url();?>avisos/ver/<?php echo $aviso->id; ?>"><h4 class="media-heading"><?php echo $aviso->direccion ;?></h4></a>
-                Ubicado en <?php echo $localidades_tmp[$aviso->id_localidad] ;?>, <?php echo $aviso->metros_cuadrados ;?> mt2, <?php echo $aviso->cant_ambientes ;?> ambientes, <?php echo $aviso->cant_banios ;?> baños. $<?php echo $aviso->precio ;?><br/>
-              </div>
-              </div>
+                  <a class="media-left" href="#">
+                    <img src="theme/imgavisos/3.jpg" height="125" width="125" class="thumbnail" alt="Rounded Image">
+                  </a>
+                  <div class="media-body">
+                    <a href="<?php echo base_url();?>avisos/ver/<?php echo $aviso->id; ?>"><h4 class="media-heading"><?php echo $aviso->direccion ;?></h4></a>
+                    Ubicado en <?php echo $localidades_tmp[$aviso->id_localidad] ;?>, <?php echo $aviso->metros_cuadrados ;?> mt2, <?php echo $aviso->cant_ambientes ;?> ambientes, <?php echo $aviso->cant_banios ;?> baños. $<?php echo $aviso->precio ;?><br/>
+                  </div>
+                </div>
 
             <?php } ?>
-
           </div>
 
           <center>
