@@ -82,6 +82,12 @@
     {
       $tipoprops_tmp[$tipoprop_tmp->id] = $tipoprop_tmp->descripcion;
     }
+
+    $ciudades_tmp = array();
+    foreach ($ciudades->result() as $ciudad_tmp)
+    {
+      $ciudades_tmp[$ciudad_tmp->id] = $ciudad_tmp->nombre;
+    }
     ?>
 
   <div class="row">
@@ -108,7 +114,8 @@
                 <img src="theme/imgavisos/3.jpg" height="125" width="125" class="thumbnail" alt="Rounded Image">
               </a>
               <div class="media-body">
-                <a href="<?php echo base_url();?>avisos/ver/<?php echo $aviso->id; ?>"><h4 class="media-heading">Departamento en Venta en Capital Federal</h4></a>
+                <a href="<?php echo base_url();?>avisos/ver/<?php echo $aviso->id; ?>"><h4 class="media-heading"><?php echo $tipoprops_tmp[$aviso->id_tipo_inmueble] ;?> en <?php echo $tipoops_tmp[$aviso->id_tipo_op] ;?> en <?php echo $ciudades_tmp[$aviso->id_ciudad] ;?></h4></a>
+<!--                TODO: agregar en la bd en la tabla avisos el id_localidad-->
               Ubicado en Capital Federal, 45 mt2, 2 ambientes, 1 baño. $4500<br/><?php echo $aviso->direccion; ?>
               </div>
               </div>

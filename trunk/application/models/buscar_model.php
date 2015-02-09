@@ -60,5 +60,12 @@ class Buscar_model extends CI_Model {
         return $rval;
     }
 
+    function ciudades()
+    {
+        $rval= $this->db->get('localidades');
+
+        return $rval;
+    }
+
 }
 ?>
