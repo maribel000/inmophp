@@ -12,12 +12,17 @@ class Buscar extends CI_Controller {
 			$datos["busqueda"] = 1;
 			$datos["tipoop"] = @$_REQUEST["tipoop"];
 			$datos["tipopro"] = @$_REQUEST["tipopro"];
-			$datos["ciudad"] = @$_REQUEST["ciudad"];		
+			$datos["ciudad"] = @$_REQUEST["ciudad"];
+
+			$res = $this->Buscar_model->buscar($datos["tipoop"], $datos["tipopro"], $datos["ciudad"]);
+			$datos["avisos"] = $res;
+			$res = $this->Buscar_model->tipoop_nombre($datos["tipoop"]);
+			$datos["tipoop_nombre"] = $res;
+			$res = $this->Buscar_model->tipopro_descripcion($datos["tipopro"]);
+			$datos["tipopro_descripcion"] = $res;
 		}else{
-			$datos["busqueda"] = 0;		
+			$datos["busqueda"] = 0;
 		}
-		//$res = $this->Buscar_model->buscar($q);
-		//$datos["res"] = $res;
 		
 		if ($this->ion_auth->logged_in()){
 			$data['user'] = $this->ion_auth->user()->row();

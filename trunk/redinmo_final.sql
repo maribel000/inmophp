@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS `avisos`;
 CREATE TABLE `avisos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_tipo_inmueble` int(11) DEFAULT NULL,
-  `tipo_op` int(11) DEFAULT NULL,
+  `id_tipo_op` int(11) NOT NULL,
   `id_barrio` int(11) DEFAULT NULL,
   `direccion` varchar(45) NOT NULL,
   `metros_cuadrados` int(11) DEFAULT NULL,
@@ -73,7 +73,9 @@ CREATE TABLE `avisos` (
   PRIMARY KEY (`id`),
   KEY `id_tipo_inmueble` (`id_tipo_inmueble`),
   KEY `id_barrio` (`id_barrio`),
-  CONSTRAINT `avisos_id_tipo_inmueble` FOREIGN KEY (`id_tipo_inmueble`) REFERENCES `tipos_inmuebles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `id_tipo_op` (`id_tipo_op`),
+  CONSTRAINT `avisos_id_tipo_inmueble` FOREIGN KEY (`id_tipo_inmueble`) REFERENCES `tipos_inmuebles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `avisos_id_tipo_op` FOREIGN KEY (`id_tipo_op`) REFERENCES `tipos_op` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -336,6 +338,30 @@ INSERT INTO `provincias` VALUES (1,1,'Buenos Aires'),(2,1,'Buenos Aires-GBA'),(3
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tipos_op`
+--
+
+DROP TABLE IF EXISTS `tipos_op`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipos_op` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipos_op`
+--
+
+LOCK TABLES `tipos_op` WRITE;
+/*!40000 ALTER TABLE `tipos_op` DISABLE KEYS */;
+INSERT INTO `tipos_op` VALUES (1,'Venta'),(2,'Alquiler'),(3,'Alquiler temporario');
+/*!40000 ALTER TABLE `tipos_op` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tipos_inmuebles`
 --
 
@@ -452,15 +478,17 @@ CREATE TABLE `user_pedidos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
   `id_tipo_inmueble` int(11) DEFAULT NULL,
-  `tipo_op` int(11) DEFAULT NULL,
+  `id_tipo_op` int(11) DEFAULT NULL,
   `id_ciudad` int(11) DEFAULT NULL,
   `precio_min` int(11) DEFAULT NULL,
   `precio_max` int(11) DEFAULT NULL,
   `activo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`,`id_user`),
   KEY `id_tipo_inmueble_fk_idx` (`id_tipo_inmueble`),
+  KEY `id_tipo_op_fk_idx` (`id_tipo_inmueble`),
   KEY `user_pedidos_id_user_fk_idx` (`id_user`),
   CONSTRAINT `user_pedidos_id_tipo_inmueble_fk` FOREIGN KEY (`id_tipo_inmueble`) REFERENCES `tipos_inmuebles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `user_pedidos_id_tipo_op_fk` FOREIGN KEY (`id_tipo_op`) REFERENCES `tipos_op` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user_pedidos_id_user_fk` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -608,4 +636,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-08 14:17:56
+-- Dump completed on 2015-02-08 23:13:48
