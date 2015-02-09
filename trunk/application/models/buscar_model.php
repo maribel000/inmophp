@@ -22,7 +22,7 @@ class Buscar_model extends CI_Model {
     }
 
 
-    function tipoop_nombre($id)
+/*    function tipoop_nombre($id)
     {
         $this->db->select('nombre');
         $this->db->from('tipos_op');
@@ -44,6 +44,20 @@ class Buscar_model extends CI_Model {
 
         $rval = $query->row();
         return $rval->descripcion;
+    }*/
+
+    function tipoops()
+    {
+        $rval= $this->db->get('tipos_op');
+
+        return $rval;
+    }
+
+    function tipoprops()
+    {
+        $rval= $this->db->get('tipos_inmuebles');
+
+        return $rval;
     }
 
 }

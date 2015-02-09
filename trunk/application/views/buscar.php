@@ -70,6 +70,20 @@
 
   <?php if ($busqueda) { ?>
 
+    <?php
+    $tipoops_tmp = array();
+    foreach ($tipoops->result() as $tipoop_tmp)
+    {
+      $tipoops_tmp[$tipoop_tmp->id] = $tipoop_tmp->nombre;
+    }
+
+    $tipoprops_tmp = array();
+    foreach ($tipoprops->result() as $tipoprop_tmp)
+    {
+      $tipoprops_tmp[$tipoprop_tmp->id] = $tipoprop_tmp->descripcion;
+    }
+    ?>
+
   <div class="row">
     <div class="col-md-4">
       <div class="panel panel-info">
@@ -82,7 +96,7 @@
 
     <div class="col-md-8">
       <div class="panel panel-info">
-        <div class="panel-heading">Resultados de la busqueda: <?php echo "$tipopro_descripcion, en $tipoop_nombre, en la ciudad de $ciudad"?></div>
+        <div class="panel-heading">Resultados de la busqueda: <?php echo "$tipoprops_tmp[$tipopro], en $tipoops_tmp[$tipoop], en la ciudad de $ciudad"?></div>
         <div class="panel-body">
           <div class="row">
             <?php
@@ -94,7 +108,7 @@
                 <img src="theme/imgavisos/3.jpg" height="125" width="125" class="thumbnail" alt="Rounded Image">
               </a>
               <div class="media-body">
-                <h4 class="media-heading">Departamento en Venta en Capital Federal</h4>
+                <a href="<?php echo base_url();?>avisos/ver/<?php echo $aviso->id; ?>"><h4 class="media-heading">Departamento en Venta en Capital Federal</h4></a>
               Ubicado en Capital Federal, 45 mt2, 2 ambientes, 1 baño. $4500<br/><?php echo $aviso->direccion; ?>
               </div>
               </div>
