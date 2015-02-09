@@ -12,16 +12,16 @@ class Buscar extends CI_Controller {
 			$datos["busqueda"] = 1;
 			$datos["tipoop"] = @$_REQUEST["tipoop"];
 			$datos["tipopro"] = @$_REQUEST["tipopro"];
-			$datos["ciudad"] = @$_REQUEST["ciudad"];
+			$datos["localidad"] = @$_REQUEST["localidad"];
 
-			$res = $this->Buscar_model->buscar($datos["tipoop"], $datos["tipopro"], $datos["ciudad"]);
+			$res = $this->Buscar_model->buscar($datos["tipoop"], $datos["tipopro"], $datos["localidad"]);
 			$datos["avisos"] = $res;
 			$res = $this->Buscar_model->tipoops();
 			$datos["tipoops"] = $res;
 			$res = $this->Buscar_model->tipoprops();
 			$datos["tipoprops"] = $res;
-			$res = $this->Buscar_model->ciudades();
-			$datos["ciudades"] = $res;
+			$res = $this->Buscar_model->localidades();
+			$datos["localidades"] = $res;
 		}else{
 			$datos["busqueda"] = 0;
 		}
