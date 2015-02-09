@@ -41,22 +41,22 @@
             <select name ="tipopro" class="selectpicker show-tick form-control">
               <option value="1">Casa</option>
               <option value="3">Departamento</option>
-              <option value="2">Cochera</option>
+              <option value="2">Garage</option>
               <option value="4">PH</option>
-              <option value="5">Countries</option>
-              <option value="6">Quintas</option>
-              <option value="7">Terrenos y Lotes</option>
-              <option value="8">Campos y Chacras</option>
-              <option value="9">Locales Comerciales</option>
-              <option value="10">Negocios y fondos de Comercio</option>
-              <option value="11">Oficinas</option>
-              <option value="12">Consultorios</option>
-              <option value="13">Bovedas, Nichos y Parcelas</option>
+              <option value="5">Countrie</option>
+              <option value="6">Quinta</option>
+              <option value="7">Terreno y/o lote</option>
+              <option value="8">Campo y/o chacra</option>
+              <option value="9">Local comercial</option>
+              <option value="10">Negocio y/o fondo de comercio</option>
+              <option value="11">Oficina</option>
+              <option value="12">Consultorio</option>
+              <option value="13">Boveda, nichos y/o parcela</option>
             </select>
           </div>
           <div class="col-md-6">
-            Ciudad:
-            <input name="ciudad" type="text" class="form-control">
+            Localidad:
+            <input name="localidad" type="text" class="form-control">
           </div>
 
         </div>
@@ -83,10 +83,10 @@
       $tipoprops_tmp[$tipoprop_tmp->id] = $tipoprop_tmp->descripcion;
     }
 
-    $ciudades_tmp = array();
-    foreach ($ciudades->result() as $ciudad_tmp)
+    $localidades_tmp = array();
+    foreach ($localidades->result() as $localidad_tmp)
     {
-      $ciudades_tmp[$ciudad_tmp->id] = $ciudad_tmp->nombre;
+      $localidades_tmp[$localidad_tmp->id] = $localidad_tmp->nombre;
     }
     ?>
 
@@ -102,7 +102,7 @@
 
     <div class="col-md-8">
       <div class="panel panel-info">
-        <div class="panel-heading">Resultados de la busqueda: <?php echo "$tipoprops_tmp[$tipopro], en $tipoops_tmp[$tipoop], en la ciudad de $ciudad"?></div>
+        <div class="panel-heading">Resultados de la busqueda: <?php echo "<strong>$tipoprops_tmp[$tipopro]</strong> en <strong>$tipoops_tmp[$tipoop]</strong> en la localidad de <strong>$localidad</strong>"?></div>
         <div class="panel-body">
           <div class="row">
             <?php
@@ -114,9 +114,8 @@
                 <img src="theme/imgavisos/3.jpg" height="125" width="125" class="thumbnail" alt="Rounded Image">
               </a>
               <div class="media-body">
-                <a href="<?php echo base_url();?>avisos/ver/<?php echo $aviso->id; ?>"><h4 class="media-heading"><?php echo $tipoprops_tmp[$aviso->id_tipo_inmueble] ;?> en <?php echo $tipoops_tmp[$aviso->id_tipo_op] ;?> en <?php echo $ciudades_tmp[$aviso->id_ciudad] ;?></h4></a>
-<!--                TODO: agregar en la bd en la tabla avisos el id_localidad-->
-              Ubicado en Capital Federal, 45 mt2, 2 ambientes, 1 baño. $4500<br/><?php echo $aviso->direccion; ?>
+                <a href="<?php echo base_url();?>avisos/ver/<?php echo $aviso->id; ?>"><h4 class="media-heading"><?php echo $aviso->direccion ;?></h4></a>
+                Ubicado en <?php echo $localidades_tmp[$aviso->id_localidad] ;?>, <?php echo $aviso->metros_cuadrados ;?> mt2, <?php echo $aviso->cant_ambientes ;?> ambientes, <?php echo $aviso->cant_banios ;?> baños. $<?php echo $aviso->precio ;?><br/>
               </div>
               </div>
 

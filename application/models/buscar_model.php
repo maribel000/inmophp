@@ -10,7 +10,7 @@ class Buscar_model extends CI_Model {
 
 
 
-    function buscar($tipoop, $tipopro, $ciudad)
+    function buscar($tipoop, $tipopro, $localidad)
     {
         //aca hacemos la consulta a la base de datos
 
@@ -60,7 +60,7 @@ class Buscar_model extends CI_Model {
         return $rval;
     }
 
-    function ciudades()
+    function localidades()
     {
         $rval= $this->db->get('localidades');
 

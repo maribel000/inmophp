@@ -57,6 +57,7 @@ CREATE TABLE `avisos` (
   `id_tipo_inmueble` int(11) DEFAULT NULL,
   `id_tipo_op` int(11) NOT NULL,
   `id_barrio` int(11) DEFAULT NULL,
+  `id_localidad` int(11) NOT NULL,
   `direccion` varchar(45) NOT NULL,
   `metros_cuadrados` int(11) DEFAULT NULL,
   `cant_ambientes` int(11) DEFAULT NULL,
@@ -74,6 +75,8 @@ CREATE TABLE `avisos` (
   KEY `id_tipo_inmueble` (`id_tipo_inmueble`),
   KEY `id_barrio` (`id_barrio`),
   KEY `id_tipo_op` (`id_tipo_op`),
+  KEY `id_localidad` (`id_localidad`),
+  CONSTRAINT `avisos_id_localidad` FOREIGN KEY (`id_localidad`) REFERENCES `localidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `avisos_id_tipo_inmueble` FOREIGN KEY (`id_tipo_inmueble`) REFERENCES `tipos_inmuebles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `avisos_id_tipo_op` FOREIGN KEY (`id_tipo_op`) REFERENCES `tipos_op` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
@@ -85,7 +88,7 @@ CREATE TABLE `avisos` (
 
 LOCK TABLES `avisos` WRITE;
 /*!40000 ALTER TABLE `avisos` DISABLE KEYS */;
-INSERT INTO `avisos` VALUES (1,1,1,NULL,'Genova 1111',200,3,3,1,'Bueno',1970,NULL,500000,1,'2014-12-01 00:00:00','Aprobado','Empalme'),(2,2,1,NULL,'Alberdi 1111',150,2,1,1,'Antiguo',1950,NULL,100000,3,'2015-01-20 00:00:00','Pendiente','Alberdi'),(3,5,1,NULL,'Cordoba 8888',920,6,2,24,'Perfecto',2005,NULL,20000000,3,'2014-10-02 00:00:00','Aprobado','Fisherton'),(4,7,2,NULL,'Rioja 666',430,3,2,2,NULL,1989,NULL,4000,NULL,NULL,'Aprobado',NULL);
+INSERT INTO `avisos` VALUES (1,1,1,NULL,1,'Genova 1111',200,3,3,1,'Bueno',1970,NULL,500000,1,'2014-12-01 00:00:00','Aprobado','Empalme'),(2,2,1,NULL,502,'Alberdi 1111',150,2,1,1,'Antiguo',1950,NULL,100000,3,'2015-01-20 00:00:00','Pendiente','Alberdi'),(3,5,1,NULL,123,'Cordoba 8888',920,6,2,24,'Perfecto',2005,NULL,20000000,3,'2014-10-02 00:00:00','Aprobado','Fisherton'),(4,7,2,NULL,666,'Rioja 666',430,3,2,2,NULL,1989,NULL,4000,NULL,NULL,'Aprobado',NULL);
 /*!40000 ALTER TABLE `avisos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,30 +341,6 @@ INSERT INTO `provincias` VALUES (1,1,'Buenos Aires'),(2,1,'Buenos Aires-GBA'),(3
 UNLOCK TABLES;
 
 --
--- Table structure for table `tipos_op`
---
-
-DROP TABLE IF EXISTS `tipos_op`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tipos_op` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tipos_op`
---
-
-LOCK TABLES `tipos_op` WRITE;
-/*!40000 ALTER TABLE `tipos_op` DISABLE KEYS */;
-INSERT INTO `tipos_op` VALUES (1,'Venta'),(2,'Alquiler'),(3,'Alquiler temporario');
-/*!40000 ALTER TABLE `tipos_op` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tipos_inmuebles`
 --
 
@@ -381,7 +360,7 @@ CREATE TABLE `tipos_inmuebles` (
 
 LOCK TABLES `tipos_inmuebles` WRITE;
 /*!40000 ALTER TABLE `tipos_inmuebles` DISABLE KEYS */;
-INSERT INTO `tipos_inmuebles` VALUES (1,'Casas'),(2,'Garages'),(3,'Departamentos'),(4,'PH'),(5,'Countries'),(6,'Quintas'),(7,'Terrenos y Lotes'),(8,'Campos y Chacras'),(9,'Locales Comerciales'),(10,'Negocios y fondos de Comercio'),(11,'Oficinas'),(12,'Consultorios'),(13,'Bovedas, Pichos y Parcelas');
+INSERT INTO `tipos_inmuebles` VALUES (1,'Casa'),(2,'Garage'),(3,'Departamento'),(4,'PH'),(5,'Countrie'),(6,'Quinta'),(7,'Terreno y/o lote'),(8,'Campo y/o chacra'),(9,'Local Comercial'),(10,'Negocio y/o fondo de comercio'),(11,'Oficina'),(12,'Consultorio'),(13,'Boveda, nicho y/o parcela');
 /*!40000 ALTER TABLE `tipos_inmuebles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,6 +386,30 @@ LOCK TABLES `tipos_inmuebles_caracteristicas` WRITE;
 /*!40000 ALTER TABLE `tipos_inmuebles_caracteristicas` DISABLE KEYS */;
 INSERT INTO `tipos_inmuebles_caracteristicas` VALUES (1,'Piscina'),(2,'Parrillero'),(3,'Quincho'),(4,'Aire acondicionado'),(5,'Calefacción central'),(6,'Terraza'),(7,'Estufa'),(8,'Cocina/Horno'),(9,'Heladera'),(10,'Garage'),(11,'Terreno'),(12,'Jardín');
 /*!40000 ALTER TABLE `tipos_inmuebles_caracteristicas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tipos_op`
+--
+
+DROP TABLE IF EXISTS `tipos_op`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipos_op` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipos_op`
+--
+
+LOCK TABLES `tipos_op` WRITE;
+/*!40000 ALTER TABLE `tipos_op` DISABLE KEYS */;
+INSERT INTO `tipos_op` VALUES (1,'Venta'),(2,'Alquiler'),(3,'Alquiler temporario');
+/*!40000 ALTER TABLE `tipos_op` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -487,6 +490,7 @@ CREATE TABLE `user_pedidos` (
   KEY `id_tipo_inmueble_fk_idx` (`id_tipo_inmueble`),
   KEY `id_tipo_op_fk_idx` (`id_tipo_inmueble`),
   KEY `user_pedidos_id_user_fk_idx` (`id_user`),
+  KEY `user_pedidos_id_tipo_op_fk` (`id_tipo_op`),
   CONSTRAINT `user_pedidos_id_tipo_inmueble_fk` FOREIGN KEY (`id_tipo_inmueble`) REFERENCES `tipos_inmuebles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user_pedidos_id_tipo_op_fk` FOREIGN KEY (`id_tipo_op`) REFERENCES `tipos_op` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user_pedidos_id_user_fk` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -636,4 +640,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-08 23:13:48
+-- Dump completed on 2015-02-09 10:25:38
