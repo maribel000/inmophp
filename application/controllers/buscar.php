@@ -20,6 +20,8 @@ class Buscar extends CI_Controller {
 			$datos["tipoops"] = $res;
 			$res = $this->Buscar_model->tipoprops();
 			$datos["tipoprops"] = $res;
+			$res = $this->Buscar_model->ciudades();
+			$datos["ciudades"] = $res;
 		}else{
 			$datos["busqueda"] = 0;
 		}
