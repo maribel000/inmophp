@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS `aviso_fotos`;
 CREATE TABLE `aviso_fotos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_aviso` int(11) NOT NULL,
+  `default` int(11) NOT NULL DEFAULT '0',
   `url` varchar(45) NOT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`,`id_aviso`),
@@ -41,7 +42,7 @@ CREATE TABLE `aviso_fotos` (
 
 LOCK TABLES `aviso_fotos` WRITE;
 /*!40000 ALTER TABLE `aviso_fotos` DISABLE KEYS */;
-INSERT INTO `aviso_fotos` VALUES (1,1,'http://gpi-blog.s3.amazonaws.com/wp-content/u',NULL),(2,1,'http://www.defachadas.com/wp-content/uploads/',NULL),(3,2,'http://www.stilo.com.mx/files/projects/pictur',NULL),(4,2,'http://www.arqhys.com/arquitectura/Departamen','Living'),(5,2,'http://www.stilo.com.mx/files/projects/pictur','Comedor'),(6,3,'http://imganuncios.mitula.net/departamento_de','Edificio'),(7,3,'www.foro3d.com/attachments/115363d1255772266-','Sala');
+INSERT INTO `aviso_fotos` VALUES (1,1,1,'http://gpi-blog.s3.amazonaws.com/wp-content/u',NULL),(2,1,0,'http://www.defachadas.com/wp-content/uploads/',NULL),(3,2,1,'http://www.stilo.com.mx/files/projects/pictur',NULL),(4,2,0,'http://www.arqhys.com/arquitectura/Departamen','Living'),(5,2,0,'http://www.stilo.com.mx/files/projects/pictur','Comedor'),(6,3,1,'http://imganuncios.mitula.net/departamento_de','Edificio'),(7,3,0,'www.foro3d.com/attachments/115363d1255772266-','Sala');
 /*!40000 ALTER TABLE `aviso_fotos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -640,4 +641,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-09 10:25:38
+-- Dump completed on 2015-02-09 11:32:57
