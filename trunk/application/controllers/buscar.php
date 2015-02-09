@@ -16,6 +16,8 @@ class Buscar extends CI_Controller {
 
 			$res = $this->Buscar_model->buscar($datos["tipoop"], $datos["tipopro"], $datos["localidad"]);
 			$datos["avisos"] = $res;
+            $res = $this->Buscar_model->avisos_fotos_default($res);
+            $datos["avisos_fotos"] = $res;
 			$res = $this->Buscar_model->tipoops();
 			$datos["tipoops"] = $res;
 			$res = $this->Buscar_model->tipoprops();

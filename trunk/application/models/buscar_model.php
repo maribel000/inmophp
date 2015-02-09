@@ -8,43 +8,29 @@ class Buscar_model extends CI_Model {
         parent::__construct();
     }
 
-
-
     function buscar($tipoop, $tipopro, $localidad)
     {
-        //aca hacemos la consulta a la base de datos
-
         $query = $this->db->get('avisos');
 //        $query = $this->db->get_where('avisos', array('tipo_op' => $tipoop, 'id_tipo_inmueble' => ));
 
-//		return "resultados de la busqueda";
         return $query;
     }
 
-
-/*    function tipoop_nombre($id)
+    function avisos_fotos_default($avisos)
     {
-        $this->db->select('nombre');
-        $this->db->from('tipos_op');
-        $this->db->where('id', $id);
+        $this->db->select('id_aviso, url, descripcion');
+        $this->db->from('aviso_fotos');
+
+        foreach ($avisos as $aviso) {
+            log_message('error', '$aviso');
+            /*$where = "(id_aviso = '$aviso->id' AND default = 1)";
+            $this->db->or_where($where);*/
+        }
 
         $query = $this->db->get();
 
-        $rval = $query->row();
-        return $rval->nombre;
+        return $query;
     }
-
-    function tipopro_descripcion($id)
-    {
-        $this->db->select('descripcion');
-        $this->db->from('tipos_inmuebles');
-        $this->db->where('id', $id);
-
-        $query = $this->db->get();
-
-        $rval = $query->row();
-        return $rval->descripcion;
-    }*/
 
     function tipoops()
     {
