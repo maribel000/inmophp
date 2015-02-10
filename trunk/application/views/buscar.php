@@ -17,6 +17,14 @@
   <script src="<?php echo base_url();?>theme/assets/js/html5shiv.js"></script>
   <script src="<?php echo base_url();?>theme/assets/js/respond.min.js"></script>
   <![endif]-->
+  <link href="<?php echo base_url();?>theme/assets/jquery/jquery.ui.css" rel="stylesheet" type="text/css" />
+  <script>
+    $(function(){
+      $("#localidades").autocomplete({
+        source: "http://localhost/redinmo/buscar/get_localidades" // path to the get_birds method
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -25,7 +33,7 @@
 <div class="container">
   <div class="jumbotron" style="padding:1em; background-color: #F5ECCE;">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-9">
         <div class="row">
 		<form action="<?php echo base_url();?>buscar" method="post">
           <div class="col-md-3">
@@ -54,14 +62,19 @@
               <option value="13">Boveda, nichos y/o parcela</option>
             </select>
           </div>
-          <div class="col-md-6">
+<!--          <div class="col-md-3">
+            Provincia:
+            <input name="provincia" type="text" class="form-control">
+          </div>
+-->          <div class="col-md-3">
             Localidad:
-            <input name="localidad" type="text" class="form-control">
+            <!--            <input name="localidad" id="localidades" type="text" class="form-control" />-->
+              <input id="localidades" type="text" class="form-control" />
           </div>
 
         </div>
       </div>
-      <div class="col-xs-4">
+      <div class="col-xs-2">
         <button type="submit" class="btn btn-default btn-lg" style="margin-top:10px">Buscar</button></form>
       </div>
     </div>
@@ -106,6 +119,7 @@
         <div class="panel-body">
           <div class="row">
             <?php
+//            print_r($avisos_fotos->result());
               foreach ($avisos->result() as $aviso)
               { ?>
 
@@ -115,7 +129,7 @@
                   </a>
                   <div class="media-body">
                     <a href="<?php echo base_url();?>avisos/ver/<?php echo $aviso->id; ?>"><h4 class="media-heading"><?php echo $aviso->direccion ;?></h4></a>
-                    Ubicado en <?php echo $localidades_tmp[$aviso->id_localidad] ;?>, <?php echo $aviso->metros_cuadrados ;?> mt2, <?php echo $aviso->cant_ambientes ;?> ambientes, <?php echo $aviso->cant_banios ;?> baños. $<?php echo $aviso->precio ;?><br/>
+                    <?php /*echo $avisos_fotos->result()->url ;*/?>Ubicado en <?php echo $localidades_tmp[$aviso->id_localidad] ;?>, <?php echo $aviso->metros_cuadrados ;?> mt2, <?php echo $aviso->cant_ambientes ;?> ambientes, <?php echo $aviso->cant_banios ;?> baños. $<?php echo $aviso->precio ;?><br/>
                   </div>
                 </div>
 
@@ -152,9 +166,11 @@
   <?php } ?>
 
 
-<script src="<?php echo base_url();?>theme/assets/js/jquery.js"></script>
+<!--<script src="--><?php //echo base_url();?><!--theme/assets/js/jquery.js"></script>-->
 <script src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>theme/dist/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>theme/assets/jquery/jquery.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>theme/assets/jquery/jquery.ui.js"></script>
 </body>
 
 </html>
