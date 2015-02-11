@@ -95,6 +95,18 @@ class Avisos_model extends CI_Model {
         return $query->result();
     }
 
+    function get_localidades_2($q){
+        $this->db->select('nombre');
+        $this->db->like('nombre', $q);
+        $query = $this->db->get('localidades');
+        if($query->num_rows > 0){
+            foreach ($query->result_array() as $row){
+                $row_set[] = htmlentities(stripslashes($row['nombre'])); //build an array
+            }
+            echo json_encode($row_set); //format the array into json data
+        }
+    }
+
     function get_ult_avisos() {
 		//falta trabajar contra la DB
 		//esta funcion trae los ultimos 5 avisos publicados

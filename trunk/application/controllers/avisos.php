@@ -87,6 +87,17 @@ class Avisos extends CI_Controller {
 	
 	}
 
+    function get_localidades(){
+        $this->load->model('Avisos_model');
+        if (isset($_GET['term'])){
+//            print_r($_GET['term']);
+
+            $firephp->log("asd", '$q');
+            $q = strtolower($_GET['term']);
+            $this->Avisos_model->get_localidades_2($q);
+        }
+    }
+
 	public function editar($id)
 	{
 		$this->load->library('form_validation');		
