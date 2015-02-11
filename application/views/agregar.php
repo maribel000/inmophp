@@ -7,17 +7,28 @@
 <meta http-equiv="Content-Language" content="en-us">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <title>RedInmo</title>
+    <script src="<?php echo base_url();?>theme/assets/jquery/external/jquery/jquery.js"></script>
+    <script src="<?php echo base_url();?>theme/assets/jquery/jquery-ui.js"></script>
+    <script src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
 
 <!--    <link href="--><?php //echo base_url();?><!--theme/dist/css/bootstrap-select.css" rel="stylesheet">-->
     <link href="<?php echo base_url();?>theme/dist/css/bootstrap.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>theme/dist/css/propio.css" rel="stylesheet">
+<!--    <link href="--><?php //echo base_url();?><!--theme/assets/jquery/jquery-ui.css" rel="stylesheet">-->
+<!--    <link href="--><?php //echo base_url();?><!--theme/dist/css/propio.css" rel="stylesheet">-->
     <link href="<?php echo base_url();?>theme/css/navbar-fixed-top.css" rel="stylesheet">
     <link href="<?php echo base_url();?>theme/css/sticky-footer.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="<?php echo base_url(); ?>theme/assets/js/html5shiv.js"></script>
       <script src="<?php echo base_url(); ?>theme/assets/js/respond.min.js"></script>
-    <![endif]-->  
+    <![endif]-->
+    <script type="text/javascript">
+        $(function(){
+            $("#localidades").autocomplete({
+                source: "agregar/get_localidades" // path to the get_birds method
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -69,7 +80,7 @@
 <br>-->
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Ciudad:</span>
-<input name="localidad" type="text" id="localidad" value="" class="form-control">
+<input type="text" id="localidades">
 </div>
 <br>
 <div class="input-group">
@@ -148,11 +159,13 @@ fotos<br><br>
 	</div>
 	</center>
 		
-    </div> <!-- /container -->	
+    </div> <!-- /container -->
 
 
-    <script src="<?php echo base_url();?>theme/assets/js/jquery.js"></script>
-    <script src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
+<!--    <script src="--><?php //echo base_url();?><!--theme/assets/js/jquery.js"></script>-->
+<!--    <script src="<?php /*echo base_url();*/?>theme/assets/jquery/external/jquery/jquery.js"</script>
+    <script src="<?php /*echo base_url();*/?>theme/assets/jquery/jquery-ui.js"</script>
+    <script src="<?php /*echo base_url();*/?>theme/dist/js/bootstrap.min.js"></script>-->
 <!--    <script src="--><?php //echo base_url();?><!--theme/dist/js/bootstrap-select.js"></script>-->
 	<script type="text/javascript">
 	$('#direccion').popover({
