@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <title>RedInmo</title>
 
-    <link href="<?php echo base_url();?>theme/dist/css/bootstrap-select.css" rel="stylesheet">
+<!--    <link href="--><?php //echo base_url();?><!--theme/dist/css/bootstrap-select.css" rel="stylesheet">-->
     <link href="<?php echo base_url();?>theme/dist/css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo base_url();?>theme/dist/css/propio.css" rel="stylesheet">
     <link href="<?php echo base_url();?>theme/css/navbar-fixed-top.css" rel="stylesheet">
@@ -35,45 +35,41 @@
 <div class="form-group">
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Tipo de operaci&oacute;n:</span>
-<select name="tipoop" id="tipoop" class="selectpicker show-tick form-control" data-toggle="popover" data-trigger="hover" data-content="Las ventas se hacen en dolares y los alquileres en pesos">
-  <option value="1">Venta</option>
-  <option value="2">Alquiler</option>
-  <option value="3">Alquiler temporario</option>
+<!--<select name="tipoop" id="tipoop" class="selectpicker show-tick form-control" data-toggle="popover" data-trigger="hover" data-content="Las ventas se hacen en dolares y los alquileres en pesos">-->
+<select name="tipoop" id="tipoop" class="form-control" data-toggle="popover" data-trigger="hover" data-content="Las ventas se hacen en dolares y los alquileres en pesos">
+  <?php foreach ($tipos_op as $tipo_op) { ?>
+  <option value="<?php echo $tipo_op->id;?>"><?php echo $tipo_op->nombre;?></option>
+  <?php } ?>
 </select>
 </div>
 <br>
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Tipo de inmueble:</span>
-<select name="tipoinm" id="tipoinm" class="selectpicker show-tick form-control">
-    <option value="1">Casa</option>
-    <option value="3">Departamento</option>
-    <option value="2">Garage</option>
-    <option value="4">PH</option>
-    <option value="5">Countrie</option>
-    <option value="6">Quinta</option>
-    <option value="7">Terreno y/o lote</option>
-    <option value="8">Campo y/o chacra</option>
-    <option value="9">Local comercial</option>
-    <option value="10">Negocio y/o fondo de comercio</option>
-    <option value="11">Oficina</option>
-    <option value="12">Consultorio</option>
-    <option value="13">Boveda, nichos y/o parcela</option>
+<select name="tipoinm" id="tipoinm" class="form-control">
+    <?php foreach ($tipos_inmuebles as $tipo_inmueble) { ?>
+        <option value="<?php echo $tipo_inmueble->id;?>"><?php echo $tipo_inmueble->descripcion;?></option>
+    <?php } ?>
 </select>
 </div>
 </div>
 <br>
 <div class="form-group">
-<div class="input-group">
+<!--<div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Provincia:</span>
 <select name="provincia" id="provincia" class="selectpicker show-tick form-control">
   <option>Santa Fe</option>
   <option>Buenos Aires</option>
 </select>
 </div>
-<br>
-<div class="input-group">
+<br>-->
+<!--<div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Ciudad:</span>
 <input name="ciudad" type="text" id="ciudad" value="" class="form-control">
+</div>
+<br>-->
+<div class="input-group">
+<span class="input-group-addon" style="min-width:180px">Ciudad:</span>
+<input name="localidad" type="text" id="localidad" value="" class="form-control">
 </div>
 <br>
 <div class="input-group">
@@ -157,10 +153,15 @@ fotos<br><br>
 
     <script src="<?php echo base_url();?>theme/assets/js/jquery.js"></script>
     <script src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
-    <script src="<?php echo base_url();?>theme/dist/js/bootstrap-select.js"></script>
+<!--    <script src="--><?php //echo base_url();?><!--theme/dist/js/bootstrap-select.js"></script>-->
 	<script type="text/javascript">
-	$('#direccion').popover();
-	$('#tipoop').popover();
+	$('#direccion').popover({
+        container: 'body'
+    });
+	$('#tipoop').popover({
+        container: 'body'
+    });
+//    $('.selectpicker').selectpicker();
 	</script>
 </body>
 

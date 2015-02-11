@@ -29,9 +29,10 @@ class Avisos extends CI_Controller {
 		$this->load->helper('url');
 		$datos["msj"] = "agregar";
 		//$this->load->view('agregar', $datos);
-		
-		
-		$this->form_validation->set_rules('tipoop', 'Tipo de operacion', 'required');
+        $this->load->model('Avisos_model', '', TRUE);
+
+
+        $this->form_validation->set_rules('tipoop', 'Tipo de operacion', 'required');
 		$this->form_validation->set_rules('tipoinm', 'Tipo de inmueble', 'required');
 		$this->form_validation->set_rules('detalles', 'Detalles del inmueble', 'required');		
 	
@@ -41,7 +42,14 @@ class Avisos extends CI_Controller {
 				$data["menu"] = $this->load->view('menu_us', $datos, true);
 			}else{
 				$data["menu"] = $this->load->view('menu_nu');
-			}			
+			}
+
+            $rval = $this->Avisos_model->get_tipos_op();
+            $data["tipos_op"] = $rval;
+
+            $rval = $this->Avisos_model->get_tipos_inmuebles();
+            $data["tipos_inmuebles"] = $rval;
+
 			$this->load->view('agregar', $data);
 		}else{
 		

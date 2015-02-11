@@ -58,26 +58,54 @@ class Avisos_model extends CI_Model {
 			$this->db->update('avisos', $data); 
 			
 			return true; //si llega aca, esta todo ok
-    }	
-	
+    }
+
     function get_aviso($id)
     {
 			$sql_in = "SELECT * FROM `avisos` WHERE `id` = $id LIMIT 1";
 			$query = $this->db->query($sql_in);
-			return $query->result();	
-    }	
-	
-	function get_ult_avisos() {
+			return $query->result();
+    }
+
+    function get_tipos_op()
+    {
+        $sql_in = "SELECT * FROM `tipos_op`";
+        $query = $this->db->query($sql_in);
+        return $query->result();
+    }
+
+    function get_tipos_inmuebles()
+    {
+        $sql_in = "SELECT * FROM `tipos_inmuebles`";
+        $query = $this->db->query($sql_in);
+        return $query->result();
+    }
+
+    function get_provincias()
+    {
+        $sql_in = "SELECT * FROM `provincias`";
+        $query = $this->db->query($sql_in);
+        return $query->result();
+    }
+
+    function get_localidades()
+    {
+        $sql_in = "SELECT * FROM `localidades`";
+        $query = $this->db->query($sql_in);
+        return $query->result();
+    }
+
+    function get_ult_avisos() {
 		//falta trabajar contra la DB
 		//esta funcion trae los ultimos 5 avisos publicados
 		$aviso[1]['titulo'] = "Departamento en Venta en Capital Federal";
-		$aviso[1]['texto'] = utf8_encode("Ubicado en Capital Federal, 45 mt2, 2 ambientes, 1 baño. $4500 ");
+		$aviso[1]['texto'] = utf8_encode("Ubicado en Capital Federal, 45 mt2, 2 ambientes, 1 baï¿½o. $4500 ");
 		$aviso[1]['foto'] = "1.jpg";
 		$aviso[2]['titulo'] = "Casa en Venta en Rosario";
-		$aviso[2]['texto'] = utf8_encode("Ubicado en Rosario, 105 mt2, 5 ambientes, 2 baño. u\$s45.000 ");
+		$aviso[2]['texto'] = utf8_encode("Ubicado en Rosario, 105 mt2, 5 ambientes, 2 baï¿½o. u\$s45.000 ");
 		$aviso[2]['foto'] = "2.jpg";		
 		$aviso[3]['titulo'] = "Local en Alquiler en Mendoza";
-		$aviso[3]['texto'] = utf8_encode("Ubicado en Mendoza, 32 mt2, 1 ambientes, 1 baño. $2.000 ");
+		$aviso[3]['texto'] = utf8_encode("Ubicado en Mendoza, 32 mt2, 1 ambientes, 1 baï¿½o. $2.000 ");
 		$aviso[3]['foto'] = "3.jpg";			
 		return $aviso;
 	}
