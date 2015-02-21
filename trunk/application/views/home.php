@@ -44,19 +44,13 @@
           <div class="col-md-3">
             Tipo de Operación:
             <select name="tipoop" class="form-control">
-              <option value="0">Todos</option>
-              <option value="1">Venta</option>
-              <option value="2">Alquiler</option>
-              <option value="3">Alquiler Temporario</option>
+             <?php echo $combo_tipoop; ?>
             </select>
           </div>
           <div class="col-md-3">
             Tipo de Propiedad:
            <select name ="tipopro" class="form-control">
-           	  <option value="0">Todas</option>
-              <option value="1">Casa</option>
-              <option value="2">Departamento</option>
-              <option value="3">Cochera</option>
+           	  <?php echo $combo_tipopro; ?>
             </select>
           </div>
           <div class="col-md-6">

@@ -42,30 +42,14 @@
 							    <div class="col-md-3">
 							        Tipo de Operación: 
 							        <select name="tipoop" class="selectpicker show-tick form-control">
-							            <option value="0">Todos</option>
-							            <option value="1">Venta</option>
-							            <option value="2">Alquiler</option>
-							            <option value="3">Alquiler Temporario</option>
+							            <?php echo $combo_tipoop; ?>
 							        </select>
 							    </div>
 							
 							    <div class="col-md-3">
 							        Tipo de Propiedad: 
 							        <select name="tipopro" class="selectpicker show-tick form-control">
-							            <option value="0">Todos</option>
-							            <option value="1">Casa</option>
-							            <option value="3">Departamento</option>
-							            <option value="2">Garage</option>
-							            <option value="4">PH</option>
-							            <option value="5">Countrie</option>
-							            <option value="6">Quinta</option>
-							            <option value="7">Terreno y/o lote</option>
-							            <option value="8">Campo y/o chacra</option>
-							            <option value="9">Local comercial</option>
-							            <option value="10">Negocio y/o fondo de comercio</option>
-							            <option value="11">Oficina</option>
-							            <option value="12">Consultorio</option>
-							            <option value="13">Boveda, nichos y/o parcela</option>
+							            <?php echo $combo_tipopro; ?>
 							        </select>
 							    </div>
 							

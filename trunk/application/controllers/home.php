@@ -20,22 +20,52 @@ class Home extends CI_Controller {
 	 
 
 	 
-	public function index()
-	{
+	public function index()	{
 
-	$this->load->helper('url');
-	$this->load->library('ion_auth');
-	$datos["ultimos_avisos"] = $this->traer_ultimos_avisos();
-	$datos["ultimas_inmobi"] = $this->traer_ultimas_inmobi();
-	if ($this->ion_auth->logged_in()){
-		$data['user'] = $this->ion_auth->user()->row();
-		$datos["menu"] = $this->load->view('menu_us', $data, true);
-	}else{
-		$datos["menu"] = $this->load->view('menu_nu');
-	}
-
-	$this->load->view('home', $datos);
+		$this->load->helper('url');
+		$this->load->library('ion_auth');
+		
+		$datos["ultimos_avisos"] = $this->traer_ultimos_avisos();
+		$datos["ultimas_inmobi"] = $this->traer_ultimas_inmobi();
+		
+		$datos["combo_tipoop"]   = $this->getTipoOperData();
+		$datos["combo_tipopro"]  = $this->getTipoPropsData();
+		
+		if ($this->ion_auth->logged_in()) {
+			$data['user'] = $this->ion_auth->user()->row();
+			$datos["menu"] = $this->load->view('menu_us', $data, true);
+		} else {
+			$datos["menu"] = $this->load->view('menu_nu');
+		}
 	
+		$this->load->view('home', $datos);
+	
+	}
+	
+	function getTipoPropsData() {
+		$this->load->model('Buscar_model', '', TRUE);
+		$tipoProps = $this->Buscar_model->tipoprops();
+		
+		$html = '<option value="0">Todas</option>';
+		
+		foreach($tipoProps->result () as $prop) {
+			$html = $html.'<option value="'.$prop->id.'">'.$prop->descripcion.'</option>';
+		}
+		
+		return $html;
+	}
+	
+	function getTipoOperData() {
+		$this->load->model('Buscar_model', '', TRUE);
+		$tipoOper = $this->Buscar_model->tipoops();
+		
+		$html = '<option value="0">Todos</option>';
+		
+		foreach ($tipoOper->result () as $oper) {
+			$html = $html.'<option value="'.$oper->id.'">'.$oper->nombre.'</option>';
+		}
+		
+		return $html;
 	}
 
 	function traer_ultimos_avisos() {
@@ -62,8 +92,10 @@ class Home extends CI_Controller {
 	function traer_ultimas_inmobi() {
 		$this->load->model('avisos_model', '', TRUE);
 		$ultimasinmos = $this->avisos_model->get_ult_inmobi();
+		
 		return $ultimasinmos;
 	}
+	
 }
 
 /* End of file home.php */
