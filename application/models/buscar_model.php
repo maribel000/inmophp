@@ -94,7 +94,7 @@ class Buscar_model extends CI_Model {
         if($query->num_rows > 0){
             foreach ($query->result_array() as $row){
                 $new_row['label']=htmlentities(stripslashes($row['nombre']));
-                $new_row['value']=htmlentities(stripslashes($row['id']));
+                $new_row['value']=htmlentities(stripslashes($row['nombre']));
                 $row_set[] = $new_row; //build an array
             }
             echo json_encode($row_set); //format the array into json data
@@ -108,13 +108,13 @@ class Buscar_model extends CI_Model {
     	$this->load->helper('url');
     	$this->load->library('ion_auth');
     	
-    	/* if ($this->ion_auth->logged_in()){
+    	if ($this->ion_auth->logged_in()){
     		$data['user'] = $this->ion_auth->user()->row();
     		$datos["menu"] = $this->load->view('menu_us', $data, true);
     	}else{
     		$datos["menu"] = $this->load->view('menu_nu');
-    	} */
-    	    	
+    	}
+    	 
     	$this->db->select('avisos.id');
 		$this->db->select('avisos.direccion');
 		$this->db->select('avisos.metros_cuadrados');
@@ -133,6 +133,7 @@ class Buscar_model extends CI_Model {
 		$this->db->select('tipos_op.nombre as tipo_op');
 		$this->db->select('localidades.id as id_localidad');
 		$this->db->select('users.first_name as first_name');
+		$this->db->select('aviso_fotos.url');
 		
 		$this->db->from('avisos');
 		
@@ -140,6 +141,7 @@ class Buscar_model extends CI_Model {
 		$this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
 		$this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
 		$this->db->join('users', 'avisos.id_usuario = users.id','left');
+		$this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
 		
 		// El cero representa todo tipo de operaciones
 		if($tipoOp != 0) {
@@ -157,7 +159,7 @@ class Buscar_model extends CI_Model {
 		}
 		
 		$query = $this->db->get();
-	
+		
 		return $query;
     }
 

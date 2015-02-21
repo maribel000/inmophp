@@ -115,7 +115,7 @@
 								    
 								<div class="media">
 								    <a class="media-left" href="#"> 
-								        <img src="theme/imgavisos/3.jpg" height="125" width="125" class="thumbnail" alt="Rounded Image">
+								        <img src="<?php echo $aviso->url;?>" height="125" width="125" class="thumbnail" alt="Rounded Image">
 								    </a>
 								    <div class="media-body">
 								        <a href="<?php echo base_url();?>avisos/ver/<?php echo $aviso->id; ?>">
