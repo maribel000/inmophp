@@ -15,13 +15,13 @@ class Buscar extends CI_Controller {
 		$datos["busqueda"] = 1;
 		$datos["tipoop"] = @$_REQUEST["tipoop"];
 		$datos["tipopro"] = @$_REQUEST["tipopro"];
-		$datos["localidad"] = @$_REQUEST["localidad"];
+		$datos["localidad"] = @$_REQUEST["localidades"];
 		$datos["provincia"] = @$_REQUEST["provincia"];
 		
 		$datos["combo_tipoop"]   = $this->getTipoOperData();
 		$datos["combo_tipopro"]  = $this->getTipoPropsData();
 		
-		$res = $this->Buscar_model->buscar_avisos($datos["tipoop"],$datos["tipopro"],$datos["localidad"]);
+	 	$res = $this->Buscar_model->buscar_avisos($datos["tipoop"],$datos["tipopro"],$datos["localidad"]);
 		$datos["avisos"] = $res;
         $res = $this->Buscar_model->avisos_fotos_default($res);
         $datos["avisos_fotos"] = $res;
@@ -72,8 +72,8 @@ class Buscar extends CI_Controller {
 	function get_localidades(){
 		$this->load->helper('url');
 		$this->load->library('ion_auth');
-		$this->load->model('Buscar_model');
-		print_r("hola");
+		$this->load->model('Buscar_model', '', TRUE);
+				
 		if (isset($_GET['term'])){
 			$q = strtolower($_GET['term']);
 			$this->Buscar_model->get_localidad($q);
