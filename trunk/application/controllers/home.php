@@ -39,8 +39,8 @@ class Home extends CI_Controller {
 	}
 
 	function traer_ultimos_avisos() {
-		$this->load->model('Avisos_model', '', TRUE);
-		$ultimosavisos = $this->Avisos_model->get_ult_avisos();
+		$this->load->model('avisos_model', '', TRUE);
+		$ultimosavisos = $this->avisos_model->get_ult_avisos();
 		$html = '';
 		foreach ($ultimosavisos as $aviso) {
 			$html = '
@@ -57,13 +57,11 @@ class Home extends CI_Controller {
 		}
 
 		return $html;
-
-		return $ultimosavisos;
 	}
 
 	function traer_ultimas_inmobi() {
-		$this->load->model('Avisos_model', '', TRUE);
-		$ultimasinmos = $this->Avisos_model->get_ult_inmobi();
+		$this->load->model('avisos_model', '', TRUE);
+		$ultimasinmos = $this->avisos_model->get_ult_inmobi();
 		return $ultimasinmos;
 	}
 }

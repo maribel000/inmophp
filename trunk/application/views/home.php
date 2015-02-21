@@ -11,11 +11,13 @@
   <link href="<?php echo base_url();?>theme/dist/css/propio.css" rel="stylesheet">
   <link href="<?php echo base_url();?>theme/css/navbar-fixed-top.css" rel="stylesheet">
   <link href="<?php echo base_url();?>theme/css/sticky-footer.css" rel="stylesheet">
+      
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="<?php echo base_url();?>theme/assets/js/html5shiv.js"></script>
   <script src="<?php echo base_url();?>theme/assets/js/respond.min.js"></script>
   <![endif]-->
+   
 </head>
 <body>
 
@@ -36,23 +38,25 @@
 
   <div class="jumbotron" style="padding:0.5em; background-color: #F5ECCE">
     <div class="row">
-	<form action="<?php echo base_url();?>buscar" method="post">
+	<form id="homeForm" action="<?=base_url()?>index.php/buscar" method="get">
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-3">
             Tipo de Operación:
             <select name="tipoop" class="form-control">
-              <option>Venta</option>
-              <option>Alquiler</option>
-              <option>Alquiler Temporario</option>
+              <option value="0">Todos</option>
+              <option value="1">Venta</option>
+              <option value="2">Alquiler</option>
+              <option value="3">Alquiler Temporario</option>
             </select>
           </div>
           <div class="col-md-3">
             Tipo de Propiedad:
            <select name ="tipopro" class="form-control">
-              <option>Casa</option>
-              <option>Departamento</option>
-              <option>Cochera</option>
+           	  <option value="0">Todas</option>
+              <option value="1">Casa</option>
+              <option value="2">Departamento</option>
+              <option value="3">Cochera</option>
             </select>
           </div>
           <div class="col-md-6">
@@ -111,9 +115,9 @@
 
 </div> <!-- /container -->
 
-
 <script src="<?php echo base_url();?>theme/assets/js/jquery.js"></script>
 <script src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
