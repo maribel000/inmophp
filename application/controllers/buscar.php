@@ -18,6 +18,9 @@ class Buscar extends CI_Controller {
 		$datos["localidad"] = @$_REQUEST["localidad"];
 		$datos["provincia"] = @$_REQUEST["provincia"];
 		
+		$datos["combo_tipoop"]   = $this->getTipoOperData();
+		$datos["combo_tipopro"]  = $this->getTipoPropsData();
+		
 		$res = $this->Buscar_model->buscar_avisos($datos["tipoop"],$datos["tipopro"],$datos["localidad"]);
 		$datos["avisos"] = $res;
         $res = $this->Buscar_model->avisos_fotos_default($res);
@@ -38,6 +41,32 @@ class Buscar extends CI_Controller {
 		
 		$this->load->view('buscar', $datos);
 	
+	}
+	
+	function getTipoPropsData() {
+		$this->load->model('Buscar_model', '', TRUE);
+		$tipoProps = $this->Buscar_model->tipoprops();
+	
+		$html = '<option value="0">Todas</option>';
+	
+		foreach($tipoProps->result () as $prop) {
+			$html = $html.'<option value="'.$prop->id.'">'.$prop->descripcion.'</option>';
+		}
+	
+		return $html;
+	}
+	
+	function getTipoOperData() {
+		$this->load->model('Buscar_model', '', TRUE);
+		$tipoOper = $this->Buscar_model->tipoops();
+	
+		$html = '<option value="0">Todos</option>';
+	
+		foreach ($tipoOper->result () as $oper) {
+			$html = $html.'<option value="'.$oper->id.'">'.$oper->nombre.'</option>';
+		}
+	
+		return $html;
 	}
 
 	function get_localidades(){
