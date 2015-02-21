@@ -14,6 +14,14 @@
 		<link href="<?php echo base_url();?>theme/css/navbar-fixed-top.css" rel="stylesheet">
 		<link href="<?php echo base_url();?>theme/css/sticky-footer.css" rel="stylesheet">
 		
+		<script src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
+		<script	src="<?php echo base_url();?>theme/dist/js/bootstrap-select.js"></script>
+		
+		<link href="<?php echo base_url();?>theme/assets/jquery/jquery-ui.css" type="text/css" rel="stylesheet">
+		
+		<script type="text/javascript" src="<?php echo base_url();?>theme/assets/js/jquery.js"></script>
+		<script type="text/javascript" src="<?php echo base_url();?>theme/assets/jquery/jquery-ui.js"></script>
+		
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 		  <script src="<?php echo base_url();?>theme/assets/js/html5shiv.js"></script>
@@ -22,9 +30,9 @@
 		
 		<link href="<?php echo base_url();?>theme/assets/jquery/jquery.ui.css" rel="stylesheet" type="text/css" />
 		<script>
-		    $(function(){
+		    $(document).ready(function(){
 		      $("#localidades").autocomplete({
-		        source: "http://localhost/redinmo/buscar/get_localidades" // path to the get_birds method
+		        source: "<?=base_url()?>index.php/buscar/get_localidades" // path to the get_birds method
 		      });
 		    });
 		</script>
@@ -54,7 +62,8 @@
 							    </div>
 							
 							    <div class="col-md-3">
-							        Localidad: <input id="localidades" type="text" class="form-control" />
+							        Localidad: 
+							        <input name="localidades" id="localidades" type="text" class="form-control">
 							    </div>
 							
 							    <div class="col-xs-2">
@@ -144,13 +153,6 @@
 			</div>
 		</div>
 		
-		
-		<!--<script src="-->
-		<script src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
-		<script	src="<?php echo base_url();?>theme/dist/js/bootstrap-select.js"></script>
-		<script type="text/javascript" src="<?php echo base_url();?>theme/assets/jquery/jquery.js"></script>
-		<script type="text/javascript" src="<?php echo base_url();?>theme/assets/jquery/jquery.ui.js"></script>
-	
 	</body>
 
 </html>
