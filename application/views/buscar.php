@@ -44,10 +44,10 @@
 		<div class="container">
 			<div class="jumbotron" style="padding: 1em; background-color: #F5ECCE;">
 				<div class="row">
-					<div class="col-md-9">
+					<div class="col-md-11">
 						<div class="row">
 							<form action="<?=base_url()?>index.php/buscar" method="get">
-							    <div class="col-md-3">
+							    <div class="col-md-2">
 							        Tipo de Operación: 
 							        <select name="tipoop" class="selectpicker show-tick form-control">
 							            <?php echo $combo_tipoop; ?>
@@ -60,13 +60,20 @@
 							            <?php echo $combo_tipopro; ?>
 							        </select>
 							    </div>
+							    
+							    <div class="col-md-3">
+						          Provincia:
+						          <select name ="tipopro" class="form-control">
+						            <?php echo $combo_prov; ?>
+						          </select>
+						        </div>
 							
 							    <div class="col-md-3">
 							        Localidad: 
-							        <input name="localidades" id="localidades" type="text" class="form-control">
+							        <input name="localidades" id="localidades" type="text" class="form-control" value="<?php echo $localidad;?>">
 							    </div>
 							
-							    <div class="col-xs-2">
+							    <div class="col-xs-1">
 							        <button type="submit" class="btn btn-default btn-lg" style="margin-top: 10px">Buscar</button>
 							    </div>
 							    
@@ -106,7 +113,6 @@
 						<div class="panel-heading">
 							Resultados de la busqueda: 
 							<?php echo ' <strong>'.$avisos->num_rows().'</strong> coincidencias.';?>
-							<!-- ?php echo "<strong>$tipoprops_tmp[$tipopro]</strong> en <strong>$tipoops_tmp[$tipoop]</strong> en la localidad de <strong>$localidad</strong>"? -->
 						</div>
 						
 						<div class="panel-body">

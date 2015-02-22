@@ -56,27 +56,40 @@
 			<form id="homeForm" action="<?=base_url()?>index.php/buscar" method="get">
 		      <div class="col-md-8">
 		        <div class="row">
+		        
 		          <div class="col-md-3">
 		            Tipo de Operación:
-		            <select name="tipoop" class="form-control">
+		            <select name="tipoop" id="tipoop" class="form-control">
 		             <?php echo $combo_tipoop; ?>
 		            </select>
 		          </div>
+		        
 		          <div class="col-md-3">
 		            Tipo de Propiedad:
-		           <select name ="tipopro" class="form-control">
+		           <select name ="tipopro" id="tipopro" class="form-control">
 		           	  <?php echo $combo_tipopro; ?>
 		            </select>
 		          </div>
-		          <div class="col-md-6">
+		        
+		          <div class="col-md-3">
+		            Provincia:
+		            <select name ="provincia" id="provincia" class="form-control">
+		           	  <?php echo $combo_prov; ?>
+		            </select>
+		          </div>
+		        
+		          <div class="col-md-3">
 		            Ciudad:
 		            <input name="localidades" id="localidades" type="text" class="form-control">
 		          </div>
+		        
 		        </div>
 		      </div>
+		      
 		      <div class="col-xs-4">
 		        <button type="submit" class="btn btn-default btn-lg" style="margin-top:10px">Buscar</button>
 		      </div>
+		   
 		    </div>
 			</form>
 		  </div>

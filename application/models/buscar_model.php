@@ -51,7 +51,7 @@ class Buscar_model extends CI_Model {
         return $rval;
     }
 
-    function avisos_fotos_default($avisos)
+ 	/*function avisos_fotos_default($avisos)
     {
         $this->db->select('id_aviso, url, descripcion');
         $this->db->from('aviso_fotos');
@@ -64,7 +64,7 @@ class Buscar_model extends CI_Model {
         $rval = $this->db->get();
 
         return $rval;
-    }
+    }*/
 
     function tipoops()
     {
@@ -85,6 +85,13 @@ class Buscar_model extends CI_Model {
         $rval= $this->db->get('localidades');
 
         return $rval;
+    }
+    
+    function provincias()
+    {
+    	$rval= $this->db->get('provincias');
+    
+    	return $rval;
     }
 
     function get_localidad($q){
@@ -114,7 +121,9 @@ class Buscar_model extends CI_Model {
     	}else{
     		$datos["menu"] = $this->load->view('menu_nu');
     	}
-    	 
+    	// esta funcion loguea dato del back-end y performance de los modulos
+    	//$this->output->enable_profiler(TRUE);
+    	
     	$this->db->select('avisos.id');
 		$this->db->select('avisos.direccion');
 		$this->db->select('avisos.metros_cuadrados');
@@ -142,7 +151,7 @@ class Buscar_model extends CI_Model {
 		$this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
 		$this->db->join('users', 'avisos.id_usuario = users.id','left');
 		$this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
-		
+	
 		// El cero representa todo tipo de operaciones
 		if($tipoOp != 0) {
 			$this->db->where('avisos.id_tipo_op',$tipoOp);

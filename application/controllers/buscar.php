@@ -11,20 +11,19 @@ class Buscar extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->library('ion_auth');
 		$this->load->model('Buscar_model', '', TRUE); 
-		
+				
 		$datos["busqueda"] = 1;
-		$datos["tipoop"] = @$_REQUEST["tipoop"];
-		$datos["tipopro"] = @$_REQUEST["tipopro"];
-		$datos["localidad"] = @$_REQUEST["localidades"];
-		$datos["provincia"] = @$_REQUEST["provincia"];
+		$datos["tipoop"] = $_GET["tipoop"];
+		$datos["tipopro"] = $_GET["tipopro"];
+		$datos["localidad"] = $_GET["localidades"];
+		$datos["provincia"] = $_GET["provincia"];
 		
-		$datos["combo_tipoop"]   = $this->getTipoOperData();
-		$datos["combo_tipopro"]  = $this->getTipoPropsData();
+		$datos["combo_tipoop"]   = $this->getTipoOperData($datos["tipoop"]);
+		$datos["combo_tipopro"]  = $this->getTipoPropsData($datos["tipopro"]);
+		$datos["combo_prov"]     = $this->getProvinciaData($datos["provincia"]);
 		
 	 	$res = $this->Buscar_model->buscar_avisos($datos["tipoop"],$datos["tipopro"],$datos["localidad"]);
 		$datos["avisos"] = $res;
-        $res = $this->Buscar_model->avisos_fotos_default($res);
-        $datos["avisos_fotos"] = $res;
 		$res = $this->Buscar_model->tipoops();
 		$datos["tipoops"] = $res;
 		$res = $this->Buscar_model->tipoprops();
@@ -43,27 +42,52 @@ class Buscar extends CI_Controller {
 	
 	}
 	
-	function getTipoPropsData() {
+	public function getProvinciaData($selected) {
+		$this->load->model('Buscar_model', '', TRUE);
+		$provincia = $this->Buscar_model->provincias();
+	
+		$html = '<option value="0">Todas</option>';
+	
+		foreach($provincia->result () as $prov) {			
+			if($selected == $prov->id) {
+				$html = $html.'<option value="'.$prov->id.'" selected>'.$prov->nombre.'</option>';
+			} else {
+				$html = $html.'<option value="'.$prov->id.'">'.$prov->nombre.'</option>';
+			}
+		}
+	
+		return $html;
+	}
+	
+	function getTipoPropsData($selected) {
 		$this->load->model('Buscar_model', '', TRUE);
 		$tipoProps = $this->Buscar_model->tipoprops();
 	
 		$html = '<option value="0">Todas</option>';
 	
 		foreach($tipoProps->result () as $prop) {
-			$html = $html.'<option value="'.$prop->id.'">'.$prop->descripcion.'</option>';
+			if($selected == $prop->id) {
+				$html = $html.'<option value="'.$prop->id.'" selected>'.$prop->descripcion.'</option>';
+			} else {
+				$html = $html.'<option value="'.$prop->id.'">'.$prop->descripcion.'</option>';
+			}
 		}
 	
 		return $html;
 	}
 	
-	function getTipoOperData() {
+	function getTipoOperData($selected) {
 		$this->load->model('Buscar_model', '', TRUE);
 		$tipoOper = $this->Buscar_model->tipoops();
 	
 		$html = '<option value="0">Todos</option>';
 	
 		foreach ($tipoOper->result () as $oper) {
-			$html = $html.'<option value="'.$oper->id.'">'.$oper->nombre.'</option>';
+			if($selected == $oper->id) {
+				$html = $html.'<option value="'.$oper->id.'" selected>'.$oper->nombre.'</option>';
+			} else {
+				$html = $html.'<option value="'.$oper->id.'">'.$oper->nombre.'</option>';
+			}
 		}
 	
 		return $html;
