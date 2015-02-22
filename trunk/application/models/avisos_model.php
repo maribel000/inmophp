@@ -109,16 +109,58 @@ class Avisos_model extends CI_Model {
 
     function get_ult_avisos() {
 		//falta trabajar contra la DB
+		
+    	$aviso = array();
+    	
+    	$this->output->enable_profiler(TRUE);
+    	
+    	$this->db->select('avisos.id');
+		$this->db->select('avisos.direccion');
+		$this->db->select('avisos.metros_cuadrados as m2');
+		$this->db->select('avisos.cant_ambientes as ambientes');
+		$this->db->select('avisos.cant_dormitorios');
+		$this->db->select('avisos.cant_banios as banios');
+		$this->db->select('avisos.estado_inmueble');
+		$this->db->select('avisos.anio');
+		$this->db->select('avisos.detalles');
+		$this->db->select('avisos.precio as precio');
+		$this->db->select('avisos.fecha');
+		$this->db->select('avisos.estado_aviso');
+		$this->db->select('avisos.nombre_barrio');
+		
+		$this->db->select('tipos_inmuebles.descripcion as tipo_inmueble');
+		$this->db->select('tipos_op.nombre as tipo_op');
+		$this->db->select('localidades.nombre as nombre_localidad');
+		$this->db->select('provincias.nombre as provincia');
+		$this->db->select('aviso_fotos.url as foto');
+		
+		$this->db->from('avisos');
+		
+		$this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
+		$this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
+		$this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
+		$this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
+		$this->db->join('provincias', 'localidades.id_provincia = provincias.id','left');
+    	
+		$this->db->where('aviso_fotos.default',1);
+		
+		$this->db->order_by("avisos.fecha", "desc");
+		
 		//esta funcion trae los ultimos 5 avisos publicados
-		$aviso[1]['titulo'] = "Departamento en Venta en Capital Federal";
-		$aviso[1]['texto'] = utf8_encode("Ubicado en Capital Federal, 45 mt2, 2 ambientes, 1 ba�o. $4500 ");
-		$aviso[1]['foto'] = "1.jpg";
-		$aviso[2]['titulo'] = "Casa en Venta en Rosario";
-		$aviso[2]['texto'] = utf8_encode("Ubicado en Rosario, 105 mt2, 5 ambientes, 2 ba�o. u\$s45.000 ");
-		$aviso[2]['foto'] = "2.jpg";		
-		$aviso[3]['titulo'] = "Local en Alquiler en Mendoza";
-		$aviso[3]['texto'] = utf8_encode("Ubicado en Mendoza, 32 mt2, 1 ambientes, 1 ba�o. $2.000 ");
-		$aviso[3]['foto'] = "3.jpg";			
+		$this->db->limit(5,0);
+		
+		$query = $this->db->get();
+		
+		$index = 0;
+		
+		foreach($query->result_array() as $row) {
+			$aviso[$index]['titulo'] = $row['tipo_inmueble'].' en '.$row['tipo_op'].' en '.$row['nombre_localidad'].'.';
+			$aviso[$index]['texto']  = 'Ubicado en '.$row['provincia'].', '.$row['m2'].' mt2, '.$row['ambientes'].' ambientes, '.$row['banios'].' banios. '.$row['precio'];
+			$aviso[$index]['foto']   = $row['foto'];
+			
+			$index++;
+		}
+				
 		return $aviso;
 	}
 	

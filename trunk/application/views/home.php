@@ -1,143 +1,117 @@
-<!DOCTYPE html>
-<html lang="es">
-	<head>
-	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <META name="description" content="red de inmobiliarias">
-	  <meta http-equiv="Content-Language" content="en-us">
-	  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	  <title>RedInmo</title>
-	
-	  <link href="<?php echo base_url();?>theme/dist/css/bootstrap.css" rel="stylesheet">
-	  <link href="<?php echo base_url();?>theme/dist/css/propio.css" rel="stylesheet">
-	  
-	  <link href="<?php echo base_url();?>theme/css/navbar-fixed-top.css" rel="stylesheet">
-	  <link href="<?php echo base_url();?>theme/css/sticky-footer.css" rel="stylesheet">
-	  
-	  <link href="<?php echo base_url();?>theme/assets/jquery/jquery-ui.css" type="text/css" rel="stylesheet">
-	  
-	  <script type="text/javascript" src="<?php echo base_url();?>theme/assets/js/jquery.js"></script>
-	  <script type="text/javascript" src="<?php echo base_url();?>theme/assets/jquery/jquery-ui.js"></script>
-	      
-	  <script>
-		$(document).ready(function(){
-			$("#localidades").autocomplete({
-				source: "<?=base_url()?>index.php/buscar/get_localidades", // path to the get_birds method
-				minLength: 2
-			});
-		});
-	  </script>
-	      
-	  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	  <!--[if lt IE 9]>
-	  <script src="<?php echo base_url();?>theme/assets/js/html5shiv.js"></script>
-	  <script src="<?php echo base_url();?>theme/assets/js/respond.min.js"></script>
-	  <![endif]-->
-	   
-	</head>
-	<body>
-	
-		<?php echo $menu; ?>
-		
-		<div class="container">
-		
-		  <!-- Main component for a primary marketing message or call to action -->
-		  <div class="jumbotron" style="padding:2em; background-color: #E1F5A9;">
-		    <div class="row">
-		      <div class="col-md-8"><h1>InmoAvisos.com</h1><p>La herramienta online para los que buscan y ofrecen inmuebles en Argentina. <br>Venta y alquiler de departamentos, casas, PH, terrenos, locales, oficinas, quintas, cocheras y más en InmoAvisos.com</p></div>
-		      <div class="col-md-4">
-		        <center><img style="padding-top:0.2em" src="<?php echo base_url();?>theme/img/splash.png" class="img-responsive" alt="Responsive image"></img></center>
-		      </div>
-		
-		    </div>
-		  </div>
-		
-		  <div class="jumbotron" style="padding:0.5em; background-color: #F5ECCE">
-		    <div class="row">
-			<form id="homeForm" action="<?=base_url()?>index.php/buscar" method="get">
-		      <div class="col-md-8">
-		        <div class="row">
-		        
-		          <div class="col-md-3">
-		            Tipo de Operación:
-		            <select name="tipoop" id="tipoop" class="form-control">
-		             <?php echo $combo_tipoop; ?>
-		            </select>
-		          </div>
-		        
-		          <div class="col-md-3">
-		            Tipo de Propiedad:
-		           <select name ="tipopro" id="tipopro" class="form-control">
-		           	  <?php echo $combo_tipopro; ?>
-		            </select>
-		          </div>
-		        
-		          <div class="col-md-3">
-		            Provincia:
-		            <select name ="provincia" id="provincia" class="form-control">
-		           	  <?php echo $combo_prov; ?>
-		            </select>
-		          </div>
-		        
-		          <div class="col-md-3">
-		            Ciudad:
-		            <input name="localidades" id="localidades" type="text" class="form-control">
-		          </div>
-		        
-		        </div>
-		      </div>
-		      
-		      <div class="col-xs-4">
-		        <button type="submit" class="btn btn-default btn-lg" style="margin-top:10px">Buscar</button>
-		      </div>
-		   
-		    </div>
-			</form>
-		  </div>
-		
-		  <div class="row">
-		    <div class="col-md-3">
-		      <div class="panel panel-info">
-		        <div class="panel-heading">Buscar avisos por ciudad</div>
-		        <div class="panel-body">
-		          Avisos en Capital Federal<br>
-		          Avisos en Rosario<br>
-		          Avisos en Codoba<br>
-		          Avisos en Santa Fe<br>
-		          Avisos en Mendoza<br>
-		          Avisos en Tucuman<br>
-		          Avisos en plumas verdes
-		
-		        </div>
-		      </div>
-		    </div>
-		
-		    <div class="col-md-6">
-		      <div class="panel panel-info">
-		        <div class="panel-heading">Ultimos avisos publicados:</div>
-		        <div class="panel-body">
-		          <div class="row">
-		            <?php echo $ultimos_avisos; ?>
-		          </div>
-		
-		        </div>
-		      </div>
-		
-		    </div>
-		
-		    <div class="col-md-3">
-		      <div class="panel panel-info">
-		        <div class="panel-heading">Ultimas inmobiliarias registradas</div>
-		        <div class="panel-body">
-		          <?php echo $ultimas_inmobi; ?>
-		        </div>
-		      </div>
-		    </div>
-		
-		  </div>
-		
-		</div> 
-		<!-- /container -->
-	
-	</body>
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-</html>
+class Home extends CI_Controller {
+
+	/**
+	 * Index Page for this controller.
+	 *
+	 * Maps to the following URL
+	 * 		http://example.com/index.php/home
+	 *	- or -  
+	 * 		http://example.com/index.php/home/index
+	 *	- or -
+	 * Since this controller is set as the default controller in 
+	 * config/routes.php, it's displayed at http://example.com/
+	 *
+	 * So any other public methods not prefixed with an underscore will
+	 * map to /index.php/home/<method_name>
+	 * @see http://codeigniter.com/user_guide/general/urls.html
+	 */
+	 
+
+	 
+	public function index()	{
+
+		$this->load->helper('url');
+		$this->load->library('ion_auth');
+		
+		$datos["ultimos_avisos"] = $this->traer_ultimos_avisos();
+		$datos["ultimas_inmobi"] = $this->traer_ultimas_inmobi();
+		
+		$datos["combo_tipoop"]   = $this->getTipoOperData();
+		$datos["combo_tipopro"]  = $this->getTipoPropsData();
+		$datos["combo_prov"]     = $this->getProvinciaData();
+		
+		
+		if ($this->ion_auth->logged_in()) {
+			$data['user'] = $this->ion_auth->user()->row();
+			$datos["menu"] = $this->load->view('menu_us', $data, true);
+		} else {
+			$datos["menu"] = $this->load->view('menu_nu');
+		}
+	
+		$this->load->view('home', $datos);
+	
+	}
+	
+	public function getProvinciaData() {
+		$this->load->model('Buscar_model', '', TRUE);
+		$provincia = $this->Buscar_model->provincias();
+		
+		$html = '<option value="0">Todas</option>';
+		
+		foreach($provincia->result () as $prov) {
+			$html = $html.'<option value="'.$prov->id.'">'.$prov->nombre.'</option>';
+		}
+		
+		return $html;
+	}
+	
+	public function getTipoPropsData() {
+		$this->load->model('Buscar_model', '', TRUE);
+		$tipoProps = $this->Buscar_model->tipoprops();
+		
+		$html = '<option value="0">Todas</option>';
+		
+		foreach($tipoProps->result () as $prop) {
+			$html = $html.'<option value="'.$prop->id.'">'.$prop->descripcion.'</option>';
+		}
+		
+		return $html;
+	}
+	
+	public function getTipoOperData() {
+		$this->load->model('Buscar_model', '', TRUE);
+		$tipoOper = $this->Buscar_model->tipoops();
+		
+		$html = '<option value="0">Todos</option>';
+		
+		foreach ($tipoOper->result () as $oper) {
+			$html = $html.'<option value="'.$oper->id.'">'.$oper->nombre.'</option>';
+		}
+		
+		return $html;
+	}
+
+	function traer_ultimos_avisos() {
+		$this->load->model('avisos_model', '', TRUE);
+		$ultimosavisos = $this->avisos_model->get_ult_avisos();
+		$html = '';
+		foreach ($ultimosavisos as $aviso) {
+			$html = '
+				<div class="media">
+				  <a class="media-left" href="#">
+					<img src="'.$aviso['foto'].'" height="125" width="125" class="img-rounded" alt="Rounded Image">
+				  </a>
+				  <div class="media-body">
+					<h4 class="media-heading">'.$aviso['titulo'].'</h4>
+					'.$aviso['texto'].'
+				  </div>
+				</div>
+			'.$html;
+		} 
+		
+		return $html;
+	}
+
+	function traer_ultimas_inmobi() {
+		$this->load->model('avisos_model', '', TRUE);
+		$ultimasinmos = $this->avisos_model->get_ult_inmobi();
+		
+		return $ultimasinmos;
+	}
+	
+}
+
+/* End of file home.php */
+/* Location: ./application/controllers/home.php */
