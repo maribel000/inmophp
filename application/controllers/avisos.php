@@ -2,12 +2,13 @@
 
 class Avisos extends CI_Controller {
 
-	 
 	public function index()
 	{
 		$this->load->helper('url');
-		$this->load->library('ion_auth');	
-		$datos["msj"] = "agregar";
+		$this->load->library('ion_auth');
+        $this->load->library('form_validation');
+
+//		$datos["msj"] = "agregar";
 	
 		if ($this->ion_auth->logged_in()){
 			$data['user'] = $this->ion_auth->user()->row();
@@ -16,31 +17,29 @@ class Avisos extends CI_Controller {
 			$datos["menu"] = $this->load->view('menu_nu');
 		}	
 		
-		$this->load->view('agregar', $datos);
-	
+//		$this->load->view('agregar', $datos);
 	}
-	
-	
+
 	public function agregar()
 	{
+        $this->load->helper('url');
+        $this->load->library('ion_auth');
+        $this->load->library('form_validation');
 
-		$this->load->library('ion_auth');	
-		$this->load->library('form_validation');	
-		$this->load->helper('url');
 		$datos["msj"] = "agregar";
-		//$this->load->view('agregar', $datos);
-        $this->load->model('Avisos_model', '', TRUE);
 
+        $this->load->model('Avisos_model', '', TRUE);
 
         $this->form_validation->set_rules('tipoop', 'Tipo de operacion', 'required');
 		$this->form_validation->set_rules('tipoinm', 'Tipo de inmueble', 'required');
-		$this->form_validation->set_rules('detalles', 'Detalles del inmueble', 'required');		
-	
+		$this->form_validation->set_rules('detalles', 'Detalles del inmueble', 'required');
+
 		if ($this->form_validation->run() == FALSE){
+
 			if ($this->ion_auth->logged_in()){
 				$datos['user'] = $this->ion_auth->user()->row();
 				$data["menu"] = $this->load->view('menu_us', $datos, true);
-			}else{
+			} else {
 				$data["menu"] = $this->load->view('menu_nu');
 			}
 
@@ -51,9 +50,9 @@ class Avisos extends CI_Controller {
             $data["tipos_inmuebles"] = $rval;
 
 			$this->load->view('agregar', $data);
-		}else{
-		
-		
+
+		} else {
+
 		    $tipoop = $this->input->post('tipoop');
 			$tipoinm = $this->input->post('tipoinm');
 			$provincia = $this->input->post('provincia');
@@ -80,8 +79,9 @@ class Avisos extends CI_Controller {
 				$data["menu"] = $this->load->view('menu_us', $datos, true);
 			}else{
 				$data["menu"] = $this->load->view('menu_nu');
-			}				
-			$this->load->view('addaviso-ok', $data);			
+			}
+
+			$this->load->view('addaviso-ok', $data);
 		
 		}			
 	
@@ -90,9 +90,6 @@ class Avisos extends CI_Controller {
     function get_localidades(){
         $this->load->model('Avisos_model');
         if (isset($_GET['term'])){
-//            print_r($_GET['term']);
-
-            $firephp->log("asd", '$q');
             $q = strtolower($_GET['term']);
             $this->Avisos_model->get_localidades_2($q);
         }
@@ -138,7 +135,7 @@ class Avisos extends CI_Controller {
 			}				
 			$this->load->view('editaviso', $datos);
 			
-		}else{
+		} else {
 			//guardo
 
 		    $tipoop = $this->input->post('tipoop');
@@ -169,8 +166,7 @@ class Avisos extends CI_Controller {
 			}				
 			$this->load->view('editaviso-ok', $data);			
 		}		
-		
-	}	
+	}
 	
 	function do_upload()
 	{
@@ -195,9 +191,9 @@ class Avisos extends CI_Controller {
 			$this->load->view('addaviso-ok', $data);
 		}
 	}		
+
 	public function ver($id)
 	{
-
 	    $this->load->helper(array('form', 'url'));
 		$this->load->library('ion_auth');	
 		$this->load->model('Avisos_model', '', TRUE); 
@@ -211,10 +207,7 @@ class Avisos extends CI_Controller {
 			$datos["menu"] = $this->load->view('menu_nu');
 		}			
 		$this->load->view('veraviso', $datos);
-
-		
-	
-	}	
+	}
 	
 }
 

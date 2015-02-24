@@ -11,7 +11,6 @@
     <script src="<?php echo base_url();?>theme/assets/jquery/jquery-ui.js"></script>
     <script src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
 
-<!--    <link href="--><?php //echo base_url();?><!--theme/dist/css/bootstrap-select.css" rel="stylesheet">-->
     <link href="<?php echo base_url();?>theme/dist/css/bootstrap.css" rel="stylesheet">
 <!--    <link href="--><?php //echo base_url();?><!--theme/assets/jquery/jquery-ui.css" rel="stylesheet">-->
 <!--    <link href="--><?php //echo base_url();?><!--theme/dist/css/propio.css" rel="stylesheet">-->
@@ -38,7 +37,7 @@
 	<center>
 <div style="max-width:600px">
 <h1>Agregar Aviso</h1>
-<?php if(validation_errors()) {?> 
+<?php if(validation_errors()) {?>
  <div class="alert alert-danger" role="alert" style="padding:4px"><?php echo validation_errors(); ?></div>
 <?php } ?>
 
@@ -46,7 +45,6 @@
 <div class="form-group">
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Tipo de operaci&oacute;n:</span>
-<!--<select name="tipoop" id="tipoop" class="selectpicker show-tick form-control" data-toggle="popover" data-trigger="hover" data-content="Las ventas se hacen en dolares y los alquileres en pesos">-->
 <select name="tipoop" id="tipoop" class="form-control" data-toggle="popover" data-trigger="hover" data-content="Las ventas se hacen en dolares y los alquileres en pesos">
   <?php foreach ($tipos_op as $tipo_op) { ?>
   <option value="<?php echo $tipo_op->id;?>"><?php echo $tipo_op->nombre;?></option>
@@ -67,20 +65,15 @@
 <div class="form-group">
 <!--<div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Provincia:</span>
-<select name="provincia" id="provincia" class="selectpicker show-tick form-control">
+<select name="provincia" id="provincia" class="form-control">
   <option>Santa Fe</option>
   <option>Buenos Aires</option>
 </select>
 </div>
 <br>-->
-<!--<div class="input-group">
-<span class="input-group-addon" style="min-width:180px">Ciudad:</span>
-<input name="ciudad" type="text" id="ciudad" value="" class="form-control">
-</div>
-<br>-->
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Ciudad:</span>
-<input type="text" id="localidades">
+<input name="ciudad" type="text" id="ciudad" value="" class="form-control">
 </div>
 <br>
 <div class="input-group">
@@ -92,7 +85,6 @@
 <span class="input-group-addon" style="min-width:180px">Direcci&oacute;n:</span>
 <input name="direccion" type="text" id="direccion" value="" class="form-control" data-toggle="popover" data-trigger="hover" data-content="Direccion exacta para ubicar en google maps.">
 </div>
-<br>
 </div>
 <div class="form-group">
 <br>
@@ -166,7 +158,6 @@ fotos<br><br>
 <!--    <script src="<?php /*echo base_url();*/?>theme/assets/jquery/external/jquery/jquery.js"</script>
     <script src="<?php /*echo base_url();*/?>theme/assets/jquery/jquery-ui.js"</script>
     <script src="<?php /*echo base_url();*/?>theme/dist/js/bootstrap.min.js"></script>-->
-<!--    <script src="--><?php //echo base_url();?><!--theme/dist/js/bootstrap-select.js"></script>-->
 	<script type="text/javascript">
 	$('#direccion').popover({
         container: 'body'
@@ -174,8 +165,7 @@ fotos<br><br>
 	$('#tipoop').popover({
         container: 'body'
     });
-//    $('.selectpicker').selectpicker();
-	</script>
+    </script>
 </body>
 
 </html>
