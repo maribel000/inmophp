@@ -53,8 +53,55 @@ class Avisos extends CI_Controller {
 
 		} else {
 
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'jpg|png|jpeg';
+		    $tipoop = $this->input->post('tipoop');
+			$tipoinm = $this->input->post('tipoinm');
+			$idLocalidad = $this->input->post('idLocalidad');
+            $idBarrio = null; //TODO: en algun momento habria que tomar el barrio por id
+			$barrio = $this->input->post('barrio');
+			$direccion = $this->input->post('direccion');
+			$ambientes = $this->input->post('ambientes');
+			$dormitorios = $this->input->post('dormitorios');
+			$banios = $this->input->post('banios');
+			$metros2 = $this->input->post('metros2');
+			$estado = $this->input->post('estado');
+			$anio = $this->input->post('anio');
+			$precio = $this->input->post('precio');
+			$detalles = $this->input->post('detalles');
+            $estado_aviso = "Pendiente";
+
+            $fotodesc = array();
+//            $foto1 = $this->input->post('foto1');
+            $fotodesc[1] = $this->input->post('foto1desc');
+//            $foto2 = $this->input->post('foto2');
+            $fotodesc[2] = $this->input->post('foto2desc');
+//            $foto3 = $this->input->post('foto3');
+            $fotodesc[3] = $this->input->post('foto3desc');
+
+
+            $this->load->model('Avisos_model', '', TRUE);
+
+			$res = $this->Avisos_model->add_aviso(
+                $tipoop,
+                $tipoinm,
+                $idLocalidad,
+                $idBarrio,
+                $barrio,
+                $direccion,
+                $ambientes,
+                $dormitorios,
+                $banios,
+                $metros2,
+                $estado,
+                $anio,
+                $precio,
+                $detalles,
+                $estado_aviso
+            );
+
+            /* inicio manejo de fotos */
+            $config['upload_path'] = './uploads/fotos/';
+//            $config['allowed_types'] = 'jpg|png|jpeg';
+            $config['allowed_types'] = 'jpg';
             $config['max_size']  = '0';
             $config['max_width']  = '0';
             $config['max_height']  = '0';
@@ -74,12 +121,19 @@ class Avisos extends CI_Controller {
 
             for($i = 1; $i < 4; $i++) {
                 /* genero un filename "unico" */
-                $config['file_name'] = 'foto_'.uniqid(rand()).'_'.$i;
+                $config['file_name'] = 'foto_'.$res.'_'.uniqid(rand()).'_'.$i;
                 $this->upload->initialize($config);
 
                 $upload = $this->upload->do_upload('foto'.$i);
                 /* fallo la carga */
                 if($upload === FALSE) continue;
+                $this->Avisos_model->add_aviso_foto(
+                    $res,
+                    $config['upload_path'].$config['file_name'].'jpg',
+                    $fotodesc[$i],
+                    0
+                );
+
                 /* obtengo info para hacer los thumbs */
                 $data = $this->upload->data();
 
@@ -91,41 +145,7 @@ class Avisos extends CI_Controller {
                     $this->image_lib->resize();
                 }
             }
-
-		    $tipoop = $this->input->post('tipoop');
-			$tipoinm = $this->input->post('tipoinm');
-			$idLocalidad = $this->input->post('idLocalidad');
-            $idBarrio = null; //TODO: en algun momento habria que tomar el barrio por id
-			$barrio = $this->input->post('barrio');
-			$direccion = $this->input->post('direccion');
-			$ambientes = $this->input->post('ambientes');
-			$dormitorios = $this->input->post('dormitorios');
-			$banios = $this->input->post('banios');
-			$metros2 = $this->input->post('metros2');
-			$estado = $this->input->post('estado');
-			$anio = $this->input->post('anio');
-			$precio = $this->input->post('precio');
-			$detalles = $this->input->post('detalles');
-            $estado_aviso = "Pendiente";
-
-			$this->load->model('Avisos_model', '', TRUE); 
-			$res = $this->Avisos_model->add_aviso(
-                $tipoop,
-                $tipoinm,
-                $idLocalidad,
-                $idBarrio,
-                $barrio,
-                $direccion,
-                $ambientes,
-                $dormitorios,
-                $banios,
-                $metros2,
-                $estado,
-                $anio,
-                $precio,
-                $detalles,
-                $estado_aviso
-            );
+            /* fin manejo de fotos */
 
             $base_url = base_url();
 

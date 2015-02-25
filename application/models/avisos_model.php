@@ -44,11 +44,11 @@ class Avisos_model extends CI_Model {
                            'estado_aviso' => $estado_aviso
 						);
 
-			$this->db->insert('avisos', $data); 
-			
+			$this->db->insert('avisos', $data);
+
 			return $this->db->insert_id();
-    }	
-	
+    }
+
     function edit_aviso($id, $tipoop, $tipoinm, $provincia, $ciudad, $barrio, $direccion, $ambientes, $dormitorios, $banios, $metros2, $estado, $anio, $precio, $detalles)
     {
 			$data = array(
@@ -194,7 +194,28 @@ class Avisos_model extends CI_Model {
 		//esta funcion trae las ultimas 5 inmobiliarias registradas
 
 		return "inmobiliaria1<br>inmobiliaria2<br>inmobiliaria3<br>inmobiliaria4<br>inmobiliaria5<br>";
-	}	
-	
+	}
+
+
+
+    function add_aviso_foto(
+        $idAviso,
+        $url,
+        $desc,
+        $default
+    )
+    {
+        $data = array(
+            'id_aviso' => $idAviso,
+            'url' => $url,
+            'descripcion' => $desc,
+            'default' => $default
+        );
+
+        $this->db->insert('aviso_fotos', $data);
+
+        return $this->db->insert_id();
+    }
+
 }
 ?>
