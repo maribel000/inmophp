@@ -29,21 +29,14 @@
 
     <link href="<?php echo base_url();?>theme/assets/jquery/jquery.ui.css" rel="stylesheet" type="text/css" />
 
-    <style type="text/css">
-        .localidad {
-            font-size: 1em;
-        }
-        .provincia {
-            font-style: italic;
-            font-size: 0.8em;
-            color: gray;
-        }
-    </style>
-
     <script type="text/javascript">
         $(document).ready(function(){
             $("#localidades").autocomplete({
-                source: "<?=base_url()?>index.php/avisos/get_localidades"
+                source: "<?=base_url()?>index.php/avisos/get_localidades",
+                select: function(e, ui) {
+                    $('#idLocalidad').val(ui.item.idLocalidad);
+                    $('#idProvincia').val(ui.item.idProvincia);
+                }
             }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
                 var inner_html = '<a><div class="list_item_container"><div class="localidad">' + item.localidad + '</div><div class="provincia">' + item.provincia + '</div></div></a>';
                 return $( "<li></li>" )
@@ -91,7 +84,7 @@
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Ciudad:</span>
 <input name="localidad" type="text" id="localidades" class="form-control" />
-<input name="idLocalidad" type="hidden" id="idLocalidad" />
+<input name="idLocalidad" type="hidden" id="idLocalidad" value="" />
 </div>
 <br>
 <div class="input-group">
