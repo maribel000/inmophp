@@ -153,8 +153,11 @@
 <div class="input-group">
     <span class="input-group-addon" style="min-width:180px;">Fotos:</span>
     <input name="foto1" type="file" id="foto1" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
+    <input name="foto1desc" type="text" id="foto1desc" value="" class="form-control" placeholder="Ingrese la descripci&oacute;n...">
     <input name="foto2" type="file" id="foto2" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
+    <input name="foto2desc" type="text" id="foto2desc" value="" class="form-control" placeholder="Ingrese la descripci&oacute;n...">
     <input name="foto3" type="file" id="foto3" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
+    <input name="foto3desc" type="text" id="foto3desc" value="" class="form-control" placeholder="Ingrese la descripci&oacute;n...">
 </div>
 <br>
 </div>
