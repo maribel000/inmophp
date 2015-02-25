@@ -7,26 +7,41 @@ class Avisos_model extends CI_Model {
         // Call the Model constructor
         parent::__construct();
     }
-	
-		
-	
-    function add_aviso($tipoop, $tipoinm, $provincia, $ciudad, $barrio, $direccion, $ambientes, $dormitorios, $banios, $metros2, $estado, $anio, $precio, $detalles)
+
+    function add_aviso(
+        $tipoop,
+        $tipoinm,
+        $idLocalidad,
+        $idBarrio,
+        $barrio,
+        $direccion,
+        $ambientes,
+        $dormitorios,
+        $banios,
+        $metros2,
+        $estado,
+        $anio,
+        $precio,
+        $detalles,
+        $estado_aviso
+    )
     {
 			$data = array(
-						   'tipo_op' => $tipoop,
-						   'tipo_inm' => $tipoinm,
-						   'provincia' => $provincia,
-						   'ciudad' => $ciudad,
-						   'barrio' => $barrio,
+						   'id_tipo_op' => $tipoop,
+						   'id_tipo_inmueble' => $tipoinm,
+						   'id_localidad' => $idLocalidad,
+                           'id_barrio' => $idBarrio,
+                           'nombre_barrio' => $barrio,
 						   'direccion' => $direccion,
-						   'ambientes' => $ambientes,
-						   'dormitorios' => $dormitorios,
-						   'banios' => $banios,
-						   'metros2' => $metros2,
-						   'estado' => $estado,
+						   'cant_ambientes' => $ambientes,
+						   'cant_dormitorios' => $dormitorios,
+						   'cant_banios' => $banios,
+						   'metros_cuadrados' => $metros2,
+						   'estado_inmueble' => $estado,
 						   'anio' => $anio,
 						   'precio' => $precio,
 						   'detalles' => utf8_decode($detalles),
+                           'estado_aviso' => $estado_aviso
 						);
 
 			$this->db->insert('avisos', $data); 

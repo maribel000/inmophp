@@ -55,8 +55,8 @@ class Avisos extends CI_Controller {
 
 		    $tipoop = $this->input->post('tipoop');
 			$tipoinm = $this->input->post('tipoinm');
-			$provincia = $this->input->post('provincia');
-			$ciudad = $this->input->post('ciudad');
+			$idLocalidad = $this->input->post('idLocalidad');
+            $idBarrio = null; //TODO: en algun momento habria que tomar el barrio por id
 			$barrio = $this->input->post('barrio');
 			$direccion = $this->input->post('direccion');
 			$ambientes = $this->input->post('ambientes');
@@ -67,11 +67,44 @@ class Avisos extends CI_Controller {
 			$anio = $this->input->post('anio');
 			$precio = $this->input->post('precio');
 			$detalles = $this->input->post('detalles');
+            $estado_aviso = "Pendiente";
 
 			$this->load->model('Avisos_model', '', TRUE); 
-			$res = $this->Avisos_model->add_aviso($tipoop, $tipoinm, $provincia, $ciudad, $barrio, $direccion, $ambientes, $dormitorios, $banios, $metros2, $estado, $anio, $precio, $detalles); 
+			$res = $this->Avisos_model->add_aviso(
+                $tipoop,
+                $tipoinm,
+                $idLocalidad,
+                $idBarrio,
+                $barrio,
+                $direccion,
+                $ambientes,
+                $dormitorios,
+                $banios,
+                $metros2,
+                $estado,
+                $anio,
+                $precio,
+                $detalles,
+                $estado_aviso
+            );
 
-			if ($res) { $msj = "Aviso Agregado"; } else { $msj = "El aviso no pudo ser agregado :(";}
+            $base_url = base_url();
+
+			if ($res) {
+
+                $msj = <<<HTML
+                    <div class="alert alert-success" role="alert">
+                    <strong>¡Excelente!</strong> Su <a href="{$base_url}index.php/avisos/ver/$res" class="alert-link">aviso</a> ha sido agregado, pero a&uacute;n se encuentra pendiente de aprobación. Le informaremos cuando &eacute;ste haya sido aprobado.
+                    </div>
+HTML;
+            } else {
+                $msj = <<<HTML
+                    <div class="alert alert-danger" role="alert">
+                    <strong>¡Upss..!</strong> Su aviso no pudo ser agregado.
+                    </div>
+HTML;
+            }
+
 			$data = array('msj' => $msj);
 			
 			if ($this->ion_auth->logged_in()){
