@@ -88,22 +88,32 @@ class Avisos_model extends CI_Model {
         return $query->result();
     }
 
-    function get_localidades()
+    function get_provincia($id)
     {
-        $sql_in = "SELECT * FROM `localidades`";
-        $query = $this->db->query($sql_in);
-        return $query->result();
+//        TODO: no trae la provincia que tiene acento, ejemplo: Córdoba
+        $this->db->select('nombre');
+        $this->db->where('id', $id);
+        $query = $this->db->get('provincias');
+
+        return $query->row()->nombre;
     }
 
-    function get_localidades_2($q){
-        $this->db->select('nombre');
+    function get_localidades($q)
+    {
+        $this->db->select('*');
         $this->db->like('nombre', $q);
         $query = $this->db->get('localidades');
+
         if($query->num_rows > 0){
             foreach ($query->result_array() as $row){
-                $row_set[] = htmlentities(stripslashes($row['nombre'])); //build an array
+                $new_row['idLocalidad']=htmlentities(stripslashes($row['id']));
+                $new_row['localidad']=htmlentities(stripslashes($row['nombre']));
+                $new_row['value']=htmlentities(stripslashes($row['nombre']));
+                $new_row['idProvincia']=htmlentities(stripslashes($row['id_provincia']));
+                $new_row['provincia']=htmlentities(stripslashes($this->get_provincia($row['id_provincia'])));
+                $row_set[] = $new_row;
             }
-            echo json_encode($row_set); //format the array into json data
+            echo json_encode($row_set);
         }
     }
 
