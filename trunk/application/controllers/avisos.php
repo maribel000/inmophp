@@ -88,10 +88,13 @@ class Avisos extends CI_Controller {
 	}
 
     function get_localidades(){
-        $this->load->model('Avisos_model');
+        $this->load->helper('url');
+        $this->load->library('ion_auth');
+        $this->load->model('Avisos_model', '', TRUE);
+
         if (isset($_GET['term'])){
             $q = strtolower($_GET['term']);
-            $this->Avisos_model->get_localidades_2($q);
+            $this->Avisos_model->get_localidades($q);
         }
     }
 
