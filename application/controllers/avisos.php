@@ -53,6 +53,45 @@ class Avisos extends CI_Controller {
 
 		} else {
 
+            $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'jpg|png|jpeg';
+            $config['max_size']  = '0';
+            $config['max_width']  = '0';
+            $config['max_height']  = '0';
+
+            $this->load->library('upload', $config);
+
+            $configThumb = array();
+            $configThumb['image_library'] = 'gd2';
+            $configThumb['source_image'] = '';
+            $configThumb['create_thumb'] = TRUE;
+            $configThumb['maintain_ratio'] = TRUE;
+
+            $configThumb['width'] = 140;
+            $configThumb['height'] = 210;
+
+            $this->load->library('image_lib');
+
+            for($i = 1; $i < 4; $i++) {
+                /* genero un filename "unico" */
+                $config['file_name'] = 'foto_'.uniqid(rand()).'_'.$i;
+                $this->upload->initialize($config);
+
+                $upload = $this->upload->do_upload('foto'.$i);
+                /* fallo la carga */
+                if($upload === FALSE) continue;
+                /* obtengo info para hacer los thumbs */
+                $data = $this->upload->data();
+
+                $uploadedFiles[$i] = $data;
+                /* creo los thumbs */
+                if($data['is_image'] == 1) {
+                    $configThumb['source_image'] = $data['full_path'];
+                    $this->image_lib->initialize($configThumb);
+                    $this->image_lib->resize();
+                }
+            }
+
 		    $tipoop = $this->input->post('tipoop');
 			$tipoinm = $this->input->post('tipoinm');
 			$idLocalidad = $this->input->post('idLocalidad');

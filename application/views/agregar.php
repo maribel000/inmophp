@@ -18,6 +18,7 @@
 
     <script type="text/javascript" src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
     <script	type="text/javascript" src="<?php echo base_url();?>theme/dist/js/bootstrap-select.js"></script>
+    <script	type="text/javascript" src="<?php echo base_url();?>theme/dist/js/bootstrap-filestyle.min.js"></script>
 
     <link href="<?php echo base_url();?>theme/assets/jquery/jquery-ui.css" type="text/css" rel="stylesheet">
 
@@ -55,15 +56,16 @@
 	<center>
 <div style="max-width:600px">
 <h1>Agregar Aviso</h1>
+<br />
 <?php if(validation_errors()) {?>
  <div class="alert alert-danger" role="alert" style="padding:4px"><?php echo validation_errors(); ?></div>
 <?php } ?>
 
-<form name="agregar_aviso" method="post" action="<?php echo base_url();?>avisos/agregar">
+<form name="agregar_aviso" method="post" action="<?=base_url()?>avisos/agregar" enctype="multipart/form-data">
 <div class="form-group">
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Tipo de operaci&oacute;n:</span>
-<select name="tipoop" id="tipoop" class="form-control" data-toggle="popover" data-trigger="hover" data-content="Las ventas se hacen en dolares y los alquileres en pesos">
+<select name="tipoop" id="tipoop" class="form-control" data-toggle="popover" data-trigger="hover" data-content="Las ventas se realizan en dolares y los alquileres en pesos.">
   <?php foreach ($tipos_op as $tipo_op) { ?>
   <option value="<?php echo $tipo_op->id;?>"><?php echo $tipo_op->nombre;?></option>
   <?php } ?>
@@ -83,8 +85,8 @@
 <div class="form-group">
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Ciudad:</span>
-<input name="localidad" type="text" id="localidades" class="form-control" />
-<input name="idLocalidad" type="hidden" id="idLocalidad" value="" />
+<input name="localidad" type="text" id="localidades" value="" class="form-control">
+<input name="idLocalidad" type="hidden" id="idLocalidad" value="">
 </div>
 <br>
 <div class="input-group">
@@ -94,7 +96,7 @@
 <br>
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Direcci&oacute;n:</span>
-<input name="direccion" type="text" id="direccion" value="" class="form-control" data-toggle="popover" data-trigger="hover" data-content="Direccion exacta para ubicar en google maps.">
+<input name="direccion" type="text" id="direccion" value="" class="form-control" data-toggle="popover" data-trigger="hover" data-content="Direccion exacta del inmueble.">
 </div>
 </div>
 <div class="form-group">
@@ -148,16 +150,23 @@
 <input name="precio" type="text" id="precio" value="" class="form-control">
 </div>
 <br>
-</div>
-fotos<br><br>
 <div class="input-group">
-<span class="input-group-addon" style="vertical-align:top; padding-top:30px; min-width:180px">Detalles:</span>
+    <span class="input-group-addon" style="min-width:180px;">Fotos:</span>
+    <input name="foto1" type="file" id="foto1" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
+    <input name="foto2" type="file" id="foto2" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
+    <input name="foto3" type="file" id="foto3" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
+</div>
+<br>
+</div>
+<div class="input-group">
+<span class="input-group-addon" style="min-width:180px">Detalles:</span>
 <textarea name="detalles" cols="35" rows="10" id="detalles" class="form-control" style="font-family:Courier New"></textarea>
 </div>
 <br>
 
-    <center><button id="botagregar" type="submit" class="btn btn-default btn-lg" name="save" >Enviar</button></center>
+    <center><button id="botagregar" type="submit" class="btn btn-default btn-lg" style="min-width:600px" name="save" >Enviar</button></center>
 </form>
+<br />
 	
 	</div>
 	</center>
