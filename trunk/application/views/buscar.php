@@ -50,18 +50,19 @@
 	</head>
     <body>
 
-        <?php echo $menu; ?>
 
-        <div class="container">
+
+    <div class="container">
 			<div class="jumbotron" style="padding: 1em; background-color: #F5ECCE;">
 				<div class="row">
 					<div class="col-md-11">
 						<div class="row">
-                            <form name="buscar_avisos" method="post" action="<?=base_url()?>buscar" enctype="multipart/form-data">
+                            <form name="buscar_avisos" method="get" action="<?=base_url()?>buscar/s" enctype="multipart/form-data">
 
                                 <div class="col-md-3">
-							        Tipo de Operación: 
-							        <select name="tipoop" class="selectpicker show-tick form-control">
+							        Tipo de Operación:
+
+                                    <select name="tipoop" class="selectpicker show-tick form-control">
 							            <?php echo $combo_tipoop; ?>
 							        </select>
 							    </div>
@@ -123,7 +124,7 @@
 						
 						<div class="panel-body">
 							<div class="row">									
-								<?php foreach ( $avisos->result () as $aviso ) {?>
+								<?php foreach ( $avisos->result() as $aviso ) {?>
 								    
 								<div class="media">
 								    <a class="media-left" href="#"> 
@@ -149,13 +150,17 @@
 				
 							<center>
 								<ul class="pagination">
-									<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+<!--									<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 									<li><a href="#">1</a></li>
 									<li><a href="#">2</a></li>
 									<li><a href="#">3</a></li>
 									<li><a href="#">4</a></li>
 									<li><a href="#">5</a></li>
-									<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
+									<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>-->
+                                    <?php
+                                    /* Se imprimen los números de página */
+                                    echo $this->pagination->create_links();
+                                    ?>
 								</ul>
 							</center>						
 						</div>

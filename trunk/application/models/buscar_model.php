@@ -107,73 +107,197 @@ class Buscar_model extends CI_Model {
             echo json_encode($row_set); //format the array into json data
         }
     }
-    
-    
+
+
     // ver que variables necesita buscar.php
     function buscar_avisos($tipoOp,$tipoPro,$idLocalidad) {
-    	
-    	$this->load->helper('url');
-    	$this->load->library('ion_auth');
-    	
-    	if ($this->ion_auth->logged_in()){
-    		$data['user'] = $this->ion_auth->user()->row();
-    		$datos["menu"] = $this->load->view('menu_us', $data, true);
-    	}else{
-    		$datos["menu"] = $this->load->view('menu_nu');
-    	}
-    	// esta funcion loguea dato del back-end y performance de los modulos
-    	//$this->output->enable_profiler(TRUE);
-    	
-    	$this->db->select('avisos.id');
-		$this->db->select('avisos.direccion');
-		$this->db->select('avisos.metros_cuadrados');
-		$this->db->select('avisos.cant_ambientes');
-		$this->db->select('avisos.cant_dormitorios');
-		$this->db->select('avisos.cant_banios');
-		$this->db->select('avisos.estado_inmueble');
-		$this->db->select('avisos.anio');
-		$this->db->select('avisos.detalles');
-		$this->db->select('avisos.precio');
-		$this->db->select('avisos.fecha');
-		$this->db->select('avisos.estado_aviso');
-		$this->db->select('avisos.nombre_barrio');
-		
-		$this->db->select('tipos_inmuebles.descripcion as tipo_inmueble');
-		$this->db->select('tipos_op.nombre as tipo_op');
-		$this->db->select('localidades.id as id_localidad');
-		$this->db->select('users.first_name as first_name');
-		$this->db->select('aviso_fotos.url');
-		
-		$this->db->from('avisos');
-		
-		$this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
-		$this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
-		$this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
-		$this->db->join('users', 'avisos.id_usuario = users.id','left');
-		$this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
-	
-		// El cero representa todo tipo de operaciones
-		if($tipoOp != 0) {
-			$this->db->where('avisos.id_tipo_op',$tipoOp);
-		}
-		
-		// El cero representa que es para todo tipo de propiedad
-		if($tipoPro != 0) {
-			$this->db->where('avisos.id_tipo_inmueble',$tipoPro);
-		}
-		
-		// El string vacio para cuando no se ingreso nada en el input de Localidad
-/*		if($ciudad != "") {
-			$this->db->where('localidades.nombre',$ciudad);
-		}*/
+
+        $this->load->helper('url');
+        $this->load->library('ion_auth');
+
+        if ($this->ion_auth->logged_in()){
+            $data['user'] = $this->ion_auth->user()->row();
+            $datos["menu"] = $this->load->view('menu_us', $data, true);
+        }else{
+            $datos["menu"] = $this->load->view('menu_nu');
+        }
+        // esta funcion loguea dato del back-end y performance de los modulos
+        //$this->output->enable_profiler(TRUE);
+
+        $this->db->select('avisos.id');
+        $this->db->select('avisos.direccion');
+        $this->db->select('avisos.metros_cuadrados');
+        $this->db->select('avisos.cant_ambientes');
+        $this->db->select('avisos.cant_dormitorios');
+        $this->db->select('avisos.cant_banios');
+        $this->db->select('avisos.estado_inmueble');
+        $this->db->select('avisos.anio');
+        $this->db->select('avisos.detalles');
+        $this->db->select('avisos.precio');
+        $this->db->select('avisos.fecha');
+        $this->db->select('avisos.estado_aviso');
+        $this->db->select('avisos.nombre_barrio');
+
+        $this->db->select('tipos_inmuebles.descripcion as tipo_inmueble');
+        $this->db->select('tipos_op.nombre as tipo_op');
+        $this->db->select('localidades.id as id_localidad');
+        $this->db->select('users.first_name as first_name');
+        $this->db->select('aviso_fotos.url');
+
+        $this->db->from('avisos');
+
+        $this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
+        $this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
+        $this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
+        $this->db->join('users', 'avisos.id_usuario = users.id','left');
+        $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
+
+        // El cero representa todo tipo de operaciones
+        if($tipoOp != 0) {
+            $this->db->where('avisos.id_tipo_op',$tipoOp);
+        }
+
+        // El cero representa que es para todo tipo de propiedad
+        if($tipoPro != 0) {
+            $this->db->where('avisos.id_tipo_inmueble',$tipoPro);
+        }
+
+        // El string vacio para cuando no se ingreso nada en el input de Localidad
+        /*		if($ciudad != "") {
+                    $this->db->where('localidades.nombre',$ciudad);
+                }*/
 
         if($idLocalidad != "") {
             $this->db->where('localidades.id',$idLocalidad);
         }
 
         $query = $this->db->get();
-		
-		return $query;
+
+        return $query;
+    }
+
+
+    // ver que variables necesita buscar.php
+    function buscar_avisos_2($tipoOp,$tipoPro,$idLocalidad,$porpagina,$segmento) {
+
+        $this->load->helper('url');
+        $this->load->library('ion_auth');
+
+        if ($this->ion_auth->logged_in()){
+            $data['user'] = $this->ion_auth->user()->row();
+            $datos["menu"] = $this->load->view('menu_us', $data, true);
+        }else{
+            $datos["menu"] = $this->load->view('menu_nu');
+        }
+        // esta funcion loguea dato del back-end y performance de los modulos
+        //$this->output->enable_profiler(TRUE);
+
+        $this->db->select('avisos.id');
+        $this->db->select('avisos.direccion');
+        $this->db->select('avisos.metros_cuadrados');
+        $this->db->select('avisos.cant_ambientes');
+        $this->db->select('avisos.cant_dormitorios');
+        $this->db->select('avisos.cant_banios');
+        $this->db->select('avisos.estado_inmueble');
+        $this->db->select('avisos.anio');
+        $this->db->select('avisos.detalles');
+        $this->db->select('avisos.precio');
+        $this->db->select('avisos.fecha');
+        $this->db->select('avisos.estado_aviso');
+        $this->db->select('avisos.nombre_barrio');
+
+        $this->db->select('tipos_inmuebles.descripcion as tipo_inmueble');
+        $this->db->select('tipos_op.nombre as tipo_op');
+        $this->db->select('localidades.id as id_localidad');
+        $this->db->select('users.first_name as first_name');
+        $this->db->select('aviso_fotos.url');
+
+//        $this->db->from('avisos');
+
+        $this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
+        $this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
+        $this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
+        $this->db->join('users', 'avisos.id_usuario = users.id','left');
+        $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
+
+        // El cero representa todo tipo de operaciones
+        if($tipoOp != 0) {
+            $this->db->where('avisos.id_tipo_op',$tipoOp);
+        }
+
+        // El cero representa que es para todo tipo de propiedad
+        if($tipoPro != 0) {
+            $this->db->where('avisos.id_tipo_inmueble',$tipoPro);
+        }
+
+        // El string vacio para cuando no se ingreso nada en el input de Localidad
+        /*		if($ciudad != "") {
+                    $this->db->where('localidades.nombre',$ciudad);
+                }*/
+
+        if($idLocalidad != "") {
+            $this->db->where('localidades.id',$idLocalidad);
+        }
+
+        $query = $this->db->get('avisos',$porpagina,$segmento);
+
+        return $query;
+    }
+
+    function buscar_avisos_total($tipoOp, $tipoPro, $idLocalidad) {
+        // esta funcion loguea dato del back-end y performance de los modulos
+        $this->output->enable_profiler(TRUE);
+
+        $this->db->select('avisos.id');
+        $this->db->select('avisos.direccion');
+        $this->db->select('avisos.metros_cuadrados');
+        $this->db->select('avisos.cant_ambientes');
+        $this->db->select('avisos.cant_dormitorios');
+        $this->db->select('avisos.cant_banios');
+        $this->db->select('avisos.estado_inmueble');
+        $this->db->select('avisos.anio');
+        $this->db->select('avisos.detalles');
+        $this->db->select('avisos.precio');
+        $this->db->select('avisos.fecha');
+        $this->db->select('avisos.estado_aviso');
+        $this->db->select('avisos.nombre_barrio');
+
+        $this->db->select('tipos_inmuebles.descripcion as tipo_inmueble');
+        $this->db->select('tipos_op.nombre as tipo_op');
+        $this->db->select('localidades.id as id_localidad');
+        $this->db->select('users.first_name as first_name');
+        $this->db->select('aviso_fotos.url');
+
+        $this->db->from('avisos');
+
+        $this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
+        $this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
+        $this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
+        $this->db->join('users', 'avisos.id_usuario = users.id','left');
+        $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
+
+        // El cero representa todo tipo de operaciones
+        if($tipoOp != 0) {
+            $this->db->where('avisos.id_tipo_op',$tipoOp);
+        }
+
+        // El cero representa que es para todo tipo de propiedad
+        if($tipoPro != 0) {
+            $this->db->where('avisos.id_tipo_inmueble',$tipoPro);
+        }
+
+        // El string vacio para cuando no se ingreso nada en el input de Localidad
+        /*		if($ciudad != "") {
+                    $this->db->where('localidades.nombre',$ciudad);
+                }*/
+
+        if($idLocalidad != "") {
+            $this->db->where('localidades.id',$idLocalidad);
+        }
+
+        $query = $this->db->get();
+
+        return $query->num_rows();
     }
 
 }
