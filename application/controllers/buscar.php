@@ -8,37 +8,58 @@ class Buscar extends CI_Controller {
 	 
 	public function index()
 	{
-		$this->load->helper('url');
-		$this->load->library('ion_auth');
-		$this->load->model('Buscar_model', '', TRUE); 
-				
-		$datos["busqueda"] = 1;
-		$datos["tipoop"] = $_GET["tipoop"];
-		$datos["tipopro"] = $_GET["tipopro"];
-		$datos["localidad"] = $_GET["localidades"];
-		$datos["provincia"] = $_GET["provincia"];
-		
-		$datos["combo_tipoop"]   = $this->getTipoOperData($datos["tipoop"]);
-		$datos["combo_tipopro"]  = $this->getTipoPropsData($datos["tipopro"]);
-		$datos["combo_prov"]     = $this->getProvinciaData($datos["provincia"]);
-		
-	 	$res = $this->Buscar_model->buscar_avisos($datos["tipoop"],$datos["tipopro"],$datos["localidad"]);
-		$datos["avisos"] = $res;
-		$res = $this->Buscar_model->tipoops();
-		$datos["tipoops"] = $res;
-		$res = $this->Buscar_model->tipoprops();
-		$datos["tipoprops"] = $res;
-		$res = $this->Buscar_model->localidades();
-		$datos["localidades"] = $res;
-		
-		if ($this->ion_auth->logged_in()){
-			$data['user'] = $this->ion_auth->user()->row();
-			$datos["menu"] = $this->load->view('menu_us', $data, true);
-		}else{
-			$datos["menu"] = $this->load->view('menu_nu');
-		}		
-		
-		$this->load->view('buscar', $datos);
+        $this->load->helper('url');
+        $this->load->library('ion_auth');
+        $this->load->library('form_validation');
+
+        $datos["msj"] = "buscar";
+
+        $this->load->model('Buscar_model', '', TRUE);
+
+        if ($this->ion_auth->logged_in()) {
+            $data['user'] = $this->ion_auth->user()->row();
+            $datos["menu"] = $this->load->view('menu_us', $data, true);
+        } else {
+            $datos["menu"] = $this->load->view('menu_nu');
+        }
+
+        $this->form_validation->set_rules('tipoop', 'Tipo de operacion', 'required');
+        $this->form_validation->set_rules('tipopro', 'Tipo de propiedad', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $datos["busqueda"] = 0;
+
+            $datos["combo_tipoop"] = $this->getTipoOperData(0);
+            $datos["combo_tipopro"] = $this->getTipoPropsData(0);
+            $datos["combo_prov"] = $this->getProvinciaData(0);
+            $datos["localidad"] = "";
+            $datos["idLocalidad"] = "";
+
+            $this->load->view('buscar', $datos);
+
+        } else {
+
+            $datos["busqueda"] = 1;
+            $datos["tipoop"] = $this->input->post('tipoop');
+            $datos["tipopro"] = $this->input->post('tipopro');
+            $datos["localidad"] = $this->input->post('localidad');
+            $datos["idLocalidad"] = $this->input->post('idLocalidad');
+
+            $datos["combo_tipoop"] = $this->getTipoOperData($datos["tipoop"]);
+            $datos["combo_tipopro"] = $this->getTipoPropsData($datos["tipopro"]);
+
+            $res = $this->Buscar_model->buscar_avisos($datos["tipoop"], $datos["tipopro"], $datos["idLocalidad"]);
+            $datos["avisos"] = $res;
+            $res = $this->Buscar_model->tipoops();
+            $datos["tipoops"] = $res;
+            $res = $this->Buscar_model->tipoprops();
+            $datos["tipoprops"] = $res;
+            $res = $this->Buscar_model->localidades();
+            $datos["localidades"] = $res;
+
+            $this->load->view('buscar', $datos);
+        }
 	
 	}
 	

@@ -110,7 +110,7 @@ class Buscar_model extends CI_Model {
     
     
     // ver que variables necesita buscar.php
-    function buscar_avisos($tipoOp,$tipoPro,$ciudad) {
+    function buscar_avisos($tipoOp,$tipoPro,$idLocalidad) {
     	
     	$this->load->helper('url');
     	$this->load->library('ion_auth');
@@ -163,11 +163,15 @@ class Buscar_model extends CI_Model {
 		}
 		
 		// El string vacio para cuando no se ingreso nada en el input de Localidad
-		if($ciudad != "") {
+/*		if($ciudad != "") {
 			$this->db->where('localidades.nombre',$ciudad);
-		}
-		
-		$query = $this->db->get();
+		}*/
+
+        if($idLocalidad != "") {
+            $this->db->where('localidades.id',$idLocalidad);
+        }
+
+        $query = $this->db->get();
 		
 		return $query;
     }

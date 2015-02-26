@@ -6,7 +6,9 @@
 <META name="description" content="red de inmobiliarias">
 <meta http-equiv="Content-Language" content="en-us">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
     <title>RedInmo</title>
+
     <link href="<?php echo base_url();?>theme/dist/css/bootstrap-select.css" rel="stylesheet">
     <link href="<?php echo base_url();?>theme/dist/css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo base_url();?>theme/dist/css/propio.css" rel="stylesheet">
@@ -33,10 +35,9 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $("#localidades").autocomplete({
-                source: "<?=base_url()?>index.php/avisos/get_localidades",
+                source: "<?=base_url()?>avisos/get_localidades",
                 select: function(e, ui) {
                     $('#idLocalidad').val(ui.item.idLocalidad);
-                    $('#idProvincia').val(ui.item.idProvincia);
                 }
             }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
                 var inner_html = '<a><div class="list_item_container"><div class="localidad">' + item.localidad + '</div><div class="provincia">' + item.provincia + '</div></div></a>';
