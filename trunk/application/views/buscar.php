@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<META name="description" content="red de inmobiliarias">
-		<meta http-equiv="Content-Language" content="en-us">
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="RedInmo.com">
+    <META name="description" content="red de inmobiliarias">
+    <meta http-equiv="Content-Language" content="en-us">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 		
 		<title>RedInmo</title>
 		
@@ -29,25 +30,36 @@
 		  <![endif]-->
 		
 		<link href="<?php echo base_url();?>theme/assets/jquery/jquery.ui.css" rel="stylesheet" type="text/css" />
+
 		<script>
-		    $(document).ready(function(){
-		      $("#localidades").autocomplete({
-		        source: "<?=base_url()?>index.php/buscar/get_localidades" // path to the get_birds method
-		      });
-		    });
+            $(document).ready(function(){
+                $("#localidades").autocomplete({
+                    source: "<?=base_url()?>avisos/get_localidades",
+                    select: function(e, ui) {
+                        $('#idLocalidad').val(ui.item.idLocalidad);
+                    }
+                }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                    var inner_html = '<a><div class="list_item_container"><div class="localidad">' + item.localidad + '</div><div class="provincia">' + item.provincia + '</div></div></a>';
+                    return $( "<li></li>" )
+                        .data( "item.autocomplete", item )
+                        .append(inner_html)
+                        .appendTo( ul );
+                };
+            });
 		</script>
 	</head>
-	<body>
-	
-		<?php echo $menu; ?>
-		
-		<div class="container">
+    <body>
+
+        <?php echo $menu; ?>
+
+        <div class="container">
 			<div class="jumbotron" style="padding: 1em; background-color: #F5ECCE;">
 				<div class="row">
 					<div class="col-md-11">
 						<div class="row">
-							<form action="<?=base_url()?>index.php/buscar" method="get">
-							    <div class="col-md-2">
+                            <form name="buscar_avisos" method="post" action="<?=base_url()?>buscar" enctype="multipart/form-data">
+
+                                <div class="col-md-3">
 							        Tipo de Operación: 
 							        <select name="tipoop" class="selectpicker show-tick form-control">
 							            <?php echo $combo_tipoop; ?>
@@ -60,21 +72,15 @@
 							            <?php echo $combo_tipopro; ?>
 							        </select>
 							    </div>
-							    
-							    <div class="col-md-3">
-						          Provincia:
-						          <select name ="tipopro" class="form-control">
-						            <?php echo $combo_prov; ?>
-						          </select>
-						        </div>
-							
-							    <div class="col-md-3">
-							        Localidad: 
-							        <input name="localidades" id="localidades" type="text" class="form-control" value="<?php echo $localidad;?>">
+
+							    <div class="col-md-4">
+							        Ciudad:
+                                    <input name="localidad" type="text" id="localidades" value="<?=$localidad;?>"class="form-control" >
+                                    <input name="idLocalidad" type="hidden" id="idLocalidad" value="<?=$idLocalidad;?>">
 							    </div>
 							
 							    <div class="col-xs-1">
-							        <button type="submit" class="btn btn-default btn-lg" style="margin-top: 10px">Buscar</button>
+							        <button type="submit" class="btn btn-default btn-lg" style="margin-top: 30px">Buscar</button>
 							    </div>
 							    
 							</form>							
@@ -82,18 +88,18 @@
 					</div>
 				</div>
 			</div>
-	
-		    <?php if ($busqueda) { 
+
+		    <?php if ($busqueda) {
 					$tipoops_tmp = array ();
 					foreach ( $tipoops->result () as $tipoop_tmp ) {
 						$tipoops_tmp [$tipoop_tmp->id] = $tipoop_tmp->nombre;
 					}
-					
+
 					$tipoprops_tmp = array ();
 					foreach ( $tipoprops->result () as $tipoprop_tmp ) {
 						$tipoprops_tmp [$tipoprop_tmp->id] = $tipoprop_tmp->descripcion;
 					}
-					
+
 					$localidades_tmp = array ();
 					foreach ( $localidades->result () as $localidad_tmp ) {
 						$localidades_tmp [$localidad_tmp->id] = $localidad_tmp->nombre;
