@@ -68,6 +68,8 @@ class Avisos extends CI_Controller {
 			$precio = $this->input->post('precio');
 			$detalles = $this->input->post('detalles');
             $estado_aviso = "Pendiente";
+//            TODO: insertar fecha
+//            $fecha =
 
             $fotodesc = array();
 //            $foto1 = $this->input->post('foto1');
@@ -285,24 +287,44 @@ HTML;
 
 			$this->load->view('addaviso-ok', $data);
 		}
-	}		
-
-	public function ver($id)
-	{
-	    $this->load->helper(array('form', 'url'));
-		$this->load->library('ion_auth');	
-		$this->load->model('Avisos_model', '', TRUE); 
-		$todo = $this->Avisos_model->get_aviso($id); 	
-		$todo = $todo[0];
-		$datos = array('tipo_op' => $todo->tipo_op, 'tipo_inm' => $todo->tipo_inm, 'detalles' => $todo->detalles); 			
-		if ($this->ion_auth->logged_in()){
-			$data['user'] = $this->ion_auth->user()->row();
-			$datos["menu"] = $this->load->view('menu_us', $data, true);
-		}else{
-			$datos["menu"] = $this->load->view('menu_nu');
-		}			
-		$this->load->view('veraviso', $datos);
 	}
+
+    public function ver($id)
+    {
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('ion_auth');
+        $this->load->model('Avisos_model', '', TRUE);
+        $todo = $this->Avisos_model->get_aviso($id);
+        $todo = $todo[0];
+        $datos = array('tipo_op' => $todo->tipo_op, 'tipo_inm' => $todo->tipo_inm, 'detalles' => $todo->detalles);
+        if ($this->ion_auth->logged_in()){
+            $data['user'] = $this->ion_auth->user()->row();
+            $datos["menu"] = $this->load->view('menu_us', $data, true);
+        }else{
+            $datos["menu"] = $this->load->view('menu_nu');
+        }
+        $this->load->view('veraviso', $datos);
+    }
+
+    public function listar()
+    {
+        $this->load->helper('url');
+        $this->load->library('ion_auth');
+        $this->load->library('form_validation');
+
+        $this->load->model('Avisos_model', '', TRUE);
+
+        $datos["msj"] = "listar";
+
+        if ($this->ion_auth->logged_in()){
+            $datos['user'] = $this->ion_auth->user()->row();
+            $data["menu"] = $this->load->view('menu_us', $datos, true);
+        } else {
+            $data["menu"] = $this->load->view('menu_nu');
+        }
+
+        $this->load->view('avisos', $datos);
+    }
 	
 }
 
