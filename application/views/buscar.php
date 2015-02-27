@@ -108,15 +108,16 @@
 			?>
 
  			<div class="row">
-				<div class="col-md-4">
+<!--				<div class="col-md-4">
 					<div class="panel panel-info">
 						<div class="panel-heading">Refinar busqueda</div>
 						<div class="panel-body">opciones</div>
 					</div>
-				</div>				
+				</div>		-->
 				
-				<div class="col-md-8">
-					<div class="panel panel-info">				
+<!--				<div class="col-md-8">-->
+				<div class="col-md-12">
+					<div class="panel panel-info">
 						<div class="panel-heading">
 							Resultados de la busqueda: 
 							<?php echo ' <strong>'.$total_rows.'</strong> inmuebles encontrados.';?>
