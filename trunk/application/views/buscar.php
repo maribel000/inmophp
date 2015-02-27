@@ -119,7 +119,7 @@
 					<div class="panel panel-info">				
 						<div class="panel-heading">
 							Resultados de la busqueda: 
-							<?php echo ' <strong>'.$avisos->num_rows().'</strong> coincidencias.';?>
+							<?php echo ' <strong>'.$total_rows.'</strong> inmuebles encontrados.';?>
 						</div>
 						
 						<div class="panel-body">
@@ -149,19 +149,7 @@
 							</div>
 				
 							<center>
-								<ul class="pagination">
-<!--									<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>-->
-                                    <?php
-                                    /* Se imprimen los números de página */
-                                    echo $this->pagination->create_links();
-                                    ?>
-								</ul>
+								<ul class="pagination"><?=$this->pagination->create_links()?></ul>
 							</center>						
 						</div>
 					</div>					
