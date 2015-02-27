@@ -70,8 +70,8 @@
 		    <div class="row">
                 <div class="col-md-11">
 		        <div class="row">
-                <form id="homeForm" name="buscar_avisos" method="post" action="<?=base_url()?>buscar" enctype="multipart/form-data">
-		          <div class="col-md-3">
+                <form id="homeForm" name="buscar_avisos" method="get" action="<?=base_url()?>buscar/s" enctype="multipart/form-data">
+                    <div class="col-md-3">
 		            Tipo de Operación:
                       <select name="tipoop" id="tipoop" class="selectpicker show-tick form-control">
 		             <?php echo $combo_tipoop; ?>
