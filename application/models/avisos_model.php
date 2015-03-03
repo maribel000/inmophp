@@ -219,5 +219,17 @@ class Avisos_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    function listar_avisos_total() {
+        $query = $this->db->get('avisos');
+
+        return $query->num_rows();
+    }
+
+    function listar_avisos($porpagina,$segmento) {
+        $query = $this->db->get('avisos',$porpagina,$segmento);
+
+        return $query;
+    }
+
 }
 ?>

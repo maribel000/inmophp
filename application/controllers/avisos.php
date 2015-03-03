@@ -311,17 +311,61 @@ HTML;
         $this->load->helper('url');
         $this->load->library('ion_auth');
         $this->load->library('form_validation');
-
-        $this->load->model('Avisos_model', '', TRUE);
+        $this->load->library('pagination');
 
         $datos["msj"] = "listar";
 
-        if ($this->ion_auth->logged_in()){
-            $datos['user'] = $this->ion_auth->user()->row();
-            $data["menu"] = $this->load->view('menu_us', $datos, true);
+        $this->load->model('Avisos_model', '', TRUE);
+        $this->load->model('Buscar_model', '', TRUE);
+
+        if ($this->ion_auth->logged_in()) {
+            $data['user'] = $this->ion_auth->user()->row();
+            $datos["menu"] = $this->load->view('menu_us', $data, true);
         } else {
-            $data["menu"] = $this->load->view('menu_nu');
+            $datos["menu"] = $this->load->view('menu_nu');
         }
+
+        $datos["tipoops"] = $this->Buscar_model->tipoops();
+        $datos["tipoprops"] = $this->Buscar_model->tipoprops();
+        $datos["localidades"] = $this->Buscar_model->localidades();
+        $datos["usuarios"] = $this->Buscar_model->usuarios();
+
+        /* URL a la que se desea agregar la paginación*/
+        $config['base_url'] = base_url().'/';
+        $config['prefix'] =  'avisos/listar/';
+        if (count($_GET) > 0) $config['suffix'] =  '?' . http_build_query($_GET, '', "&");
+        $config['first_url'] = base_url().'/avisos/listar?'.http_build_query($_GET);
+
+        /*Obtiene el total de registros a paginar */
+        $config['total_rows'] = $datos['total_rows'] = $this->Avisos_model->listar_avisos_total();
+
+        /*Obtiene el numero de registros a mostrar por pagina */
+        $config['per_page'] = 10;
+
+        /*Indica que segmento de la URL tiene la paginación, por default es 3*/
+        $config['uri_segment'] = 3;
+
+        /*Se personaliza la paginación para que se adapte a bootstrap*/
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['last_link'] = FALSE;
+        $config['first_link'] = FALSE;
+        $config['next_link'] = '&raquo;';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_link'] = '&laquo;';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+
+        /* Se inicializa la paginacion*/
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        /* Se obtienen los registros a mostrar*/
+        $datos['avisos'] = $this->Avisos_model->listar_avisos($config['per_page'], $page);
 
         $this->load->view('avisos', $datos);
     }
