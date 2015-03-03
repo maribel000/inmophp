@@ -94,6 +94,13 @@ class Buscar_model extends CI_Model {
     	return $rval;
     }
 
+    function usuarios()
+    {
+        $rval= $this->db->get('users');
+
+        return $rval;
+    }
+
     function get_localidad($q){
         $this->db->select('*');
         $this->db->like('nombre', $q);

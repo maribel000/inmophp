@@ -34,10 +34,64 @@
 	</head>
     <body>
 
+    <?php
+    $tipoops_tmp = array ();
+    foreach ( $tipoops->result () as $tipoop_tmp ) {
+        $tipoops_tmp [$tipoop_tmp->id] = $tipoop_tmp->nombre;
+    }
+
+    $tipoprops_tmp = array ();
+    foreach ( $tipoprops->result () as $tipoprop_tmp ) {
+        $tipoprops_tmp [$tipoprop_tmp->id] = $tipoprop_tmp->descripcion;
+    }
+
+    $localidades_tmp = array ();
+    foreach ( $localidades->result () as $localidad_tmp ) {
+        $localidades_tmp [$localidad_tmp->id] = $localidad_tmp->nombre;
+    }
+
+    $usuarios_tmp = array ();
+    foreach ( $usuarios->result () as $usuario_tmp ) {
+        $usuarios_tmp [$usuario_tmp->id] = $usuario_tmp->username;
+    }
+    ?>
+
     <div class="container">
-
-
-
+        <center><h1>Avisos</h1></center>
+        <div class="table-responsive">
+            <p><a class="btn btn-xs btn-success" href="<?php echo base_url();?>avisos/agregar">Agregar</a></p>
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th>Direcci&oacute;n</th>
+                    <th>Tipo operaci&oacute;n</th>
+                    <th>Tipo inmnueble</th>
+                    <th>Fecha de publicaci&oacute;n</th>
+                    <th>Ciudad</th>
+                    <th>Publicador</th>
+                    <th>Acci&oacute;n</th>
+                </tr>
+                <?php foreach ( $avisos->result() as $aviso ) {?>
+                <tr>
+                    <td><?=$aviso->id?></td>
+                    <td><?=$aviso->direccion?></td>
+                    <td><?=$tipoops_tmp[$aviso->id_tipo_op]?></td>
+                    <td><?=$tipoprops_tmp[$aviso->id_tipo_inmueble]?></td>
+                    <td><?=$aviso->fecha?></td>
+                    <td><?=$localidades_tmp[$aviso->id_localidad]?></td>
+                    <td><?=$usuarios_tmp[$aviso->id_usuario]?></td>
+                    <td>
+                        <a class="btn btn-xs btn-info" href="<?php echo base_url();?>avisos/ver/<?=$aviso->id?>">Ver</a>
+                        <a class="btn btn-xs btn-primary" href="<?php echo base_url();?>avisos/editar/<?=$aviso->id?>">Editar</a>
+                        <a class="btn btn-xs btn-danger" href="<?php echo base_url();?>avisos/borrar/<?=$aviso->id?>">Borrar</a>
+                    </td>
+                </tr>
+                <?php } ?>
+            </table>
+        </div>
+        <center>
+            <ul class="pagination"><?=$this->pagination->create_links()?></ul>
+        </center>
     </div>
 		
 	</body>
