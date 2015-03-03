@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
     <title>RedInmo</title>
-
+    <script type="text/javascript" src="<?php echo base_url();?>theme/assets/js/jquery.js"></script>
     <link href="<?php echo base_url();?>theme/dist/css/bootstrap-select.css" rel="stylesheet">
     <link href="<?php echo base_url();?>theme/dist/css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo base_url();?>theme/dist/css/propio.css" rel="stylesheet">
@@ -20,7 +20,7 @@
 
     <link href="<?php echo base_url();?>theme/assets/jquery/jquery-ui.css" type="text/css" rel="stylesheet">
 
-    <script type="text/javascript" src="<?php echo base_url();?>theme/assets/js/jquery.js"></script>
+
     <script type="text/javascript" src="<?php echo base_url();?>theme/assets/jquery/jquery-ui.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
