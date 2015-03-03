@@ -23,10 +23,11 @@ class Avisos_model extends CI_Model {
         $anio,
         $precio,
         $detalles,
-        $estado_aviso
+        $estado_aviso,
+        $fecha
     )
     {
-			$data = array(
+        $data = array(
 						   'id_tipo_op' => $tipoop,
 						   'id_tipo_inmueble' => $tipoinm,
 						   'id_localidad' => $idLocalidad,
@@ -41,7 +42,8 @@ class Avisos_model extends CI_Model {
 						   'anio' => $anio,
 						   'precio' => $precio,
 						   'detalles' => utf8_decode($detalles),
-                           'estado_aviso' => $estado_aviso
+                           'estado_aviso' => $estado_aviso,
+                           'fecha' => $fecha
 						);
 
 			$this->db->insert('avisos', $data);
