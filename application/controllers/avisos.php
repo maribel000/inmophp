@@ -68,8 +68,7 @@ class Avisos extends CI_Controller {
 			$precio = $this->input->post('precio');
 			$detalles = $this->input->post('detalles');
             $estado_aviso = "Pendiente";
-//            TODO: insertar fecha
-//            $fecha =
+            $fecha = date('Y-m-d H:i:s', now());
 
             $fotodesc = array();
 //            $foto1 = $this->input->post('foto1');
@@ -97,7 +96,8 @@ class Avisos extends CI_Controller {
                 $anio,
                 $precio,
                 $detalles,
-                $estado_aviso
+                $estado_aviso,
+                $fecha
             );
 
             /* inicio manejo de fotos */
