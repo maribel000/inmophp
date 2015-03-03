@@ -115,6 +115,31 @@ class Avisos_model extends CI_Model {
         return $query->row()->nombre;
     }
 
+	
+	function acentos($cadena) {  
+	   //$cadena = strtr($cadena,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ','aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+	   return $cadena;
+	}	
+	
+    function get_localidades($q)
+    {        
+		$this->db->select('*');
+        $this->db->like('nombre', $q);
+        $query = $this->db->get('localidades');
+
+        if($query->num_rows > 0){
+            foreach ($query->result_array() as $row){
+                $new_row['idLocalidad']=stripslashes($row['id']);
+                $new_row['localidad']=stripslashes($row['nombre']);
+                $new_row['value']=stripslashes($row['nombre']);
+                $new_row['idProvincia']=stripslashes($row['id_provincia']);
+                $new_row['provincia']=stripslashes($this->get_provincia($row['id_provincia']));
+                $row_set[] = $new_row;
+            }
+            echo json_encode($row_set);
+        }
+    }
+	/*
     function get_localidades($q)
     {
         $this->db->select('*');
@@ -132,14 +157,14 @@ class Avisos_model extends CI_Model {
             }
             echo json_encode($row_set);
         }
-    }
+    }*/
 
     function get_ult_avisos() {
 		//falta trabajar contra la DB
 		
     	$aviso = array();
     	
-    	$this->output->enable_profiler(TRUE);
+    	//$this->output->enable_profiler(TRUE);
     	
     	$this->db->select('avisos.id');
 		$this->db->select('avisos.direccion');
