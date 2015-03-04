@@ -163,7 +163,7 @@ class Avisos_model extends CI_Model {
 
     	$aviso = array();
     	
-    	$this->output->enable_profiler(TRUE);
+//    	$this->output->enable_profiler(TRUE);
     	
     	$this->db->select('avisos.id');
 		$this->db->select('avisos.direccion');
