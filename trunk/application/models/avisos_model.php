@@ -207,7 +207,8 @@ class Avisos_model extends CI_Model {
 		foreach($query->result_array() as $row) {
 			$aviso[$index]['titulo'] = $row['tipo_inmueble'].' en '.$row['tipo_op'].' en '.$row['nombre_localidad'].'.';
 			$aviso[$index]['texto']  = 'Ubicado en '.$row['provincia'].', '.$row['m2'].' mt2, '.$row['ambientes'].' ambientes, '.$row['banios'].' banios. '.$row['precio'].'<br /><br /><em>Agregado el: '.$row['fecha'].'</em>';
-			$aviso[$index]['foto']   = $row['foto'];
+            $aviso[$index]['foto']   = $row['foto'];
+            $aviso[$index]['id']   = $row['id'];
 			
 			$index++;
 		}

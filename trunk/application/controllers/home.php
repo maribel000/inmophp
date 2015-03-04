@@ -77,13 +77,13 @@ class Home extends CI_Controller {
 		foreach ($ultimosavisos as $aviso) {
 			$html = $html.'
 				<div class="media">
-				  <a class="media-left" href="#">
-					<img src="'.base_url().$aviso['foto'].'" height="125" width="125" class="img-rounded" alt="Rounded Image">
-				  </a>
-				  <div class="media-body">
-					<h4 class="media-heading">'.$aviso['titulo'].'</h4>
-					'.$aviso['texto'].'
-				  </div>
+                  <a class="media-left" href="'.base_url().'avisos/ver/'.$aviso['id'].'">
+                    <img src="'.base_url().$aviso['foto'].'" height="125" width="125" class="img-rounded" alt="Rounded Image" />
+                  </a>
+                  <div class="media-body">
+                    <h4 class="media-heading">'.$aviso['titulo'].'</h4>
+                    '.$aviso['texto'].'
+                  </div>
 				</div>';
 		}
 
