@@ -160,11 +160,10 @@ class Avisos_model extends CI_Model {
     }*/
 
     function get_ult_avisos() {
-		//falta trabajar contra la DB
-		
+
     	$aviso = array();
     	
-    	//$this->output->enable_profiler(TRUE);
+    	$this->output->enable_profiler(TRUE);
     	
     	$this->db->select('avisos.id');
 		$this->db->select('avisos.direccion');
@@ -191,8 +190,8 @@ class Avisos_model extends CI_Model {
 		$this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
 		$this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
 		$this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
-		$this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
 		$this->db->join('provincias', 'localidades.id_provincia = provincias.id','left');
+        $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
     	
 		$this->db->where('aviso_fotos.default',1);
 		
@@ -207,7 +206,7 @@ class Avisos_model extends CI_Model {
 		
 		foreach($query->result_array() as $row) {
 			$aviso[$index]['titulo'] = $row['tipo_inmueble'].' en '.$row['tipo_op'].' en '.$row['nombre_localidad'].'.';
-			$aviso[$index]['texto']  = 'Ubicado en '.$row['provincia'].', '.$row['m2'].' mt2, '.$row['ambientes'].' ambientes, '.$row['banios'].' banios. '.$row['precio'];
+			$aviso[$index]['texto']  = 'Ubicado en '.$row['provincia'].', '.$row['m2'].' mt2, '.$row['ambientes'].' ambientes, '.$row['banios'].' banios. '.$row['precio'].'<br /><br /><em>Agregado el: '.$row['fecha'].'</em>';
 			$aviso[$index]['foto']   = $row['foto'];
 			
 			$index++;
