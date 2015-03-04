@@ -269,10 +269,12 @@ HTML;
     {
         $this->load->helper(array('form', 'url'));
         $this->load->library('ion_auth');
+
         $this->load->model('Avisos_model', '', TRUE);
-        $todo = $this->Avisos_model->get_aviso($id);
-        $todo = $todo[0];
-        $datos = array('tipo_op' => $todo->tipo_op, 'tipo_inm' => $todo->tipo_inm, 'detalles' => $todo->detalles);
+
+        $datos['aviso'] = $this->Avisos_model->get_aviso($id);
+//        $datos = array('tipo_op' => $aviso->tipo_op, 'tipo_inm' => $aviso->tipo_inm, 'detalles' => $aviso->detalles);
+
         if ($this->ion_auth->logged_in()){
             $data['user'] = $this->ion_auth->user()->row();
             $datos["menu"] = $this->load->view('menu_us', $data, true);

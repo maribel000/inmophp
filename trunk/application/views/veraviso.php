@@ -34,7 +34,7 @@
 				<div class="panel-body" style="padding-top:0">
 					<h2 style="margin-top:10px">Casa en Venta</h2>
 					<h4>Av Pellegrini 2454, Rosario, Santa Fe, Argentina</h4>
-230 m² | 3 dorm. | 11 años | 2 baños | Con dependencia
+230 mï¿½ | 3 dorm. | 11 aï¿½os | 2 baï¿½os | Con dependencia
 <br><br>
 
 <ul id="myTab" class="nav nav-tabs">
@@ -65,10 +65,7 @@
 
 <h3>Detalles:</h3> 
 
-Muy buen chalet de 3 ambientes en 1 planta sobre lote de 10 x 21 con 117 metros cubiertos. Living, 2 comodos dormitorios, cocina comedor, baño completo, garage para dos auto y un lindo jardín. Lavadero y cuarto guarda herramientas con posibilidad de transformarlo en un lindo quincho.
-Excelente zona, muy buenos accesos. Visitelo.. 
-
-<?php echo $detalles;?>
+<?=$aviso->detalles?>
 
 				</div>
 				</div>
@@ -86,7 +83,7 @@ Excelente zona, muy buenos accesos. Visitelo..
 					</div>
 				
 				<h3>Caracteristicas</h3>
-				Baños: 3<br>
+				Baï¿½os: 3<br>
 				Metros Cuadrados: 250<br>
 				Ambientes: 5<br>
 				Dormitorios:2<br>
