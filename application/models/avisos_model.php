@@ -79,9 +79,66 @@ class Avisos_model extends CI_Model {
 
     function get_aviso($id)
     {
-			$sql_in = "SELECT * FROM `avisos` WHERE `id` = $id LIMIT 1";
-			$query = $this->db->query($sql_in);
-			return $query->result();
+
+
+
+        $aviso = array();
+
+//    	$this->output->enable_profiler(TRUE);
+
+        $this->db->select('avisos.id');
+        $this->db->select('avisos.direccion');
+        $this->db->select('avisos.metros_cuadrados as m2');
+        $this->db->select('avisos.cant_ambientes as ambientes');
+        $this->db->select('avisos.cant_dormitorios as dormitorios');
+        $this->db->select('avisos.cant_banios as banios');
+        $this->db->select('avisos.estado_inmueble');
+        $this->db->select('avisos.anio');
+        $this->db->select('avisos.detalles');
+        $this->db->select('avisos.precio as precio');
+        $this->db->select('avisos.fecha');
+        $this->db->select('avisos.estado_aviso');
+        $this->db->select('avisos.nombre_barrio');
+
+        $this->db->select('tipos_inmuebles.descripcion as tipo_inmueble');
+        $this->db->select('tipos_op.nombre as tipo_op');
+        $this->db->select('localidades.nombre as nombre_localidad');
+        $this->db->select('provincias.nombre as provincia');
+        $this->db->select('aviso_fotos.url as foto');
+
+        $this->db->from('avisos');
+
+        $this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
+        $this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
+        $this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
+        $this->db->join('provincias', 'localidades.id_provincia = provincias.id','left');
+        $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
+
+        $this->db->where('aviso_fotos.default',1);
+        $this->db->where('id', $id);
+
+
+        $this->db->order_by("avisos.fecha", "desc");
+
+        //esta funcion trae los ultimos 5 avisos publicados
+//        $this->db->limit(5,0);
+
+        $query = $this->db->get();
+
+        $index = 0;
+
+        foreach($query->result_array() as $row) {
+            $aviso[$index]['titulo'] = $row['tipo_inmueble'].' en '.$row['tipo_op'].' en '.$row['nombre_localidad'].'.';
+            $aviso[$index]['texto']  = 'Ubicado en '.$row['provincia'].', '.$row['m2'].' mt2, '.$row['ambientes'].' ambientes, '.$row['banios'].' banios. '.$row['precio'].'<br /><br /><em>Agregado el: '.$row['fecha'].'</em>';
+            $aviso[$index]['foto']   = $row['foto'];
+            $aviso[$index]['id']   = $row['id'];
+
+            $index++;
+        }
+
+        return $aviso;
+
+
     }
 
     function get_tipos_op()
