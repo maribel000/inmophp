@@ -69,21 +69,22 @@ class Home extends CI_Controller {
 	}
 
 	function traer_ultimos_avisos() {
+
 		$this->load->model('avisos_model', '', TRUE);
+
 		$ultimosavisos = $this->avisos_model->get_ult_avisos();
 		$html = '';
 		foreach ($ultimosavisos as $aviso) {
-			$html = '
+			$html = $html.'
 				<div class="media">
 				  <a class="media-left" href="#">
-					<img src="http://localhost/redinmo/theme/imgavisos/'.$aviso['foto'].'" height="125" width="125" class="img-rounded" alt="Rounded Image">
+					<img src="'.base_url().$aviso['foto'].'" height="125" width="125" class="img-rounded" alt="Rounded Image">
 				  </a>
 				  <div class="media-body">
 					<h4 class="media-heading">'.$aviso['titulo'].'</h4>
 					'.$aviso['texto'].'
 				  </div>
-				</div>
-			'.$html;
+				</div>';
 		}
 
 		return $html;

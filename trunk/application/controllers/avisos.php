@@ -131,9 +131,9 @@ class Avisos extends CI_Controller {
                 if($upload === FALSE) continue;
                 $this->Avisos_model->add_aviso_foto(
                     $res,
-                    $config['upload_path'].$config['file_name'].'jpg',
+                    $config['upload_path'].$config['file_name'].'.jpg',
                     $fotodesc[$i],
-                    0
+                    floor(1/$i)
                 );
 
                 /* obtengo info para hacer los thumbs */
@@ -263,30 +263,6 @@ HTML;
 			}				
 			$this->load->view('editaviso-ok', $data);			
 		}		
-	}
-	
-	function do_upload()
-	{
-		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '100';
-		$config['max_width']  = '1024';
-		$config['max_height']  = '768';
-
-		$this->load->library('upload', $config);
-
-		if ( ! $this->upload->do_upload())
-		{
-			$error = array('error' => $this->upload->display_errors());
-
-			$this->load->view('agregar', $error);
-		}
-		else
-		{
-			$data = array('upload_data' => $this->upload->data());
-
-			$this->load->view('addaviso-ok', $data);
-		}
 	}
 
     public function ver($id)
