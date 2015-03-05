@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `redinmo_final` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `redinmo_final`;
 -- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: redinmo_final
@@ -33,7 +31,7 @@ CREATE TABLE `aviso_fotos` (
   PRIMARY KEY (`id`,`id_aviso`),
   KEY `id_aviso` (`id_aviso`),
   CONSTRAINT `aviso_fotos_id_aviso_fk` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +40,7 @@ CREATE TABLE `aviso_fotos` (
 
 LOCK TABLES `aviso_fotos` WRITE;
 /*!40000 ALTER TABLE `aviso_fotos` DISABLE KEYS */;
-INSERT INTO `aviso_fotos` VALUES (1,1,1,'http://www.stilo.com.mx/files/projects/pictures/50/Departamento_Anatole_France_-_Kababie_Arquitectos_-_Sala_1_-_L.jpg',NULL),(2,1,0,'http://www.arqhys.com/arquitectura/Departamento%20barato.jpg',NULL),(3,2,1,'http://www.stilo.com.mx/files/projects/pictures/50/Departamento_F_-_Kababie_Arquitectos_-_F.jpg',NULL),(4,2,0,'http://imganuncios.mitula.net/departamento_de_1_dormitorio_en_edificio_betania_xi_100561109283652243.jpg','Living'),(5,2,0,'http://cuyopropiedades.com/wp-content/uploads/2014/05/departamentos-en-venta-palermo-belgrano-puerto-madero-parabuenosaires1.jpg','Comedor'),(6,3,1,'http://www.uco.es/organiza/departamentos/anatomia-y-anat-patologica/images/sanidad.jpg','Edificio'),(7,3,0,'http://imgempryprop1.elinmobiliario.com/2144/big_32791.jpg','Sala');
+INSERT INTO `aviso_fotos` VALUES (1,1,1,'http://www.stilo.com.mx/files/projects/pictures/50/Departamento_Anatole_France_-_Kababie_Arquitectos_-_Sala_1_-_L.jpg',NULL),(2,1,0,'http://www.arqhys.com/arquitectura/Departamento%20barato.jpg',NULL),(3,2,1,'http://www.stilo.com.mx/files/projects/pictures/50/Departamento_F_-_Kababie_Arquitectos_-_F.jpg',NULL),(4,2,0,'http://imganuncios.mitula.net/departamento_de_1_dormitorio_en_edificio_betania_xi_100561109283652243.jpg','Living'),(5,2,0,'http://cuyopropiedades.com/wp-content/uploads/2014/05/departamentos-en-venta-palermo-belgrano-puerto-madero-parabuenosaires1.jpg','Comedor'),(6,3,1,'http://www.uco.es/organiza/departamentos/anatomia-y-anat-patologica/images/sanidad.jpg','Edificio'),(7,3,0,'http://imgempryprop1.elinmobiliario.com/2144/big_32791.jpg','Sala'),(8,40,1,'./uploads/fotos/foto_40_1549654ee079c4c2b4_1.jpg',''),(9,40,0,'./uploads/fotos/foto_40_2614554ee079c83591_2.jpg',''),(10,40,0,'./uploads/fotos/foto_40_1491854ee079ca6819_3.jpg',''),(11,46,1,'./uploads/fotos/foto_46_1332654f706f5e5747_1.jpg',''),(12,46,0,'./uploads/fotos/foto_46_772754f706f6260d4_2.jpg',''),(13,46,0,'./uploads/fotos/foto_46_2361254f706f64ba6c_3.jpg',''),(14,47,1,'./uploads/fotos/foto_47_3087654f7086551ff5_1.jpg',''),(15,47,0,'./uploads/fotos/foto_47_477354f708657892e_2.jpg',''),(16,47,0,'./uploads/fotos/foto_47_2623454f708658d923_3.jpg',''),(17,48,1,'./uploads/fotos/foto_48_1944154f709fec8c0a_1.jpg',''),(18,48,0,'./uploads/fotos/foto_48_2965454f709feee5a3_2.jpg',''),(19,48,0,'./uploads/fotos/foto_48_1391154f709ff18bb2_3.jpg',''),(20,49,1,'./uploads/fotos/foto_49_2360354f70af4b05ab_1.jpg',''),(21,49,0,'./uploads/fotos/foto_49_3172854f70af4ce62a_2.jpg',''),(22,49,0,'./uploads/fotos/foto_49_548154f70af4e7888_3.jpg',''),(23,50,1,'./uploads/fotos/foto_50_3229954f716b213974_1.jpg','hola'),(24,50,0,'./uploads/fotos/foto_50_64854f716b237f84_2.jpg','como'),(25,50,0,'./uploads/fotos/foto_50_1334554f716b25062a_3.jpg','va');
 /*!40000 ALTER TABLE `aviso_fotos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,6 +57,7 @@ CREATE TABLE `avisos` (
   `id_tipo_op` int(11) NOT NULL,
   `id_barrio` int(11) DEFAULT NULL,
   `id_localidad` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
   `direccion` varchar(45) NOT NULL,
   `metros_cuadrados` int(11) DEFAULT NULL,
   `cant_ambientes` int(11) DEFAULT NULL,
@@ -68,7 +67,6 @@ CREATE TABLE `avisos` (
   `anio` int(11) DEFAULT NULL,
   `detalles` text,
   `precio` int(11) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
   `estado_aviso` varchar(45) DEFAULT NULL,
   `nombre_barrio` varchar(45) DEFAULT NULL,
@@ -77,10 +75,13 @@ CREATE TABLE `avisos` (
   KEY `id_barrio` (`id_barrio`),
   KEY `id_tipo_op` (`id_tipo_op`),
   KEY `id_localidad` (`id_localidad`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `avisos_id_usuario_idx` (`id_usuario`),
   CONSTRAINT `avisos_id_localidad` FOREIGN KEY (`id_localidad`) REFERENCES `localidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `avisos_id_tipo_inmueble` FOREIGN KEY (`id_tipo_inmueble`) REFERENCES `tipos_inmuebles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `avisos_id_tipo_op` FOREIGN KEY (`id_tipo_op`) REFERENCES `tipos_op` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  CONSTRAINT `avisos_id_tipo_op` FOREIGN KEY (`id_tipo_op`) REFERENCES `tipos_op` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `avisos_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +90,7 @@ CREATE TABLE `avisos` (
 
 LOCK TABLES `avisos` WRITE;
 /*!40000 ALTER TABLE `avisos` DISABLE KEYS */;
-INSERT INTO `avisos` VALUES (1,1,1,NULL,1,'Genova 1111',200,3,3,1,'Bueno',1970,NULL,500000,1,'2014-12-01 00:00:00','Aprobado','Empalme'),(2,2,1,NULL,502,'Alberdi 1111',150,2,1,1,'Antiguo',1950,NULL,100000,3,'2015-01-20 00:00:00','Pendiente','Alberdi'),(3,5,1,NULL,123,'Cordoba 8888',920,6,2,24,'Perfecto',2005,NULL,20000000,3,'2014-10-02 00:00:00','Aprobado','Fisherton'),(4,7,2,NULL,666,'Rioja 666',430,3,2,2,NULL,1989,NULL,4000,NULL,NULL,'Aprobado',NULL);
+INSERT INTO `avisos` VALUES (1,1,1,NULL,1,1,'Genova 1111',200,3,3,1,'Bueno',1970,NULL,500000,'2016-12-01 00:00:00','Aprobado','Empalme'),(2,2,1,NULL,502,3,'Alberdi 1111',150,2,1,1,'Antiguo',1950,NULL,100000,'2015-01-20 00:00:00','Pendiente','Alberdi'),(3,5,1,NULL,123,3,'Cordoba 8888',920,6,2,24,'Perfecto',2005,NULL,20000000,'2015-10-02 00:00:00','Aprobado','Fisherton'),(4,7,2,NULL,666,1,'Rioja 666',430,3,2,2,NULL,1989,NULL,4000,NULL,'Aprobado',NULL),(5,1,1,NULL,2104,1,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(6,1,1,NULL,2104,2,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(7,1,1,NULL,2104,3,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(8,1,1,NULL,2104,2,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(9,1,1,NULL,2104,3,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(10,1,1,NULL,2104,1,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(11,1,1,NULL,2104,2,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(12,1,1,NULL,2104,2,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(13,1,1,NULL,2104,3,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(14,1,1,NULL,2104,3,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(15,1,1,NULL,2104,2,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(16,1,1,NULL,2104,1,'',0,0,0,0,'',0,'Sarasa',0,NULL,'Pendiente',''),(17,3,2,NULL,2,1,'',0,0,0,0,'',0,'asd',0,NULL,'Pendiente',''),(18,3,2,NULL,2,2,'',0,0,0,0,'',0,'asddsa',0,NULL,'Pendiente',''),(19,3,2,NULL,2,3,'',0,0,0,0,'',0,'asddsaasdas',0,NULL,'Pendiente',''),(20,1,1,NULL,12,2,'',0,0,0,0,'',0,'asd',0,NULL,'Pendiente',''),(21,1,1,NULL,1233,1,'',0,0,0,0,'',0,'asdads',0,NULL,'Pendiente',''),(22,1,1,NULL,5,3,'',0,0,0,0,'',0,'dsadsa',0,NULL,'Pendiente',''),(23,1,1,NULL,59,2,'',0,0,0,0,'',0,'asdasd',0,NULL,'Pendiente',''),(24,1,1,NULL,5,1,'',0,0,0,0,'',0,'adsads',0,NULL,'Pendiente',''),(25,1,1,NULL,5,2,'',0,0,0,0,'',0,'adsads',0,NULL,'Pendiente',''),(26,1,1,NULL,666,3,'',0,0,0,0,'',0,'adss',0,NULL,'Pendiente',''),(27,1,1,NULL,1,2,'',0,0,0,0,'',0,'asdasd',0,NULL,'Pendiente',''),(28,1,1,NULL,2,1,'',0,0,0,0,'',0,'adssda',0,NULL,'Pendiente',''),(29,1,1,NULL,2,2,'',0,0,0,0,'',0,'asddsa',0,NULL,'Pendiente',''),(30,1,1,NULL,152,3,'',0,0,0,0,'',0,'asdasd',0,NULL,'Pendiente',''),(31,1,1,NULL,730,1,'',0,0,0,0,'',0,'asdasd',0,NULL,'Pendiente',''),(32,1,1,NULL,473,2,'',0,0,0,0,'',0,'adssdadsa',0,NULL,'Pendiente',''),(33,1,1,NULL,735,1,'',0,0,0,0,'',0,'asdadsasd',0,NULL,'Pendiente',''),(34,1,1,NULL,9,3,'',0,0,0,0,'',0,'dsa',0,NULL,'Pendiente',''),(35,1,1,NULL,87,2,'',0,0,0,0,'',0,'adsdas',0,NULL,'Pendiente',''),(36,1,1,NULL,5,2,'',0,0,0,0,'',0,'das',0,NULL,'Pendiente',''),(37,1,1,NULL,8,3,'',0,0,0,0,'',0,'dsaasdads',0,NULL,'Pendiente',''),(38,1,1,NULL,280,2,'',0,0,0,0,'',0,'dassda',0,NULL,'Pendiente',''),(39,1,1,NULL,3,2,'',0,0,0,0,'',0,'adsds',0,NULL,'Pendiente',''),(40,1,1,NULL,144,2,'',0,0,0,0,'',0,'dasdsaasd',0,NULL,'Pendiente',''),(41,1,1,NULL,116,3,'',0,0,0,0,'',0,'sadasd',0,NULL,'Pendiente',''),(42,1,1,NULL,2104,3,'',0,0,0,0,'',0,'asd',0,'0000-00-00 00:00:00','Pendiente',''),(43,1,1,NULL,2104,3,'',0,0,0,0,'',0,'asd',0,'0000-00-00 00:00:00','Pendiente',''),(44,1,1,NULL,2104,1,'',0,0,0,0,'',0,'asd',0,'2015-03-03 16:20:20','Pendiente',''),(45,1,1,NULL,2104,1,'',0,0,0,0,'',0,'asd',0,'2015-03-03 16:22:59','Pendiente',''),(46,1,1,NULL,2104,1,'',0,0,0,0,'',0,'asasd',0,'2015-03-04 14:21:57','Pendiente',''),(47,1,1,NULL,2,1,'',0,0,0,0,'',0,'dsadsadsa',0,'2015-03-04 14:28:05','Pendiente',''),(48,1,2,NULL,796,2,'',0,0,0,0,'',0,'saddasdsasda',0,'2015-03-04 14:34:54','Pendiente',''),(49,1,1,NULL,2,3,'',0,0,0,0,'',0,'asdasddsa',0,'2015-03-04 14:39:00','Pendiente',''),(50,1,1,NULL,2104,2,'Génova 1310',40,2,1,1,'Antiguo',1978,'Gran casa. A metros del pami. Amplia. Excelente estado. Amueblada.\r\n\r\nLlame ya!',360000,'2015-03-04 15:29:06','Pendiente','Arroyito');
 /*!40000 ALTER TABLE `avisos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -641,4 +642,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-09 19:50:16
+-- Dump completed on 2015-03-05 12:26:20
