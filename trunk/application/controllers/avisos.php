@@ -273,14 +273,14 @@ HTML;
         $this->load->model('Avisos_model', '', TRUE);
 
         $datos['aviso'] = $this->Avisos_model->get_aviso($id);
-//        $datos = array('tipo_op' => $aviso->tipo_op, 'tipo_inm' => $aviso->tipo_inm, 'detalles' => $aviso->detalles);
 
         if ($this->ion_auth->logged_in()){
-            $data['user'] = $this->ion_auth->user()->row();
-            $datos["menu"] = $this->load->view('menu_us', $data, true);
-        }else{
-            $datos["menu"] = $this->load->view('menu_nu');
+            $datos['user'] = $this->ion_auth->user()->row();
+            $datos['menu'] = $this->load->view('menu_us', $datos, true);
+        } else {
+            $datos['menu'] = $this->load->view('menu_nu');
         }
+
         $this->load->view('veraviso', $datos);
     }
 

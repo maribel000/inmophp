@@ -79,12 +79,9 @@ class Avisos_model extends CI_Model {
 
     function get_aviso($id)
     {
-
-
+//    	$this->output->enable_profiler(TRUE);
 
         $aviso = array();
-
-//    	$this->output->enable_profiler(TRUE);
 
         $this->db->select('avisos.id');
         $this->db->select('avisos.direccion');
@@ -104,7 +101,8 @@ class Avisos_model extends CI_Model {
         $this->db->select('tipos_op.nombre as tipo_op');
         $this->db->select('localidades.nombre as nombre_localidad');
         $this->db->select('provincias.nombre as provincia');
-        $this->db->select('aviso_fotos.url as foto');
+        $this->db->select('aviso_fotos.url as foto_url');
+        $this->db->select('aviso_fotos.descripcion as foto_desc');
 
         $this->db->from('avisos');
 
@@ -114,31 +112,22 @@ class Avisos_model extends CI_Model {
         $this->db->join('provincias', 'localidades.id_provincia = provincias.id','left');
         $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
 
-        $this->db->where('aviso_fotos.default',1);
-        $this->db->where('id', $id);
-
-
-        $this->db->order_by("avisos.fecha", "desc");
-
-        //esta funcion trae los ultimos 5 avisos publicados
-//        $this->db->limit(5,0);
+        $this->db->where('avisos.id', $id);
 
         $query = $this->db->get();
 
-        $index = 0;
+        $aviso = $query->result_array()[0];
+        $aviso['foto_url'] = $aviso['foto_desc'] = "";
 
+        $index = 0;
         foreach($query->result_array() as $row) {
-            $aviso[$index]['titulo'] = $row['tipo_inmueble'].' en '.$row['tipo_op'].' en '.$row['nombre_localidad'].'.';
-            $aviso[$index]['texto']  = 'Ubicado en '.$row['provincia'].', '.$row['m2'].' mt2, '.$row['ambientes'].' ambientes, '.$row['banios'].' banios. '.$row['precio'].'<br /><br /><em>Agregado el: '.$row['fecha'].'</em>';
-            $aviso[$index]['foto']   = $row['foto'];
-            $aviso[$index]['id']   = $row['id'];
+            $aviso['foto_url'][$index] = $row['foto_url'];
+            $aviso['foto_desc'][$index] = $row['foto_desc'];
 
             $index++;
         }
 
         return $aviso;
-
-
     }
 
     function get_tipos_op()
