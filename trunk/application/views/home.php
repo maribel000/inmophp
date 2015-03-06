@@ -136,7 +136,9 @@
 		      <div class="panel panel-info">
 		        <div class="panel-heading">Ultimas inmobiliarias registradas</div>
 		        <div class="panel-body">
-		          <?php echo $ultimas_inmobi; ?>
+                    <?php foreach ($ultimas_inmobi->result() as $inmobi) { ?>
+                        <a href="<?=base_url()?>users/ver/<?=$inmobi->id?>"><?=$inmobi->company?></a><br />
+                    <?php } ?>
 		        </div>
 		      </div>
 		    </div>

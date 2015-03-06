@@ -263,10 +263,28 @@ class Avisos_model extends CI_Model {
 	}
 	
 	function get_ult_inmobi() {
-		//falta trabajar contra la DB
 		//esta funcion trae las ultimas 5 inmobiliarias registradas
+//    	$this->output->enable_profiler(TRUE);
 
-		return "inmobiliaria1<br>inmobiliaria2<br>inmobiliaria3<br>inmobiliaria4<br>inmobiliaria5<br>";
+        $this->db->select('users.id');
+        $this->db->select('users.company');
+        $this->db->select('users.created_on');
+
+        $this->db->select('users_groups.group_id as group_id');
+
+        $this->db->from('users');
+
+        $this->db->join('users_groups', 'users_groups.user_id = users.id','left');
+
+        $this->db->where('group_id',2);
+
+        $this->db->order_by('users.created_on', 'desc');
+
+        $this->db->limit(5,0);
+
+        $query = $this->db->get();
+
+        return $query;
 	}
 
 
