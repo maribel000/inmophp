@@ -287,6 +287,31 @@ class Avisos_model extends CI_Model {
         return $query;
 	}
 
+    function get_localidades_rank() {
+        //esta funcion trae las ultimas 5 localidades con más avisos cargados
+
+//    	$this->output->enable_profiler(TRUE);
+
+        $this->db->select('avisos.id');
+        $this->db->select('avisos.id_localidad');
+
+        $this->db->select('localidades.nombre as nombre_localidad');
+        $this->db->select('count(id_localidad) as cant_avisos');
+
+        $this->db->from('avisos');
+
+        $this->db->join('localidades', 'localidades.id = avisos.id_localidad','left');
+
+        $this->db->group_by('id_localidad');
+        $this->db->order_by('count(id_localidad)', 'desc');
+
+        $this->db->limit(10,0);
+
+        $query = $this->db->get();
+
+        return $query;
+    }
+
 
 
     function add_aviso_foto(

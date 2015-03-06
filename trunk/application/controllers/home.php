@@ -26,7 +26,8 @@ class Home extends CI_Controller {
 		$this->load->library('ion_auth');
 		
 		$datos["ultimos_avisos"] = $this->traer_ultimos_avisos();
-		$datos["ultimas_inmobi"] = $this->traer_ultimas_inmobi();
+        $datos["ultimas_inmobi"] = $this->traer_ultimas_inmobi();
+        $datos["localidades_rank"] = $this->traer_localidades_rank();
 		
 		$datos["combo_tipoop"]   = $this->getTipoOperData();
 		$datos["combo_tipopro"]  = $this->getTipoPropsData();
@@ -90,11 +91,17 @@ class Home extends CI_Controller {
 		return $html;
 	}
 
-	function traer_ultimas_inmobi() {
-		$this->load->model('avisos_model', '', TRUE);
+    function traer_ultimas_inmobi() {
+        $this->load->model('avisos_model', '', TRUE);
 
-		return $this->avisos_model->get_ult_inmobi();
-	}
+        return $this->avisos_model->get_ult_inmobi();
+    }
+
+    function traer_localidades_rank() {
+        $this->load->model('avisos_model', '', TRUE);
+
+        return $this->avisos_model->get_localidades_rank();
+    }
 	
 }
 
