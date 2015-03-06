@@ -92,9 +92,8 @@ class Home extends CI_Controller {
 
 	function traer_ultimas_inmobi() {
 		$this->load->model('avisos_model', '', TRUE);
-		$ultimasinmos = $this->avisos_model->get_ult_inmobi();
-		
-		return $ultimasinmos;
+
+		return $this->avisos_model->get_ult_inmobi();
 	}
 	
 }

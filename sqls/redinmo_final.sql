@@ -161,7 +161,7 @@ CREATE TABLE `groups` (
   `name` varchar(45) NOT NULL,
   `description` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +170,7 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES (1,'Administrator',''),(2,'Usuarios','');
+INSERT INTO `groups` VALUES (1,'Administrator',''),(2,'Inmobiliaria',''),(3,'Usuario','');
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -526,15 +526,15 @@ CREATE TABLE `users` (
   `forgotten_password_code` varchar(45) DEFAULT NULL,
   `forgotten_password_time` int(11) DEFAULT NULL,
   `remember_code` varchar(45) DEFAULT NULL,
-  `created_on` int(11) DEFAULT NULL,
-  `last_login` int(11) DEFAULT NULL,
+  `created_on` datetime DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
   `active` int(11) DEFAULT NULL,
   `first_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `company` varchar(45) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -543,7 +543,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'192.168.100.1','lblanco','lblanco',NULL,'lblanco@gmail.com',NULL,NULL,NULL,NULL,0,NULL,1,'Lucas','Blanco','Google','123456'),(2,'192.168.100.2','ggorno','ggorno',NULL,'ggorno@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,1,'Guillermo','Gorno','Yahoo','123457'),(3,'192.168.100.3','nrullo','nrullo',NULL,'nrullo@gmail.com',NULL,NULL,NULL,NULL,NULL,NULL,1,'Nahuel','Rullo','Bing','123458');
+INSERT INTO `users` VALUES (1,'192.168.100.1','lblanco','lblanco',NULL,'lblanco@gmail.com',NULL,NULL,NULL,NULL,'2015-11-00 00:00:00',NULL,1,'Lucas','Blanco','Google','123456'),(2,'192.168.100.2','ggorno','ggorno',NULL,'ggorno@gmail.com',NULL,NULL,NULL,NULL,'2014-12-11 00:00:00',NULL,1,'Guillermo','Gorno','Yahoo','123457'),(3,'192.168.100.3','nrullo','nrullo',NULL,'nrullo@gmail.com',NULL,NULL,NULL,NULL,'2014-05-11 00:00:00',NULL,1,'Nahuel','Rullo','Bing','123458'),(4,'192.168.100.4','ellena','ellena',NULL,'',NULL,NULL,NULL,NULL,'2014-10-11 00:00:00',NULL,1,NULL,NULL,'Ellena',NULL),(5,'192.168.100.8','zonaprop','zonaprop',NULL,'',NULL,NULL,NULL,NULL,'2014-02-03 00:00:00',NULL,1,NULL,NULL,'ZonaProp',NULL),(6,'192.168.100.9','rasputinmo','rasputinmo',NULL,'',NULL,NULL,NULL,NULL,'2013-03-06 00:00:00',NULL,1,NULL,NULL,'RasputInmo',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -564,7 +564,7 @@ CREATE TABLE `users_groups` (
   KEY `fk_users_groups_groups1_idx` (`group_id`),
   CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -573,7 +573,7 @@ CREATE TABLE `users_groups` (
 
 LOCK TABLES `users_groups` WRITE;
 /*!40000 ALTER TABLE `users_groups` DISABLE KEYS */;
-INSERT INTO `users_groups` VALUES (1,1,1),(2,2,1),(3,3,2);
+INSERT INTO `users_groups` VALUES (1,1,1),(2,2,2),(3,3,3),(4,4,2),(5,5,2),(6,6,2);
 /*!40000 ALTER TABLE `users_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -642,4 +642,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-05 12:26:20
+-- Dump completed on 2015-03-06  9:39:07
