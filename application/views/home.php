@@ -105,23 +105,18 @@
 		  <div class="row">
 		    <div class="col-md-3">
 		      <div class="panel panel-info">
-		        <div class="panel-heading">Buscar avisos por ciudad</div>
+		        <div class="panel-heading">Ranking de localidades</div>
 		        <div class="panel-body">
-		          Avisos en Capital Federal<br>
-		          Avisos en Rosario<br>
-		          Avisos en Codoba<br>
-		          Avisos en Santa Fe<br>
-		          Avisos en Mendoza<br>
-		          Avisos en Tucuman<br>
-		          Avisos en plumas verdes
-		
+                    <?php foreach ($localidades_rank->result() as $localidad) { ?>
+                        <a href="<?=base_url()?>buscar/s?idLocalidad=<?=$localidad->id_localidad?>"><?=$localidad->nombre_localidad?>&nbsp;&nbsp;<span class="badge alert-success"><?=$localidad->cant_avisos?></span></a><br />
+                    <?php } ?>
 		        </div>
 		      </div>
 		    </div>
 		
 		    <div class="col-md-6">
 		      <div class="panel panel-info">
-		        <div class="panel-heading">Ultimos avisos publicados:</div>
+		        <div class="panel-heading">Ultimos avisos publicados</div>
 		        <div class="panel-body">
 		          <div class="row">
 		            <?php echo $ultimos_avisos; ?>
