@@ -79,7 +79,7 @@ class Home extends CI_Controller {
 			$html = $html.'
 				<div class="media">
                   <a class="media-left" href="'.base_url().'avisos/ver/'.$aviso['id'].'">
-                    <img src="'.base_url().$aviso['foto'].'" height="125" width="125" class="img-rounded" alt="Rounded Image" />
+                    <img src="'.$aviso['foto'].'" height="125" width="125" class="img-rounded" alt="Rounded Image" />
                   </a>
                   <div class="media-body">
                     <h4 class="media-heading">'.$aviso['titulo'].'</h4>
