@@ -57,6 +57,19 @@
 	<center>
 <div style="max-width:600px">
 <h1>Agregar Aviso</h1>
+
+<?php if(!$acceso) {?>
+		<br>
+		<div class="alert alert-danger" role="alert">
+		  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		  <span class="sr-only">Aviso:</span>
+		  Para agregar un aviso es necesario estar registrado como inmobiliaria o particular.
+		</div>
+</div>
+	</div> <!-- container -->
+</body>
+</html>
+<?php }else{ ?>
 <br />
 <?php if(validation_errors()) {?>
  <div class="alert alert-danger" role="alert" style="padding:4px"><?php echo validation_errors(); ?></div>
@@ -188,3 +201,4 @@
 </body>
 
 </html>
+<?php } ?>

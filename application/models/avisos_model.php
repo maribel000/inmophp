@@ -24,7 +24,8 @@ class Avisos_model extends CI_Model {
         $precio,
         $detalles,
         $estado_aviso,
-        $fecha
+        $fecha,
+		$userid
     )
     {
         $data = array(
@@ -32,6 +33,7 @@ class Avisos_model extends CI_Model {
 						   'id_tipo_inmueble' => $tipoinm,
 						   'id_localidad' => $idLocalidad,
                            'id_barrio' => $idBarrio,
+						   'id_usuario' => 8, //falta tomar el id real del usuario
                            'nombre_barrio' => $barrio,
 						   'direccion' => $direccion,
 						   'cant_ambientes' => $ambientes,
@@ -43,7 +45,8 @@ class Avisos_model extends CI_Model {
 						   'precio' => $precio,
 						   'detalles' => utf8_decode($detalles),
                            'estado_aviso' => $estado_aviso,
-                           'fecha' => $fecha
+                           'fecha' => $fecha,
+						   'id_usuario' => $userid
 						);
 
 			$this->db->insert('avisos', $data);
@@ -77,6 +80,90 @@ class Avisos_model extends CI_Model {
 			return true; //si llega aca, esta todo ok
     }
 
+    function registrar_visita($id, $ip, $date)
+	{	
+
+		$data = array(
+		   'id_aviso' => $id,
+		   'ip_address' => $ip,
+		   'fecha_hora' => $date,
+		);
+
+		$cadena_query = $this->db->insert_string('visualizaciones', $data);
+		$cadena_query = str_replace('INSERT INTO', 'INSERT IGNORE INTO', $cadena_query);
+		$this->db->query($cadena_query);			
+		return;			
+
+	}
+	
+	function new_alert($userid, $tipoinm, $tipoop, $idlocal, $pmin, $pmax) {
+		$data = array(
+		   'id_user' => $userid,
+		   'id_tipo_inmueble' => $tipoinm,
+		   'id_tipo_op' => $tipoop,		   
+		   'id_ciudad' => $idlocal,
+		   'precio_min' => $pmin,	
+		   'precio_max' => $pmax,	
+		   'activo' => 1,			   
+		);
+
+		$cadena_query = $this->db->insert_string('user_pedidos', $data);
+		$cadena_query = str_replace('INSERT INTO', 'INSERT IGNORE INTO', $cadena_query);
+		$this->db->query($cadena_query);			
+		return;			
+	}
+	
+    function is_fav($idaviso, $iduser) {
+        $this->db->select('id');
+        $this->db->where('id_aviso', $idaviso);
+        $this->db->where('id_user', $iduser);		
+        $query = $this->db->get('user_favoritos');
+		$count =  $query->num_rows();
+		if ($count) return 1; else return 0;	
+	}
+
+	
+    function make_fav($idaviso, $iduser, $fecha)
+	{				
+        $this->db->select('id');
+        $this->db->where('id_aviso', $idaviso);
+        $this->db->where('id_user', $iduser);		
+        $query = $this->db->get('user_favoritos');
+		$count =  $query->num_rows();
+		if ($count) {
+			//hay un registro, por lo que la accion es de eliminar
+			$this->db->delete('user_favoritos', array('id' => $query->row()->id)); 
+			return 0;
+		}else{
+			//no hay registro, por lo que la accion es de insertar	
+			$data = array(
+			   'id_user' => $iduser ,
+			   'id_aviso' => $idaviso ,
+			   'fecha' => $fecha
+			);
+
+			$this->db->insert('user_favoritos', $data);
+			return 1;
+		}
+		
+	}	
+	
+    function registrar_verdatos($id, $ip, $date)
+	{	
+
+		$data = array(
+		   'id_aviso' => $id,
+		   'ip_address' => $ip,
+		   'fecha_hora' => $date,
+		);
+
+		$cadena_query = $this->db->insert_string('ver_datos', $data);
+		$cadena_query = str_replace('INSERT INTO', 'INSERT IGNORE INTO', $cadena_query);
+		$this->db->query($cadena_query);			
+		return;			
+
+	}	
+	
     function get_aviso($id)
     {
 //    	$this->output->enable_profiler(TRUE);
@@ -84,6 +171,8 @@ class Avisos_model extends CI_Model {
         $aviso = array();
 
         $this->db->select('avisos.id');
+        $this->db->select('avisos.id_tipo_inmueble');
+        $this->db->select('avisos.id_tipo_op');			
         $this->db->select('avisos.direccion');
         $this->db->select('avisos.metros_cuadrados as m2');
         $this->db->select('avisos.cant_ambientes as ambientes');
@@ -100,9 +189,15 @@ class Avisos_model extends CI_Model {
         $this->db->select('tipos_inmuebles.descripcion as tipo_inmueble');
         $this->db->select('tipos_op.nombre as tipo_op');
         $this->db->select('localidades.nombre as nombre_localidad');
+		$this->db->select('localidades.id as id_localidad');
         $this->db->select('provincias.nombre as provincia');
         $this->db->select('aviso_fotos.url as foto_url');
         $this->db->select('aviso_fotos.descripcion as foto_desc');
+		
+		$this->db->select('users.first_name as first_name');
+		$this->db->select('users.last_name as last_name');
+		$this->db->select('users.phone as phone');
+		$this->db->select('users.email as email');
 
         $this->db->from('avisos');
 
@@ -111,6 +206,10 @@ class Avisos_model extends CI_Model {
         $this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
         $this->db->join('provincias', 'localidades.id_provincia = provincias.id','left');
         $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
+		
+		//revisar
+		$this->db->join('users', 'avisos.id_usuario = users.id','left');
+		//
 
         $this->db->where('avisos.id', $id);
 
@@ -241,7 +340,7 @@ class Avisos_model extends CI_Model {
     	
 		$this->db->where('aviso_fotos.default',1);
 		
-		$this->db->order_by("avisos.fecha", "desc");
+		$this->db->order_by("avisos.id", "desc");
 		
 		//esta funcion trae los ultimos 5 avisos publicados
 		$this->db->limit(5,0);
@@ -250,17 +349,14 @@ class Avisos_model extends CI_Model {
 		
 		$index = 0;
 		
-		foreach ( $query->result_array () as $row ) {
-            $date = new DateTime($row ['fecha']);
-            
-            $aviso [$index] ['titulo'] = $row ['tipo_inmueble'] . ' en ' . $row ['tipo_op'] . ' en ' . $row ['nombre_localidad'] . '.';
-            $aviso [$index] ['texto'] = 'Ubicado en ' . $row ['provincia'] . ', ' . $row ['m2'] . ' mt2, ' . $row ['ambientes'] . ' ambientes, ' . $row ['banios'] . ' banios. u$s ' . $row ['precio'] . '<br /><br /><em>Publicado el: ' . $date->format('d/m/Y') . '</em>';
-            
-            $aviso [$index] ['foto'] = $row ['foto'];
-            $aviso [$index] ['id'] = $row ['id'];
-            
-            $index ++;
-        }
+		foreach($query->result_array() as $row) {
+			$aviso[$index]['titulo'] = $row['tipo_inmueble'].' en '.$row['tipo_op'].' en '.$row['nombre_localidad'].'.';
+			$aviso[$index]['texto']  = 'Ubicado en '.$row['provincia'].', '.$row['m2'].' mt2, '.$row['ambientes'].' ambientes, '.$row['banios'].' banios. '.$row['precio'].'<br /><br /><em>Agregado el: '.$row['fecha'].'</em>';
+            $aviso[$index]['foto']   = $row['foto'];
+            $aviso[$index]['id']   = $row['id'];
+			
+			$index++;
+		}
 				
 		return $aviso;
 	}
@@ -279,7 +375,7 @@ class Avisos_model extends CI_Model {
 
         $this->db->join('users_groups', 'users_groups.user_id = users.id','left');
 
-        $this->db->where('group_id',2);
+        $this->db->where('group_id',3);
 
         $this->db->order_by('users.created_on', 'desc');
 
@@ -337,16 +433,69 @@ class Avisos_model extends CI_Model {
     }
 
     function listar_avisos_total() {
+		$this->db->where('estado_aviso', 0);
         $query = $this->db->get('avisos');
 
         return $query->num_rows();
     }
+	
+    function listar_avisos_pendientes_total() {
+		$this->db->where('estado_aviso', 1);		
+        $query = $this->db->get('avisos');
+
+        return $query->num_rows();
+    }	
 
     function listar_avisos($porpagina,$segmento) {
+		$this->db->where('estado_aviso', 0);
         $query = $this->db->get('avisos',$porpagina,$segmento);
 
         return $query;
     }
+	
+    function listar_avisos_pendientes($porpagina,$segmento) {
+		$this->db->where('estado_aviso', 1);
+        $query = $this->db->get('avisos',$porpagina,$segmento);
+
+        return $query;
+    }	
+	
+	function chequear_prop($idaviso, $iduser) {
+        $this->db->select('id');
+        $this->db->where('id', $idaviso);
+        $this->db->where('id_usuario', $iduser);		
+        $query = $this->db->get('avisos');
+		$count =  $query->num_rows();
+		if ($count) return 1; else return 0;	
+	}
+	
+	function borrar_aviso($idaviso) {
+		
+        $this->db->select('url');
+        $this->db->where('id_aviso', $idaviso);	
+        $query = $this->db->get('aviso_fotos');
+		
+        foreach($query->result_array() as $row) { //elimamos todas las fotos de este aviso
+			@unlink($row['url']);
+        }		
+		
+		$this->db->delete('aviso_fotos', array('id_aviso' => $idaviso)); 	
+		$this->db->delete('enviado_mail', array('id_aviso' => $idaviso)); 
+		$this->db->delete('inmuebles_caracteristicas', array('id_aviso' => $idaviso)); 		
+		$this->db->delete('mensajes', array('id_aviso' => $idaviso)); 	
+		$this->db->delete('user_favoritos', array('id_aviso' => $idaviso)); 	
+		$this->db->delete('ver_datos', array('id_aviso' => $idaviso)); 		
+		$this->db->delete('visualizaciones', array('id_aviso' => $idaviso)); 	
+		
+		$this->db->delete('avisos', array('id' => $idaviso)); 
+	}
+	
+	function publicar_aviso($idaviso) {
+		$data = array('estado_aviso' => 0);
+		$this->db->where('id', $idaviso);
+		$this->db->limit(1);
+		$this->db->update('avisos', $data); 	
+	}
 
 }
 ?>
