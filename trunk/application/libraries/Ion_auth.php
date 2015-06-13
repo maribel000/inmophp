@@ -516,5 +516,26 @@ class Ion_auth
 		 */
 		return $check_all;
 	}
+	//modificaciones redinmo
+	public function infoavisos($iduser)
+	{
+		$data = $this->ion_auth_model->infoavisos($iduser);
+
+		return $data;
+	}
+	
+	public function cant_pendientes($iduser) {
+		$n = $this->ion_auth_model->cant_pendientes($iduser);
+		if ($n == 1) return $msj = '<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><b>Aviso:</b> Tiene <b>1</b> publicacion pendiente de revision por el administrador.</div>';
+		if ($n > 1) return $msj = '<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><b>Aviso:</b> Tiene <b>'.$n.'</b> publicaciones pendientes de revision por el administrador.</div>';
+		return $msj = "";
+	}
+	
+	public function get_favoritos($iduser)
+	{
+		$data = $this->ion_auth_model->get_favoritos($iduser);
+
+		return $data;
+	}	
 
 }

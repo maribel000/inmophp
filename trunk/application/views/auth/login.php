@@ -29,7 +29,7 @@
 
 <div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open("auth/login");?>
+<?php echo form_open("auth/login", array('id' => 'login'));?>
 
   <p>
     <?php echo lang('login_identity_label', 'identity');?>
@@ -58,6 +58,33 @@
 
 <script src="<?php echo base_url();?>theme/assets/js/jquery.js"></script>
 <script src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>theme/assets/js/jquery.validate.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){	
+			$('#login').validate({
+					rules: {
+						identity: {
+							required: true,
+							minlength: 3,
+						},
+						password: {
+							required: true,
+						}
+						
+					},
+					messages: {
+						identity: {
+							required: "Por favor ingrese su email o usuario",
+							minlength: "Minimo 3 caracteres"
+						},
+						password: {
+							required: "Por favor ingrese su password",						
+						}					
+					}
+			});	
+		});
+    </script>
 </body>
 
 </html>

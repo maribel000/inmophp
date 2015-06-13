@@ -27,7 +27,8 @@
 
 <div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open("auth/create_user");?>
+
+<?php echo form_open('email/send', array('id' => 'newuser'));?>
 
       <p>
             Tipo de usuario: <br />
@@ -78,11 +79,83 @@
 
 <?php echo form_close();?>
 
+
 </div> <!-- /container -->
 
 
 <script src="<?php echo base_url();?>theme/assets/js/jquery.js"></script>
 <script src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>theme/assets/js/jquery.validate.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){	
+			$('#newuser').validate({
+					rules: {
+						first_name: {
+							required: true,
+							minlength: 3,
+						},
+						last_name: {
+							required: true,
+							minlength: 3,
+						},
+						company: {
+							required: true,
+							minlength: 2,
+						},	
+						email: {
+							required: true,
+							email: true
+						},	
+						phone: {
+							required: true,
+							minlength: 6,
+						},	
+						password: {
+							required: true,
+							minlength: 6,
+						},						
+						password_confirm: {
+							required: true,
+							minlength: 6,
+							equalTo: "#password"
+						}	
+						
+					},
+					messages: {
+						first_name: {
+							required: "Por favor ingrese su nombre",
+							minlength: "Minimo 3 caracteres"
+						},
+						last_name: {
+							required: "Por favor ingrese su apellido",
+							minlength: "Minimo 3 caracteres"							
+						},
+						company: {
+							required: "Por favor ingrese el nombre de su empresa",
+							minlength: "Minimo 2 caracteres"							
+						},	
+						email: {
+							required: "Por favor ingrese correo electronico",
+							email: "Por favor ingrese una direccion de correo valida"
+						},	
+						phone: {
+							required: "Por favor ingrese su numero de telefono",
+							minlength: "Minimo 6 caracteres"							
+						},	
+						password: {
+							required: "Por favor ingrese un password",
+							minlength: "Minimo 6 caracteres"							
+						},						
+						password_confirm: {
+							required: "Por favor repita el password",
+							minlength: "Minimo 6 caracteres",							
+							equalTo: "Los passwords ingresados no son iguales."
+						}						
+					}
+			});	
+		});
+    </script>		
 </body>
 
 </html>

@@ -22,8 +22,20 @@ class Avisos extends CI_Controller {
 
 	public function agregar()
 	{
+	    $this->load->library('ion_auth');
+		if ($this->ion_auth->logged_in()){
+			$datos['user'] = $this->ion_auth->user()->row();
+			$data["menu"] = $this->load->view('menu_us', $datos, true);
+		} else {
+			$data["menu"] = $this->load->view('menu_nu');
+		}		
+		if (!$this->ion_auth->logged_in() || $this->ion_auth->in_group("clientes")) { //si no esta logueado, o si lo esta pero es cliente, no se le permite agregar
+			$data["acceso"] = 0;
+			$this->load->view('agregar', $data);
+			return;
+		}
+		$data["acceso"] = 1;
         $this->load->helper('url');
-        $this->load->library('ion_auth');
         $this->load->library('form_validation');
 
 		$datos["msj"] = "agregar";
@@ -36,12 +48,7 @@ class Avisos extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE){
 
-			if ($this->ion_auth->logged_in()){
-				$datos['user'] = $this->ion_auth->user()->row();
-				$data["menu"] = $this->load->view('menu_us', $datos, true);
-			} else {
-				$data["menu"] = $this->load->view('menu_nu');
-			}
+
 
             $rval = $this->Avisos_model->get_tipos_op();
             $data["tipos_op"] = $rval;
@@ -67,8 +74,9 @@ class Avisos extends CI_Controller {
 			$anio = $this->input->post('anio');
 			$precio = $this->input->post('precio');
 			$detalles = $this->input->post('detalles');
-            $estado_aviso = "Pendiente";
+            $estado_aviso = 1; // es el estado del aviso pendiente
             $fecha = date('Y-m-d H:i:s', now());
+			$userid = $datos['user']->id;
 
             $fotodesc = array();
 //            $foto1 = $this->input->post('foto1');
@@ -97,7 +105,8 @@ class Avisos extends CI_Controller {
                 $precio,
                 $detalles,
                 $estado_aviso,
-                $fecha
+                $fecha,
+				$userid
             );
 
             /* inicio manejo de fotos */
@@ -205,8 +214,11 @@ HTML;
 		if ($this->form_validation->run() == FALSE){		
 		
 		$this->load->model('Avisos_model', '', TRUE); 		
-		$todo = $this->Avisos_model->get_aviso($id); 	
-		$todo = $todo[0];
+		$datos = $this->Avisos_model->get_aviso($id); 	
+		//print_r($datos);
+		//return;
+		//$todo = $todo[0];
+		/*
 		$datos = array(
 						   'id' => $id,
 						   'tipo_op' => $todo->tipo_op,
@@ -224,6 +236,8 @@ HTML;
 						   'precio' => $todo->precio,
 						   'detalles' => utf8_decode($todo->detalles),
 						);
+			*/
+			//$datos['ciudad'] = "ros";
 			if ($this->ion_auth->logged_in()){
 				$data['user'] = $this->ion_auth->user()->row();
 				$datos["menu"] = $this->load->view('menu_us', $data, true);
@@ -265,43 +279,106 @@ HTML;
 		}		
 	}
 
+    public function snd_mail($id, $email, $nombre)
+	{
+		echo "ok. ".$id.$email.$nombre;
+	}	
+	
+    public function check_fav($idaviso, $iduser)
+	{
+		$date = date("Y-m-d H:i:s");
+		$this->load->library('ion_auth');
+        if ($this->ion_auth->logged_in()){
+            $idus = $this->ion_auth->user()->row()->id;
+			if ($iduser != $idus) { //si los id de usuarios son distintos, es un hack
+				echo "error";
+				return;
+			}
+		}else{ // si el usuario no esta logueado, no se puede hacer la operacion
+			echo "error";
+			return;
+		}
+		$this->load->model('Avisos_model', '', TRUE);
+		$res = $this->Avisos_model->make_fav($idaviso, $iduser, $date);		
+		echo $res;
+	}		
+	
+    public function show_data($id)
+	{
+        $this->load->model('Avisos_model', '', TRUE);	
+		$date = date("Y-m-d H:i:s");	
+		$ip = $_SERVER['REMOTE_ADDR'];
+		$this->Avisos_model->registrar_verdatos($id, $ip, $date);
+	}	
+	public function new_alert($userid, $tipoinm, $tipoop, $idlocal, $pmin, $pmax)
+	{
+        $this->load->model('Avisos_model', '', TRUE);	
+		echo $this->Avisos_model->new_alert($userid, $tipoinm, $tipoop, $idlocal, $pmin, $pmax);
+	}	
     public function ver($id)
     {
         $this->load->helper(array('form', 'url'));
         $this->load->library('ion_auth');
 
         $this->load->model('Avisos_model', '', TRUE);
-
+		$date = date("Y-m-d H:i:s");
+		$ip = $_SERVER['REMOTE_ADDR'];
+		$this->Avisos_model->registrar_visita($id, $ip, $date);
         $datos['aviso'] = $this->Avisos_model->get_aviso($id);
 
         if ($this->ion_auth->logged_in()){
-            $datos['user'] = $this->ion_auth->user()->row();
+            $datos['user'] = $this->ion_auth->user()->row();		
+			$datos['user_id'] = $datos['user']->id;
+			$datos['is_fav'] = $this->Avisos_model->is_fav($id, $datos['user']->id);
             $datos['menu'] = $this->load->view('menu_us', $datos, true);
         } else {
+			$datos['is_fav'] = 0;
+			$datos['user_id'] = 0;
             $datos['menu'] = $this->load->view('menu_nu');
         }
-
+			
         $this->load->view('veraviso', $datos);
     }
 
-    public function listar()
+    public function verimprimir($id)
+    {
+        $this->load->helper(array('form', 'url'));
+
+
+        $this->load->model('Avisos_model', '', TRUE);
+
+        $datos['aviso'] = $this->Avisos_model->get_aviso($id);
+
+
+        $this->load->view('verimprimir', $datos);
+    }	
+    public function listarpendientes()
     {
         $this->load->helper('url');
         $this->load->library('ion_auth');
+
+		
+        if ($this->ion_auth->logged_in()) {
+			if ($this->ion_auth->in_group("admin")) {
+				$data['is_logged'] = 1;
+			}else{
+				echo "no tiene permisos para acceder a esta pagina";
+				return;
+			}			
+        }else{
+			echo "no tiene permisos para acceder a esta pagina";
+			return;
+		}		
+
         $this->load->library('form_validation');
         $this->load->library('pagination');
-
-        $datos["msj"] = "listar";
+		
+        $datos["msj"] = "listar pendientes";
 
         $this->load->model('Avisos_model', '', TRUE);
         $this->load->model('Buscar_model', '', TRUE);
-
-        if ($this->ion_auth->logged_in()) {
-            $data['user'] = $this->ion_auth->user()->row();
-            $datos["menu"] = $this->load->view('menu_us', $data, true);
-        } else {
-            $datos["menu"] = $this->load->view('menu_nu');
-        }
+		
+		$datos["total_avisos"] = $this->Avisos_model->listar_avisos_pendientes_total();
 
         $datos["tipoops"] = $this->Buscar_model->tipoops();
         $datos["tipoprops"] = $this->Buscar_model->tipoprops();
@@ -310,9 +387,83 @@ HTML;
 
         /* URL a la que se desea agregar la paginación*/
         $config['base_url'] = base_url().'/';
-        $config['prefix'] =  'avisos/listar/';
+        $config['prefix'] =  'avisos/listarpendientes/';
         if (count($_GET) > 0) $config['suffix'] =  '?' . http_build_query($_GET, '', "&");
-        $config['first_url'] = base_url().'/avisos/listar?'.http_build_query($_GET);
+        $config['first_url'] = base_url().'/avisos/listarpendientes?'.http_build_query($_GET);
+
+        /*Obtiene el total de registros a paginar */
+        $config['total_rows'] = $datos['total_rows'] = $this->Avisos_model->listar_avisos_pendientes_total();
+
+        /*Obtiene el numero de registros a mostrar por pagina */
+        $config['per_page'] = 10;
+
+        /*Indica que segmento de la URL tiene la paginación, por default es 3*/
+        $config['uri_segment'] = 3;
+
+        /*Se personaliza la paginación para que se adapte a bootstrap*/
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['last_link'] = FALSE;
+        $config['first_link'] = FALSE;
+        $config['next_link'] = '&raquo;';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_link'] = '&laquo;';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+
+        /* Se inicializa la paginacion*/
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        /* Se obtienen los registros a mostrar*/
+        $datos['avisos'] = $this->Avisos_model->listar_avisos_pendientes($config['per_page'], $page);
+
+        $this->load->view('listado-avisos-pendientes', $datos);
+    }
+	
+ public function listarpublicados()
+    {
+        $this->load->helper('url');
+        $this->load->library('ion_auth');
+
+		
+        if ($this->ion_auth->logged_in()) {
+			if ($this->ion_auth->in_group("admin")) {
+				$data['is_logged'] = 1;
+			}else{
+				echo "no tiene permisos para acceder a esta pagina";
+				return;
+			}			
+        }else{
+			echo "no tiene permisos para acceder a esta pagina";
+			return;
+		}		
+
+        $this->load->library('form_validation');
+        $this->load->library('pagination');
+		
+        $datos["msj"] = "listar publicados";
+
+        $this->load->model('Avisos_model', '', TRUE);
+        $this->load->model('Buscar_model', '', TRUE);
+		
+		
+		$datos["total_avisos"] = $this->Avisos_model->listar_avisos_total();		
+
+        $datos["tipoops"] = $this->Buscar_model->tipoops();
+        $datos["tipoprops"] = $this->Buscar_model->tipoprops();
+        $datos["localidades"] = $this->Buscar_model->localidades();
+        $datos["usuarios"] = $this->Buscar_model->usuarios();
+
+        /* URL a la que se desea agregar la paginación*/
+        $config['base_url'] = base_url().'/';
+        $config['prefix'] =  'avisos/listarpublicados/';
+        if (count($_GET) > 0) $config['suffix'] =  '?' . http_build_query($_GET, '', "&");
+        $config['first_url'] = base_url().'/avisos/listarpublicados?'.http_build_query($_GET);
 
         /*Obtiene el total de registros a paginar */
         $config['total_rows'] = $datos['total_rows'] = $this->Avisos_model->listar_avisos_total();
@@ -345,8 +496,34 @@ HTML;
         /* Se obtienen los registros a mostrar*/
         $datos['avisos'] = $this->Avisos_model->listar_avisos($config['per_page'], $page);
 
-        $this->load->view('avisos', $datos);
-    }
+        $this->load->view('listado-avisos-publicados', $datos);
+    }	
+	
+    public function borrar($id)
+	{
+        $this->load->model('Avisos_model', '', TRUE);	
+		$this->load->library('ion_auth');
+		if ($this->ion_auth->logged_in()){
+			$user = $this->ion_auth->user()->row();
+			if($this->Avisos_model->chequear_prop($id, $user->id) || $this->ion_auth->in_group("admin")){//chequeo que el usuario actual sea el propietario del aviso o el usuario actual es el admin
+				//borro el aviso
+				$this->Avisos_model->borrar_aviso($id);
+			}
+		}
+	}	
+
+    public function publicar_aviso($id)
+	{
+        $this->load->model('Avisos_model', '', TRUE);	
+		$this->load->library('ion_auth');
+		if ($this->ion_auth->logged_in()){
+			$user = $this->ion_auth->user()->row();
+			if($this->ion_auth->in_group("admin")){//solo el admin puede hacer esta operacion
+				//publico el aviso
+				$this->Avisos_model->publicar_aviso($id);
+			}
+		}
+	}	
 	
 }
 

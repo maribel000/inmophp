@@ -1,15 +1,18 @@
 <?php
 
-$lang['ftp_no_connection'] = 'No se pudo localizar una identificaciÃ³n de conexiÃ³n vÃ¡lida. Por favor, asegÃºrese de que estÃ¡ conectado antes de realizar cualquier rutina con archivos.';
-$lang['ftp_unable_to_connect'] = 'No se pudo conectar a su servidor FTP con el nombre de host suministrado.';
-$lang['ftp_unable_to_login'] = 'No se pudo acceder a su servidor FTP. Por favor, compruebe su nombre de usuario y contraseÃ±a.';
-$lang['ftp_unable_to_makdir'] = 'No se pudo crear el directorio que ha especificado.';
-$lang['ftp_unable_to_changedir'] = 'No se pudo cambiar de directorio.';
-$lang['ftp_unable_to_chmod'] = 'No es posible establecer permisos de archivos. Por favor, compruebe la ruta. Nota: Esta funciÃ³n sÃ³lo estÃ¡ disponible en PHP 5 o superior.';
-$lang['ftp_unable_to_upload'] = 'No se pudo cargar el archivo especificado. Por favor, compruebe la ruta.';
-$lang['ftp_unable_to_download'] = 'No se pudo descargar el archivo especificado. Por favor, compruebe la ruta.';
-$lang['ftp_no_source_file'] = 'No se encuentra el archivo de origen. Por favor, compruebe la ruta.';
-$lang['ftp_unable_to_rename'] = 'No se pudo renombrar el archivo.';
-$lang['ftp_unable_to_delete'] = 'No se pudo borrar el archivo.';
-$lang['ftp_unable_to_move'] = 'No es posible mover el archivo. Por favor, asegÃºrese de que el directorio de destino existe.';
-?>
+$lang['ftp_no_connection']			= "Imposible encontrar un ID de conexión válido. Asegúrese que está conectado antes de realizar alguna acción.";
+$lang['ftp_unable_to_connect']		= "Imposible de conectar a su servidor FTP usando el nombre de host especificado.";
+$lang['ftp_unable_to_login']		= "Imposible conectar a su servidor FTP. Compruebe su nombre de usuario y contraseña";
+$lang['ftp_unable_to_makdir']		= "Imposible de crear el directorio especificado.";
+$lang['ftp_unable_to_changedir']	= "Imposible de cambiar de directorio.";
+$lang['ftp_unable_to_chmod']		= "Imposible de cambiar los permisos del archivo. Por favor compruebe la ruta. Nota: Sólo disponible en versiones superiores a PHP 5.";
+$lang['ftp_unable_to_upload']		= "Imposible subir el archivo especificado. Por favor compruebe la ruta.";
+$lang['ftp_unable_to_download']		= "Imposible descargar el archivo especificado. Por favor compruebe la ruta.";
+$lang['ftp_no_source_file']			= "No se ha podido localizar el archivo de origen. Por favor compruebe la ruta.";
+$lang['ftp_unable_to_rename']		= "Imposible renombrar el archivo.";
+$lang['ftp_unable_to_delete']		= "Imposible borrar el archivo.";
+$lang['ftp_unable_to_move']			= "Imposible mover el achivo. Por favor aseguresé que el directorio de destino existe.";
+
+
+/* End of file ftp_lang.php */
+/* Location: ./system/language/spanish/ftp_lang.php */

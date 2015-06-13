@@ -2197,4 +2197,76 @@ class Ion_auth_model extends CI_Model
 		//just return the string IP address now for better compatibility
 		return $ip_address;
 	}
+	
+	//modificaciones redinmo
+	public function infoavisos($iduser)
+	{
+        $this->db->select('avisos.id');
+        $this->db->select('avisos.fecha');
+        $this->db->select('avisos.estado_aviso');
+
+        $this->db->select('tipos_inmuebles.descripcion as tipo_inmueble');
+        $this->db->select('tipos_op.nombre as tipo_op');
+        $this->db->select('localidades.nombre as nombre_localidad');
+        $this->db->select('provincias.nombre as provincia');
+        $this->db->select('aviso_fotos.url as foto_url');
+		
+		$this->db->select('visualizaciones.id as visualizaciones');
+		//$this->db->select('COUNT(ver_datos.id_aviso) as contactos');
+
+
+        $this->db->from('avisos');
+
+        $this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
+        $this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
+        $this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
+        $this->db->join('provincias', 'localidades.id_provincia = provincias.id','left');
+        $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
+		$this->db->join('visualizaciones', 'avisos.id = visualizaciones.id_aviso','left');
+		//$this->db->join('ver_datos', 'avisos.id = ver_datos.id_aviso','left');
+		
+
+
+        $this->db->where('avisos.id_usuario', $iduser);
+		
+		$this->db->limit(1);
+
+        $query = $this->db->get();	
+		return $query;
+	}
+	
+	public function cant_pendientes($iduser) {
+	    $this->db->select('avisos.id');
+		$this->db->from('avisos');
+		$this->db->where('avisos.id_usuario', $iduser);
+		$this->db->where('avisos.estado_aviso', 1);
+		$query = $this->db->get();	
+		return $query->num_rows();
+	}
+	
+	public function get_favoritos($iduser) {
+	/*
+	    $this->db->select('user_favoritos.id');
+	    $this->db->select('user_favoritos.id_aviso');
+		
+		$this->db->select('avisos.id_tipo_op as tipo_operacion');
+        //$this->db->select('tipos_inmuebles.descripcion as tipo_inmueble');
+       // $this->db->select('tipos_op.nombre as tipo_op');
+        //$this->db->select('localidades.nombre as nombre_localidad');
+		
+		$this->db->from('user_favoritos');
+		
+		
+		$this->db->join('avisos', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
+        //$this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
+       // $this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
+       // $this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
+		
+		$this->db->where('user_favoritos.id_user', $iduser);
+
+		$query = $this->db->get();	
+		return $query;*/
+	}	
+
+	
 }

@@ -32,14 +32,15 @@
 
 <form name="agregar_aviso" method="post" action="<?php echo base_url();?>avisos/editar/<?php echo $id; ?>">
 <div class="form-group">
-<div class="input-group">
+<div class="input-group"><?php 	  //echo "esssssssssssssss $tipo_op";?>
 <span class="input-group-addon" style="min-width:180px">Tipo de operacion</span>
 	<select name="tipoop" id="tipoop" class="form-control" data-toggle="popover" data-trigger="hover" data-content="Las ventas se hacen en dolares y los alquileres en pesos">
-	  <?php
+	  <?php 
 		$opciones = '
-		<option value="0">Venta</option>
-		<option value="1">Alquiler</option>';
-	    $opciones = str_replace("value=\"$tipo_op\"", "value=\"$tipo_op\" selected", $opciones);
+    <option value="1">Venta</option>
+    <option value="2">Alquiler</option>
+    <option value="3">Alquiler temporario</option>';
+	    $opciones = str_replace("value=\"$id_tipo_inmueble\"", "value=\"$id_tipo_inmueble\" selected", $opciones);
 		echo $opciones;
 	  ?>
 	</select>
@@ -50,10 +51,20 @@
 <select name="tipoinm" id="tipoinm" class="form-control">
 <?php 
   $opciones = '
-  <option value="0">Casa</option>
-  <option value="1">Departamento</option>
-  <option value="2">Cochera</option>';
-  $opciones = str_replace("value=\"$tipo_inm\"", "value=\"$tipo_inm\" selected", $opciones);
+            <option value="1">Casa</option>
+            <option value="2">Garage</option>
+            <option value="3">Departamento</option>
+            <option value="4">PH</option>
+            <option value="5">Countrie</option>
+            <option value="6">Quinta</option>
+            <option value="7">Terreno y/o lote</option>
+            <option value="8">Campo y/o chacra</option>
+            <option value="9">Local Comercial</option>
+            <option value="10">Negocio y/o fondo de comercio</option>
+            <option value="11">Oficina</option>
+            <option value="12">Consultorio</option>
+            <option value="13">Boveda, nicho y/o parcela</option>';
+  $opciones = str_replace("value=\"$id_tipo_inmueble\"", "value=\"$id_tipo_inmueble\" selected", $opciones);
   echo $opciones;
  ?>
 </select>
@@ -61,26 +72,19 @@
 </div>
 <br>
 <div class="form-group">
-<div class="input-group">
-<span class="input-group-addon" style="min-width:180px">Provincia:</span>
-<select name="provincia" id="provincia" class="form-control">
-  <option>Santa Fe</option>
-  <option>Buenos Aires</option>
-</select>
-</div>
 <br>
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Ciudad:</span>
-<input name="ciudad" type="text" id="ciudad" value="<?php echo $ciudad;?>" class="form-control">
+<input name="ciudad" type="text" id="ciudad" value="<?php echo $nombre_localidad;?>" class="form-control">
 </div>
 <br>
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Barrio:</span>
-<input name="barrio" type="text" id="barrio" value="<?php echo $barrio;?>" class="form-control">
+<input name="barrio" type="text" id="barrio" value="<?php echo $nombre_barrio;?>" class="form-control">
 </div>
 <br>
 <div class="input-group">
-<span class="input-group-addon" style="min-width:180px">Dirección:</span>
+<span class="input-group-addon" style="min-width:180px">Direcci&oacute;n:</span>
 <input name="direccion" type="text" id="direccion" value="<?php echo $direccion;?>" class="form-control" data-toggle="popover" data-trigger="hover" data-content="Direccion exacta para ubicar en google maps.">
 </div>
 <br>
@@ -102,7 +106,7 @@
 		</div>
         <div class="col-md-4">
 			<div class="input-group">
-			<span class="input-group-addon" style="min-width:100px">Baños:</span>
+			<span class="input-group-addon" style="min-width:100px">Ba&ntilde;os:</span>
 			<input name="banios" type="text" id="banios" value="<?php echo $banios;?>" class="form-control">
 			</div>	
 		</div>		
@@ -112,18 +116,18 @@
         <div class="col-md-4">
 			<div class="input-group">
 			<span class="input-group-addon" style="min-width:100px">Metros2: </span>
-			<input name="metros2" type="text" id="metros2" value="<?php echo $metros2;?>" class="form-control">
+			<input name="metros2" type="text" id="metros2" value="<?php echo $m2;?>" class="form-control">
 			</div>	
 		</div>
         <div class="col-md-4">
 			<div class="input-group">
 			<span class="input-group-addon" style="min-width:100px">Estado:</span>
-			<input name="estado" type="text" id="estado" value="<?php echo $estado;?>" class="form-control">
+			<input name="estado" type="text" id="estado" value="<?php echo $estado_inmueble;?>" class="form-control">
 			</div>
 		</div>
         <div class="col-md-4">
 			<div class="input-group">
-			<span class="input-group-addon" style="min-width:100px">Año:</span>
+			<span class="input-group-addon" style="min-width:100px">A&ntilde;o:</span>
 			<input name="anio" type="text" id="anio" value="<?php echo $anio;?>" class="form-control">
 			</div>
 		</div>		
@@ -137,7 +141,22 @@
 </div>
 <br>
 </div>
-fotos<br><br>
+		<div class="input-group">
+			<span class="input-group-addon" style="min-width:180px;">Fotos:</span>
+			<div class="btn-group-vertical" role="group" aria-label="..."  style="min-height:150px;">
+				<input name="foto1" type="file" id="foto1" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
+				<input name="foto1desc" type="text" id="foto1desc" value="" class="form-control" placeholder="Ingrese la descripci&oacute;n...">
+			</div>
+			<div class="btn-group-vertical" role="group" aria-label="..."  style="min-height:150px;">
+				<input name="foto2" type="file" id="foto2" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
+				<input name="foto2desc" type="text" id="foto2desc" value="" class="form-control" placeholder="Ingrese la descripci&oacute;n...">
+			</div>
+			<div class="btn-group-vertical" role="group" aria-label="..."  style="min-height:150px;">
+				<input name="foto3" type="file" id="foto3" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
+				<input name="foto3desc" type="text" id="foto3desc" value="" class="form-control" placeholder="Ingrese la descripci&oacute;n...">
+			</div>
+		</div>
+<br><br>
 <div class="input-group">
 <span class="input-group-addon" style="vertical-align:top; padding-top:30px; min-width:180px">Detalles:</span>
 <textarea name="detalles" cols="35" rows="10" id="detalles" class="form-control" style="font-family:Courier New"><?php echo $detalles;?></textarea>

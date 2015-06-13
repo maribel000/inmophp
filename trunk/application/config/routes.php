@@ -40,16 +40,6 @@
 
 $route['default_controller'] = "home";
 $route['404_override'] = '';
-//Para el listado de canciones de un artista
-$route['artista/(:any)'] = "canciones/nombre/$1"; 
-//Para el significado
-$route['significado/(:any)'] = "interpretacion/nombre/$1"; 
-//Para la opinion solitaria
-$route['opi/(:any)/(:any)'] = "interpretacion/opi/$1/$2"; 
-//$route['opi/(:any)'] = "interpretacion/opi/$1"; 
-//Para el listado de las ultimas opiniones
-$route['ultimas-opiniones'] = "interpretacion/ultimas/$1"; 
-$route['ultimas-opiniones/(:any)'] = "interpretacion/ultimas/$1"; 
 
 
 /* End of file routes.php */
