@@ -2199,40 +2199,26 @@ class Ion_auth_model extends CI_Model
 	}
 	
 	//modificaciones redinmo
-	public function infoavisos($iduser)
+	public function avisos_user($iduser)
 	{
-        $this->db->select('avisos.id');
-        $this->db->select('avisos.fecha');
-        $this->db->select('avisos.estado_aviso');
-
-        $this->db->select('tipos_inmuebles.descripcion as tipo_inmueble');
-        $this->db->select('tipos_op.nombre as tipo_op');
-        $this->db->select('localidades.nombre as nombre_localidad');
-        $this->db->select('provincias.nombre as provincia');
-        $this->db->select('aviso_fotos.url as foto_url');
-		
-		$this->db->select('visualizaciones.id as visualizaciones');
-		//$this->db->select('COUNT(ver_datos.id_aviso) as contactos');
-
-
-        $this->db->from('avisos');
-
-        $this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
-        $this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
-        $this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
-        $this->db->join('provincias', 'localidades.id_provincia = provincias.id','left');
-        $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
-		$this->db->join('visualizaciones', 'avisos.id = visualizaciones.id_aviso','left');
-		//$this->db->join('ver_datos', 'avisos.id = ver_datos.id_aviso','left');
-		
-
-
-        $this->db->where('avisos.id_usuario', $iduser);
-		
-		$this->db->limit(1);
-
-        $query = $this->db->get();	
-		return $query;
+		$query = $this->db->query('
+		SELECT a.id AS id_aviso, a.fecha AS fecha, ti.descripcion AS tipo_inmueble, top.nombre AS tipo_operacion, l.nombre AS localidad, IFNULL(af.url,\'./uploads/fotos/foto_temporal_default.jpg\') AS url_foto, count(v.id) as cant_visualizaciones, count(c.id) as cant_contactos
+		FROM avisos a 
+		INNER JOIN tipos_inmuebles ti
+		ON a.id_tipo_inmueble = ti.id
+		INNER JOIN tipos_op top 
+		ON a.id_tipo_op = top.id
+		INNER JOIN localidades l 
+		ON a.id_localidad = l.id
+		LEFT JOIN aviso_fotos af
+		ON a.id = af.id_aviso
+		LEFT JOIN visualizaciones v
+		ON a.id = v.id_aviso
+		LEFT JOIN ver_datos c
+		ON a.id = c.id_aviso
+		WHERE a.id_usuario = '.$iduser.' AND (af.default = 1 OR af.default IS NULL) AND a.estado_aviso = 0
+		GROUP BY id_aviso');	
+		return $query;      
 	}
 	
 	public function cant_pendientes($iduser) {
@@ -2245,28 +2231,37 @@ class Ion_auth_model extends CI_Model
 	}
 	
 	public function get_favoritos($iduser) {
-	/*
-	    $this->db->select('user_favoritos.id');
-	    $this->db->select('user_favoritos.id_aviso');
-		
-		$this->db->select('avisos.id_tipo_op as tipo_operacion');
-        //$this->db->select('tipos_inmuebles.descripcion as tipo_inmueble');
-       // $this->db->select('tipos_op.nombre as tipo_op');
-        //$this->db->select('localidades.nombre as nombre_localidad');
-		
-		$this->db->from('user_favoritos');
-		
-		
-		$this->db->join('avisos', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
-        //$this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
-       // $this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
-       // $this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
-		
-		$this->db->where('user_favoritos.id_user', $iduser);
-
-		$query = $this->db->get();	
-		return $query;*/
+	
+		$query = $this->db->query('
+		SELECT uf.id_aviso AS aviso_id, ti.descripcion AS ti_descripcion, top.nombre AS top_nombre, l.nombre AS localidad_nombre
+		FROM user_favoritos uf 
+		INNER JOIN avisos a  
+		ON uf.id_aviso = a.id
+		INNER JOIN tipos_inmuebles ti
+		ON a.id_tipo_inmueble = ti.id
+		INNER JOIN tipos_op top 
+		ON a.id_tipo_op = top.id
+		INNER JOIN localidades l 
+		ON a.id_localidad = l.id
+		WHERE uf.id_user = '.$iduser);	
+		return $query;
+			
 	}	
 
+	public function get_alertas($iduser) {
+	
+		$query = $this->db->query('
+		SELECT up.id AS id_alert, ti.descripcion AS ti_descripcion, top.nombre AS top_nombre, l.nombre AS localidad_nombre 
+		FROM user_pedidos up 
+		INNER JOIN tipos_inmuebles ti
+		ON up.id_tipo_inmueble = ti.id 
+		INNER JOIN tipos_op top
+		ON up.id_tipo_op = top.id
+		INNER JOIN localidades l 
+		ON up.id_ciudad = l.id 
+		WHERE up.id_user = '.$iduser);	
+		return $query;
+			
+	}	
 	
 }

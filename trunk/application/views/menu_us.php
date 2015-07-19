@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <img style="padding-top:0.2em" src="<?php echo base_url();?>theme/img/logo-inm.png"></img> <b>InmoAvisos.com</b>
+      <a href="<?php echo base_url();?>"><img style="padding-top:0.2em" src="<?php echo base_url();?>theme/img/logo-inm.png"></img> <b>InmoAvisos.com</b></a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">

@@ -54,20 +54,19 @@ class Avisos_model extends CI_Model {
 			return $this->db->insert_id();
     }
 
-    function edit_aviso($id, $tipoop, $tipoinm, $provincia, $ciudad, $barrio, $direccion, $ambientes, $dormitorios, $banios, $metros2, $estado, $anio, $precio, $detalles)
+    function edit_aviso($id, $tipoop, $tipoinm, $provincia, $idlocalidad, $barrio, $direccion, $ambientes, $dormitorios, $banios, $metros2, $estado, $anio, $precio, $detalles)
     {
 			$data = array(
-						   'tipo_op' => $tipoop,
-						   'tipo_inm' => $tipoinm,
-						   'provincia' => $provincia,
-						   'ciudad' => $ciudad,
-						   'barrio' => $barrio,
+						   'id_tipo_op' => $tipoop,
+						   'id_tipo_inmueble' => $tipoinm,
+						   'id_localidad' => $idlocalidad,
+						   'id_barrio' => $barrio,
 						   'direccion' => $direccion,
-						   'ambientes' => $ambientes,
-						   'dormitorios' => $dormitorios,
-						   'banios' => $banios,
-						   'metros2' => $metros2,
-						   'estado' => $estado,
+						   'cant_ambientes' => $ambientes,
+						   'cant_dormitorios' => $dormitorios,
+						   'cant_banios' => $banios,
+						   'metros_cuadrados' => $metros2,
+						   'estado_inmueble' => $estado,
 						   'anio' => $anio,
 						   'precio' => $precio,
 						   'detalles' => utf8_decode($detalles),
@@ -95,6 +94,23 @@ class Avisos_model extends CI_Model {
 		return;			
 
 	}
+	
+    function enviado_mail ($id, $ip, $nombre, $email, $date)
+	{	
+
+		$data = array(
+		   'id_aviso' => $id,
+		   'ip_address' => $ip,
+		   'nombre' => $nombre,
+		   'email' => $email,		   
+		   'fecha_hora' => $date,
+		);
+
+		$cadena_query = $this->db->insert_string('enviado_mail', $data);
+		$cadena_query = str_replace('INSERT INTO', 'INSERT IGNORE INTO', $cadena_query);
+		return $this->db->query($cadena_query);			
+
+	}	
 	
 	function new_alert($userid, $tipoinm, $tipoop, $idlocal, $pmin, $pmax) {
 		$data = array(
@@ -147,6 +163,12 @@ class Avisos_model extends CI_Model {
 		}
 		
 	}	
+	
+    function delete_ale($idale)
+	{				
+		$this->db->delete('user_pedidos', array('id' => $idale)); 
+		return;
+	}		
 	
     function registrar_verdatos($id, $ip, $date)
 	{	
@@ -304,7 +326,7 @@ class Avisos_model extends CI_Model {
         }
     }*/
 
-    function get_ult_avisos() {
+    function get_ult_avisos() { // esta funcion trae los ultimos 5 avisos que tienen fotos y en estado Publicado
 
     	$aviso = array();
     	
@@ -339,6 +361,7 @@ class Avisos_model extends CI_Model {
         $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
     	
 		$this->db->where('aviso_fotos.default',1);
+		$this->db->where('avisos.estado_aviso',0);
 		
 		$this->db->order_by("avisos.id", "desc");
 		
@@ -379,7 +402,7 @@ class Avisos_model extends CI_Model {
 
         $this->db->order_by('users.created_on', 'desc');
 
-        $this->db->limit(5,0);
+        $this->db->limit(6,0);
 
         $query = $this->db->get();
 
@@ -398,7 +421,7 @@ class Avisos_model extends CI_Model {
         $this->db->select('count(id_localidad) as cant_avisos');
 
         $this->db->from('avisos');
-
+		$this->db->where('estado_aviso',0);
         $this->db->join('localidades', 'localidades.id = avisos.id_localidad','left');
 
         $this->db->group_by('id_localidad');
@@ -431,6 +454,45 @@ class Avisos_model extends CI_Model {
 
         return $this->db->insert_id();
     }
+	
+    function edit_aviso_foto(
+        $idAviso,
+        $url,
+        $desc,
+        $default
+    )
+    {
+	
+        $this->db->select('aviso_fotos.id_aviso');
+        $this->db->from('aviso_fotos');
+        $this->db->where('url',$url);
+        $this->db->limit(1);
+		$query = $this->db->get();
+		$rowcount = $query->num_rows();
+		
+	
+		
+		if ($rowcount) { //ya existe el registro, por lo que lo actualizo
+			$data = array(
+				'descripcion' => $desc,
+			);			
+			$this->db->where('url', $url);
+			$this->db->limit(1);
+			$this->db->update('aviso_fotos', $data); 
+			
+			return true; //si llega aca, esta todo ok
+		}else{ // no existe el registro, lo agrego
+			$data = array(
+				'id_aviso' => $idAviso,
+				'url' => $url,
+				'descripcion' => $desc,
+				'default' => 1
+			);			
+			$this->db->insert('aviso_fotos', $data);
+			return $this->db->insert_id();	
+		}
+		
+    }	
 
     function listar_avisos_total() {
 		$this->db->where('estado_aviso', 0);
@@ -496,6 +558,48 @@ class Avisos_model extends CI_Model {
 		$this->db->limit(1);
 		$this->db->update('avisos', $data); 	
 	}
+	
+	function enviar_alertas($id) {
+		//selecciono los datos del aviso nuevo
+		
+        $this->db->select('id_tipo_inmueble');
+        $this->db->select('id_tipo_op');		
+        $this->db->select('id_localidad');		
+        $this->db->select('precio');	
 
+		
+        $this->db->where('id', $id);
+        $query1 = $this->db->get('avisos');	
+		
+		$query1 = $query1->result_array()[0];
+		//print_r($query1);
+		//die("a");
+		//con estos datos, me fijo si hay correspondencia en la tabla de alertas
+		/*
+		$query1['id_tipo_op'] = 1;
+		$query1['id_tipo_inmueble'] = 1;
+		$query1['precio'] = 1000;
+		*/
+		
+    //    $this->db->select('user_pedidos.id_user');		
+
+		$this->db->select('users.email as email');	
+		$this->db->select('users.first_name as nombre');			
+		$this->db->select('users.last_name as apellido');					
+		
+		$this->db->where('id_tipo_op', $query1['id_tipo_op']);
+		$this->db->where('id_tipo_inmueble', $query1['id_tipo_inmueble']);
+		$this->db->where('precio_min <=', $query1['precio']);
+		$this->db->where('precio_max >=', $query1['precio']);
+		$this->db->where('activo', 1);
+		
+		$this->db->join('users', 'user_pedidos.id_user = users.id','left');		
+		return $this->db->get('user_pedidos');	
+		/*
+			retorno la cantidad de emails o ids de usuarios
+			en el control, mando emails a cada uno de ellos, con un enlace al nuevo aviso ingresado
+		*/
+		
+	}
 }
 ?>

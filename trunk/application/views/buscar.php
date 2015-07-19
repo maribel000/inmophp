@@ -33,6 +33,14 @@
 
 		<script>
             $(document).ready(function(){
+			
+				$('#buscar_avisos').submit(function( event ) {
+					if ($('#localidades').val() != "" && $('#idLocalidad').val() == "") {
+						alert("seleccione una ciudad de la lista");
+						event.preventDefault();
+					}	
+				});				
+			
                 $("#localidades").autocomplete({
                     source: "<?=base_url()?>avisos/get_localidades",
                     select: function(e, ui) {
@@ -51,13 +59,13 @@
     <body>
 
 
-
+	<?php echo $menu; ?>
     <div class="container">
 			<div class="jumbotron" style="padding: 1em; background-color: #F5ECCE;">
 				<div class="row">
 					<div class="col-md-11">
 						<div class="row">
-                            <form name="buscar_avisos" method="get" action="<?=base_url()?>buscar/s" enctype="multipart/form-data">
+                            <form id="buscar_avisos" name="buscar_avisos" method="get" action="<?=base_url()?>buscar/s" enctype="multipart/form-data">
 
                                 <div class="col-md-3">
 							        Tipo de Operación:

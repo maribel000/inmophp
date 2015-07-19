@@ -75,7 +75,7 @@
  <div class="alert alert-danger" role="alert" style="padding:4px"><?php echo validation_errors(); ?></div>
 <?php } ?>
 
-<form name="agregar_aviso" method="post" action="<?=base_url()?>avisos/agregar" enctype="multipart/form-data">
+<form id="agregar_aviso" name="agregar_aviso" method="post" action="<?=base_url()?>avisos/agregar" enctype="multipart/form-data">
 <div class="form-group">
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Tipo de operaci&oacute;n:</span>
@@ -139,7 +139,7 @@
       <div class="row">
         <div class="col-md-4">
 			<div class="input-group">
-			<span class="input-group-addon" style="min-width:100px">Metros cuadrados: </span>
+			<span class="input-group-addon" style="min-width:100px">Metros2: </span>
 			<input name="metros2" type="text" id="metros2" value="" class="form-control">
 			</div>	
 		</div>
@@ -189,15 +189,62 @@
 	</center>
 		
     </div> <!-- /container -->
-
+	<script src="<?php echo base_url();?>theme/assets/js/jquery.validate.min.js"></script>
 	<script type="text/javascript">
-	$('#direccion').popover({
-        container: 'body'
-    });
-	$('#tipoop').popover({
-        container: 'body'
-    });
+	$(document).ready(function(){	
+	
+		$('#agregar_aviso').submit(function( event ) {
+			//alert($('#idLocalidad').val());
+			if ($('#idLocalidad').val() == "") {
+				alert( "Seleccione una ciudad de la lista" );
+				return;
+			}
+		});	
+	
+		$('#direccion').popover({
+			container: 'body'
+		});
+		$('#tipoop').popover({
+			container: 'body'
+		});		
+		/* validaciones JS */
+		$('#agregar_aviso').validate({
+
+				rules: {
+					precio: {
+						required: true,
+						number: true
+					},
+					direccion: {
+						required: true,
+					},					
+					detalles: {
+						required: true,
+					},
+					localidad: {
+						required: true,
+					},
+					
+				},
+				messages: {
+					precio: {
+						required: "Por favor ingrese el precio",
+						number: "Ingrese un valor numerico",
+					},
+					direccion: {
+						required: "Por favor ingrese la direccion exacta del inmueble",
+					},	
+					detalles: {
+						required: "Por favor ingrese el detalle del inmueble",
+					},	
+					localidad: {
+						required: "Por favor ingrese una localidad",
+					},					
+				}
+		});	
+	});
     </script>
+
 </body>
 
 </html>
