@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2015 a las 05:14:52
+-- Tiempo de generación: 08-07-2015 a las 02:15:01
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `redinmo_final`
+-- Base de datos: `redinmo_up`
 --
 
 -- --------------------------------------------------------
@@ -45,56 +45,19 @@ CREATE TABLE IF NOT EXISTS `avisos` (
   `fecha` datetime DEFAULT NULL,
   `nombre_barrio` varchar(45) DEFAULT NULL,
   `estado_aviso` tinyint(4) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `avisos`
 --
 
 INSERT INTO `avisos` (`id`, `id_tipo_inmueble`, `id_tipo_op`, `id_barrio`, `id_localidad`, `id_usuario`, `direccion`, `metros_cuadrados`, `cant_ambientes`, `cant_dormitorios`, `cant_banios`, `estado_inmueble`, `anio`, `detalles`, `precio`, `fecha`, `nombre_barrio`, `estado_aviso`) VALUES
-(8, 1, 1, NULL, 2104, 7, '', 0, 0, 0, 0, '', 0, 'Sarasa', 0, NULL, '', 1),
-(9, 1, 1, NULL, 2104, 7, '', 0, 0, 0, 0, '', 0, 'Sarasa', 0, NULL, '', 1),
-(11, 1, 1, NULL, 2104, 2, '', 0, 0, 0, 0, '', 0, 'Sarasa', 0, NULL, '', 0),
-(12, 1, 1, NULL, 2104, 2, '', 0, 0, 0, 0, '', 0, 'Sarasa', 0, NULL, '', 0),
-(13, 1, 1, NULL, 2104, 3, '', 0, 0, 0, 0, '', 0, 'Sarasa', 0, NULL, '', 0),
-(15, 1, 1, NULL, 2104, 2, '', 0, 0, 0, 0, '', 0, 'Sarasa', 0, NULL, '', 0),
-(16, 1, 1, NULL, 2104, 1, '', 0, 0, 0, 0, '', 0, 'Sarasa', 0, NULL, '', 0),
-(17, 3, 2, NULL, 2, 1, '', 0, 0, 0, 0, '', 0, 'asd', 0, NULL, '', 0),
-(18, 3, 2, NULL, 2, 2, '', 0, 0, 0, 0, '', 0, 'asddsa', 0, NULL, '', 0),
-(19, 3, 2, NULL, 2, 3, '', 0, 0, 0, 0, '', 0, 'asddsaasdas', 0, NULL, '', 0),
-(20, 1, 1, NULL, 12, 2, '', 0, 0, 0, 0, '', 0, 'asd', 0, NULL, '', 0),
-(21, 1, 1, NULL, 1233, 1, '', 0, 0, 0, 0, '', 0, 'asdads', 0, NULL, '', 0),
-(22, 1, 1, NULL, 5, 3, '', 0, 0, 0, 0, '', 0, 'dsadsa', 0, NULL, '', 0),
-(23, 1, 1, NULL, 59, 2, '', 0, 0, 0, 0, '', 0, 'asdasd', 0, NULL, '', 0),
-(24, 1, 1, NULL, 5, 1, '', 0, 0, 0, 0, '', 0, 'adsads', 0, NULL, '', 0),
-(25, 1, 1, NULL, 5, 2, '', 0, 0, 0, 0, '', 0, 'adsads', 0, NULL, '', 0),
-(26, 1, 1, NULL, 666, 3, '', 0, 0, 0, 0, '', 0, 'adss', 0, NULL, '', 0),
-(27, 1, 1, NULL, 1, 2, '', 0, 0, 0, 0, '', 0, 'asdasd', 0, NULL, '', 0),
-(28, 1, 1, NULL, 2, 1, '', 0, 0, 0, 0, '', 0, 'adssda', 0, NULL, '', 0),
-(29, 1, 1, NULL, 2, 2, '', 0, 0, 0, 0, '', 0, 'asddsa', 0, NULL, '', 0),
-(30, 1, 1, NULL, 152, 3, '', 0, 0, 0, 0, '', 0, 'asdasd', 0, NULL, '', 0),
-(31, 1, 1, NULL, 730, 1, '', 0, 0, 0, 0, '', 0, 'asdasd', 0, NULL, '', 0),
-(32, 1, 1, NULL, 473, 2, '', 0, 0, 0, 0, '', 0, 'adssdadsa', 0, NULL, '', 0),
-(33, 1, 1, NULL, 735, 1, '', 0, 0, 0, 0, '', 0, 'asdadsasd', 0, NULL, '', 0),
-(34, 1, 1, NULL, 9, 3, '', 0, 0, 0, 0, '', 0, 'dsa', 0, NULL, '', 0),
-(35, 1, 1, NULL, 87, 2, '', 0, 0, 0, 0, '', 0, 'adsdas', 0, NULL, '', 0),
-(36, 1, 1, NULL, 5, 2, '', 0, 0, 0, 0, '', 0, 'das', 0, NULL, '', 0),
-(37, 1, 1, NULL, 8, 3, '', 0, 0, 0, 0, '', 0, 'dsaasdads', 0, NULL, '', 0),
-(38, 1, 1, NULL, 280, 2, '', 0, 0, 0, 0, '', 0, 'dassda', 0, NULL, '', 0),
-(39, 1, 1, NULL, 3, 2, '', 0, 0, 0, 0, '', 0, 'adsds', 0, NULL, '', 0),
-(40, 1, 1, NULL, 144, 2, '', 0, 0, 0, 0, '', 0, 'dasdsaasd', 0, NULL, '', 0),
-(41, 1, 1, NULL, 116, 3, '', 0, 0, 0, 0, '', 0, 'sadasd', 0, NULL, '', 0),
-(42, 1, 1, NULL, 2104, 3, '', 0, 0, 0, 0, '', 0, 'asd', 0, '0000-00-00 00:00:00', '', 0),
-(43, 1, 1, NULL, 2104, 3, '', 0, 0, 0, 0, '', 0, 'asd', 0, '0000-00-00 00:00:00', '', 0),
-(44, 1, 1, NULL, 2104, 1, '', 0, 0, 0, 0, '', 0, 'asd', 0, '2015-03-03 16:20:20', '', 0),
-(45, 1, 1, NULL, 2104, 1, '', 0, 0, 0, 0, '', 0, 'asd', 0, '2015-03-03 16:22:59', '', 0),
-(46, 1, 1, NULL, 2104, 1, '', 0, 0, 0, 0, '', 0, 'asasd', 0, '2015-03-04 14:21:57', '', 0),
-(47, 1, 1, NULL, 2, 1, '', 0, 0, 0, 0, '', 0, 'dsadsadsa', 0, '2015-03-04 14:28:05', '', 0),
-(48, 1, 2, NULL, 796, 2, '', 0, 0, 0, 0, '', 0, 'saddasdsasda', 0, '2015-03-04 14:34:54', '', 0),
-(49, 1, 1, NULL, 2, 3, '', 0, 0, 0, 0, '', 0, 'asdasddsa', 0, '2015-03-04 14:39:00', '', 0),
-(50, 1, 1, NULL, 2104, 2, 'Génova 1310', 40, 2, 1, 1, 'Antiguo', 1978, 'Gran casa. A metros del pami. Amplia. Excelente estado. Amueblada.\r\n\r\nLlame ya!', 360000, '2015-03-04 15:29:06', 'Arroyito', 0),
-(54, 3, 3, NULL, 25, 7, 'elbagallo 513', 150, 4, 2, 2, 'bueno', 2005, 'dto en algun lugar, para alquiler temporario', 15000, '2015-03-10 16:05:55', 'margarita', 0),
-(57, 1, 1, NULL, 871, 1, 'nose 123', 0, 0, 0, 0, '', 0, 'detaaa', 0, '2015-06-11 01:07:42', '', 0);
+(1, 3, 3, 0, 25, 11, 'Tucuman 2120', 40, 2, 1, 1, 'nuevo', 2015, 'Departamento un dormitorio a la venta Rosario. Tucum?n y Balcarce. Entrega Junio 2015. ', 120000, '2015-06-30 20:52:16', 'Centro', 0),
+(2, 3, 2, NULL, 2104, 11, 'Cerrito 1300', 45, 1, 1, 1, 'bueno', 2014, 'ALQUILER CERRITO 1821 ENTRE CORRIENTES Y ENTRE R?OS UN DORMITORIO EXCELENTE A ESTRENAR ', 4100, '2015-06-30 20:55:25', 'Centro', 0),
+(3, 3, 1, NULL, 2104, 11, 'Alvear 100', 45, 2, 1, 1, 'bueno', 2012, 'CARACTERISTICAS GENERALES:\r\n\r\nEL EDIFICIO BLU PICHINCHA CUENTA CON DOS BLOQUES DE VIVIENDAS DE 3 PISOS, DESNIVELADOS ENTRE FRENTE Y CONTRAFRENTE. DICHO DESNIVEL ASEGURA LA PRIVACIDAD VISUAL ENTRE TORRES.\r\nEL INGRESO A CADA DEPARTAMENTO SE DESARROLLA POR SEMIPISOS EXCLUSIVOS MEDIANTE UN NIVEL DE ESCALERA Y ASCENSOR CENTRAL.\r\nLAS UNIDADES SE DESARROLLAN EN PLANTA LIBRE, PRIORIZANDO UN ESPACIO UNICO, FLEXIBLE, CON VENTILACION CRUZADA E ILUMINACION OPTIMA DEBIDO A SUS DOS CARAS VIDRIADAS.\r\nLOS SERVICIOS DE CADA UNIDAD SE COMPACTAN AL LATERAL DE ESTE ESPACIO UNICO ENFATIZANDO SU FLEXIBILIDAD.\r\nLA PLANTA BAJA CUENTA CON UN LOCAL COMERCIAL, DOS UNIDADES DE VIVIENDA CON PATIO EXCLUSIVO, UN AREA DE COCHERAS E INGRESO INTEGRADO, DESTACANDOSE EL NUCLEO DEL ASCENSOR UBICADO EN EL CENTRO DE UN GRAN AIRE-LUZ, QUE CONECTAN LOS DOS BLOQUES DE VIVIENDAS.\r\n\r\n\r\nCARACTERISTICAS CONSTRUCTIVAS:\r\n\r\n*EL EDIFICIO CUENTA CON SERVICIO DE GAS OTORGADO POR LA EMPRESA LITORAL GAS\r\n*ESTRUCTURA DE HORMIGON ARMADO.\r\n*MUEBLES DE COCINA MARCA RENO ( http://www.amoblamientosreno.com )\r\n*PISO EN AMBIENTE UNICO DE MADERA NATURAL IMPORTADA MARCA PATAGONIA FLOORING- ACABADO PREFINISHED ( http://patagoniaflooring.com/producto/terminacion-en-fabrica/ )\r\n*PISO EN COCINA Y BA?O PORCELANATO DE PRIMERA. MARCA ILVA\r\n* GRIFERIA Y SANITARIOS MARCA FERRUM Y FV. BACHA COCINA ACERO INOXIDABLE MARCA JOHNSON.\r\n*COCINA, CALEFON Y TIRO BALANCEADO PRIMERA MARCA. ORBIS.\r\n*MESADA COCINA DE MARMOL NEGRO.\r\n*REVOQUES Y CIELORRASOS INTERIORES EN YESO.\r\n*TERMINACION FINAL PINTURA LATEX INTERIOR MARCA SHERWIN WILLIAMS.\r\n*ABERTURAS DE ALUMINIO LINEA MODENA. VIDRIOS DE SEGURIDAD 3+3mm\r\n*REJAS DE SEGURIDAD DE PISO A TECHO EN FRENTE Y CONTRAFRENTE DEL DEPTO.\r\n*INSTALACION PREPARADA PARA EQUIPO DE AIRE ACONDICIONADO SPLIT. ', 970000, '2015-06-30 21:00:06', 'Pichincha', 0),
+(4, 1, 1, NULL, 2104, 16, 'Richieri 500', 100, 5, 2, 2, 'bueno', 1995, 'Richieri entre Urquiza y San Lorenzo. Dos plantas. Reciclado excelente.\r\nPlanta Baja: Garage, living, cocina y comedor diario, dormitorio, ba?o y patio chico de 5x5 mts.\r\nPlanta Alta: Tres dormitorios, ba?o completo, lavadero.\r\nHermosa Terraza. ', 150000, '2015-06-30 21:08:01', '', 0),
+(5, 3, 1, NULL, 2104, 13, 'San Nicolas 500', 30, 2, 1, 1, 'bueno', 2014, 'UN DORMITORIO CON PATIO, 35 M2 EXCLUSIVOS MAS 8 M2 DE PATIO, ENTREGA INMEDIATA. ', 700000, '2015-07-06 20:26:54', '', 0),
+(6, 1, 1, NULL, 2104, 13, 'Jujuy 3100', 150, 5, 3, 2, 'refaccionar', 1950, 'CUENTA CON :\r\nPLANTA BAJA: OFICINA ( 3M X 2M ). PATIO 10 X 3. 1 HABITACI?N. 1 LIVING COMEDOR. BA?O Y COCINA .\r\nPLANTA ALTA: 2 HABITACIONES. PARRILLERO Y PATIO-TERRAZA AMPLIO 40 M2 APROX. ', 150000, '2015-07-06 20:32:54', '', 0);
 
 -- --------------------------------------------------------
 
@@ -108,33 +71,29 @@ CREATE TABLE IF NOT EXISTS `aviso_fotos` (
   `default` int(11) NOT NULL DEFAULT '0',
   `url` varchar(200) NOT NULL,
   `descripcion` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `aviso_fotos`
 --
 
 INSERT INTO `aviso_fotos` (`id`, `id_aviso`, `default`, `url`, `descripcion`) VALUES
-(8, 40, 1, './uploads/fotos/foto_40_1549654ee079c4c2b4_1.jpg', ''),
-(9, 40, 0, './uploads/fotos/foto_40_2614554ee079c83591_2.jpg', ''),
-(10, 40, 0, './uploads/fotos/foto_40_1491854ee079ca6819_3.jpg', ''),
-(11, 46, 1, './uploads/fotos/foto_46_1332654f706f5e5747_1.jpg', ''),
-(12, 46, 0, './uploads/fotos/foto_46_772754f706f6260d4_2.jpg', ''),
-(13, 46, 0, './uploads/fotos/foto_46_2361254f706f64ba6c_3.jpg', ''),
-(14, 47, 1, './uploads/fotos/foto_47_3087654f7086551ff5_1.jpg', ''),
-(15, 47, 0, './uploads/fotos/foto_47_477354f708657892e_2.jpg', ''),
-(16, 47, 0, './uploads/fotos/foto_47_2623454f708658d923_3.jpg', ''),
-(17, 48, 1, './uploads/fotos/foto_48_1944154f709fec8c0a_1.jpg', ''),
-(18, 48, 0, './uploads/fotos/foto_48_2965454f709feee5a3_2.jpg', ''),
-(19, 48, 0, './uploads/fotos/foto_48_1391154f709ff18bb2_3.jpg', ''),
-(20, 49, 1, './uploads/fotos/foto_49_2360354f70af4b05ab_1.jpg', ''),
-(21, 49, 0, './uploads/fotos/foto_49_3172854f70af4ce62a_2.jpg', ''),
-(22, 49, 0, './uploads/fotos/foto_49_548154f70af4e7888_3.jpg', ''),
-(23, 50, 1, './uploads/fotos/foto_50_3229954f716b213974_1.jpg', 'hola'),
-(24, 50, 0, './uploads/fotos/foto_50_64854f716b237f84_2.jpg', 'como'),
-(25, 50, 0, './uploads/fotos/foto_50_1334554f716b25062a_3.jpg', 'va'),
-(26, 54, 1, './uploads/fotos/foto_54_1525554ff0853f3b0c_1.jpg', ''),
-(27, 54, 0, './uploads/fotos/foto_54_448454ff08545b989_2.jpg', '');
+(1, 1, 1, './uploads/fotos/foto_1_322445592e560a2875_1.jpg', 'vista total del edificio'),
+(2, 1, 0, './uploads/fotos/foto_1_105255592e560d7c11_2.jpg', 'ambiente principal'),
+(3, 1, 0, './uploads/fotos/foto_1_19385592e56114b05_3.jpg', 'plano del departamento'),
+(4, 2, 1, './uploads/fotos/foto_2_259555592e61d7f917_1.jpg', 'ingreso'),
+(5, 2, 0, './uploads/fotos/foto_2_13765592e61da3f27_2.jpg', 'cocina'),
+(6, 2, 0, './uploads/fotos/foto_2_148735592e61dd5ffb_3.jpg', 'dormitorio'),
+(7, 3, 1, './uploads/fotos/foto_3_23205592e7360ec95_1.jpg', 'comedor'),
+(8, 3, 0, './uploads/fotos/foto_3_276575592e7362a21b_2.jpg', 'cocina'),
+(9, 3, 0, './uploads/fotos/foto_3_281745592e73643c49_3.jpg', 'vista externa'),
+(10, 4, 1, './uploads/fotos/foto_4_197195592e911c4f78_1.jpg', 'comedor'),
+(11, 4, 0, './uploads/fotos/foto_4_77325592e911dd61d_2.jpg', 'baño'),
+(12, 4, 0, './uploads/fotos/foto_4_256935592e911f2612_3.jpg', 'patio'),
+(13, 5, 1, './uploads/fotos/foto_5_8552559ac86e5a8e0_1.jpg', 'vista exterior'),
+(14, 6, 1, './uploads/fotos/foto_6_3230559ac9d63363d_1.jpg', 'patio'),
+(15, 6, 0, './uploads/fotos/foto_6_13183559ac9d65553d_2.jpg', 'terraza'),
+(16, 6, 0, './uploads/fotos/foto_6_20300559ac9d66cc43_3.jpg', 'cocina');
 
 -- --------------------------------------------------------
 
@@ -157,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `barrios` (
 CREATE TABLE IF NOT EXISTS `enviado_mail` (
 `id` int(11) NOT NULL,
   `id_aviso` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `ip_address` varchar(15) DEFAULT NULL,
   `fecha` datetime DEFAULT NULL
@@ -180,7 +140,6 @@ CREATE TABLE IF NOT EXISTS `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', ''),
-(2, 'members', ''),
 (3, 'inmobiliarias', ''),
 (4, 'particulares', ''),
 (5, 'clientes', '');
@@ -2799,20 +2758,25 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_name` varchar(50) DEFAULT NULL,
   `company` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '192.168.100.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'lblanco@gmail.com', NULL, NULL, NULL, NULL, 2147483647, 1434061923, 1, 'Lucas', 'Blanco', 'Google', '123456'),
-(2, '192.168.100.2', 'ggorno', 'ggorno', NULL, 'ggorno@gmail.com', NULL, NULL, NULL, NULL, 2147483647, NULL, 1, 'Guillermo', 'Gorno', 'Yahoo', '123457'),
-(3, '192.168.100.3', 'nrullo', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'inmotest@gmail.com', NULL, NULL, NULL, NULL, 2147483647, 1426483320, 1, 'Nahuel', 'Rullo', 'Bing', '123458'),
-(7, '::1', 'sd fds', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'test@test.com', NULL, NULL, NULL, NULL, 0, 1433879387, 1, 'sd', 'fds', 'fdsfs', '1234987'),
-(8, '::1', 'userinmo ape', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'userinmo@gmail.com', NULL, NULL, NULL, NULL, 1425999133, 1434062589, 1, 'userinmo', 'ape', 'comp', '1234556'),
-(9, '127.0.0.1', 'parti parti', '$2y$08$k1J/8GsZRCd31YXnG0pLLOH2MLhaD/JfBosgHGV/g.tHvcU3b.F7i', NULL, '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, NULL, NULL, NULL, 1432320632, 1432320636, 1, 'parti', 'parti', 'parti comp', '123456789'),
-(10, '127.0.0.1', 'cliente nombre cliente apellido', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'cliente@cliente.com', NULL, NULL, NULL, NULL, 1433879054, 1434061377, 1, 'cliente nombre', 'cliente apellido', 'bsc', '123456789');
+(1, '192.168.100.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', NULL, 'admin@admin.com', NULL, NULL, NULL, NULL, 2147483647, 1436207585, 1, 'Lucas', 'Blanco', 'RedInmo.com', '123456'),
+(11, '127.0.0.1', 'muriel zelaya', '$2y$08$FF.RBxoxo6T51fZhOH367eM4A3iQpGRuOPApvRYqCTdEQoN5zhpHm', NULL, 'moriconi@moriconi.com', NULL, NULL, NULL, NULL, 1435688003, 1435771329, 1, 'Muriel', 'Zelaya', 'Moriconi', '123456789'),
+(12, '127.0.0.1', 'crisol benavides', '$2y$08$I2abtw64iaXlmmdcS4mkke9jbtxP6tAccC0mZAdAETPPGCHhgBY2G', NULL, 'unopropiedades@unopropiedades.com', NULL, NULL, NULL, NULL, 1435688222, NULL, 1, 'Crisol', 'Benavides', 'uno propiedades', '123456789'),
+(13, '127.0.0.1', 'gabriel granados', '$2y$08$VTNuNoiiLDRc604n0BwwQOkkhmrFDtzHzD0de7bok5wIBtZzTMSZC', NULL, 'crestale@crestale.com', NULL, NULL, NULL, NULL, 1435688292, 1436207033, 1, 'Gabriel', 'Granados', 'Crestale', '123456789'),
+(14, '127.0.0.1', 'caren garrido', '$2y$08$kWHzTEPSdweUoBEQGsIA5Ol/aDMEosz843L8hbxGtzGqWXB9WVMj6', NULL, 'melatini@melatini.com', NULL, NULL, NULL, NULL, 1435688355, NULL, 1, 'Caren', 'Garrido', 'Melatini', '123456789'),
+(15, '127.0.0.1', 'emir altamirano', '$2y$08$WaFQkqp.q5uzylHa/OL6Hedp1Lh6GrkbnO9M3A0CXGCs297o4R2Lm', NULL, 'soljan@soljan.com', NULL, NULL, NULL, NULL, 1435688404, NULL, 1, 'Emir', 'Altamirano', 'Soljan Marti', '123456789'),
+(16, '127.0.0.1', 'juan rodriguez', '$2y$08$VdxXIIhKPrccNzhmpwNJU.fu/5oJa769dXZjqMo.jJiJyXAS10mFe', NULL, 'juan@rodriguez.com', NULL, NULL, NULL, NULL, 1435688506, 1435691028, 1, 'Juan', 'Rodriguez', 'Rodriguez Propiedades', '123456789'),
+(17, '127.0.0.1', 'pablo blanco', '$2y$08$ViS8VL3bStQ64EswJrdNz.c2z6uA2XFCdHsOn5G8NexLh5F9uBG2.', NULL, 'pablo@blanco.com', NULL, NULL, NULL, NULL, 1435688571, NULL, 1, 'Pablo', 'Blanco', 'Blanco SA', '123456789'),
+(18, '127.0.0.1', 'cecilia carello', '$2y$08$3t49C3r7iOMiHKVHmBnkyuZYN7ahsveV1x948ddgebi38982HGl3u', NULL, 'cecilia@carello.com', NULL, NULL, NULL, NULL, 1435688608, NULL, 1, 'Cecilia', 'Carello', 'chechusprop', '123456789'),
+(19, '127.0.0.1', 'nahuel rullo', '$2y$08$tzyxqIOrJ9hWD4RpUVQpteC16ETD.tthvE3aaVFdC.bgN82Ah98cS', NULL, 'nahuel@rullo.com', NULL, NULL, NULL, NULL, 1435688881, NULL, 1, 'Nahuel', 'Rullo', '', '123456789'),
+(20, '127.0.0.1', 'guillermo gorno', '$2y$08$V2gxLaEpovXyD83hYLrwUee4.RW350XOEHerSjZc7ZjlK9W2hI8uy', NULL, 'guillermo@gorno.com', NULL, NULL, NULL, NULL, 1435688996, 1435689263, 1, 'Guillermo', 'Gorno', '', '12345798'),
+(21, '127.0.0.1', 'lucas blanco', '$2y$08$w4n7Y.hIQWvDgUYGfd47quUO3tRxYEXSfNwzaf.jFSPE.6Jeab9sm', NULL, 'lucasblanco@gmail.com', NULL, NULL, NULL, NULL, 1435689036, NULL, 1, 'Lucas', 'Blanco', '', '123456789');
 
 -- --------------------------------------------------------
 
@@ -2824,7 +2788,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
 `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `users_groups`
@@ -2832,13 +2796,17 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1),
-(2, 1, 2),
-(3, 2, 3),
-(4, 3, 3),
-(7, 7, 4),
-(8, 8, 3),
-(9, 9, 4),
-(10, 10, 5);
+(11, 11, 3),
+(12, 12, 3),
+(13, 13, 3),
+(14, 14, 3),
+(15, 15, 3),
+(16, 16, 4),
+(17, 17, 4),
+(18, 18, 4),
+(19, 19, 3),
+(20, 20, 5),
+(21, 21, 5);
 
 -- --------------------------------------------------------
 
@@ -2873,15 +2841,7 @@ CREATE TABLE IF NOT EXISTS `user_favoritos` (
   `id_user` int(11) NOT NULL,
   `id_aviso` int(11) NOT NULL,
   `fecha` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `user_favoritos`
---
-
-INSERT INTO `user_favoritos` (`id`, `id_user`, `id_aviso`, `fecha`) VALUES
-(14, 1, 54, '2015-05-28 00:43:06'),
-(15, 8, 54, '2015-06-11 22:10:20');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2898,17 +2858,7 @@ CREATE TABLE IF NOT EXISTS `user_pedidos` (
   `precio_min` int(11) DEFAULT NULL,
   `precio_max` int(11) DEFAULT NULL,
   `activo` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `user_pedidos`
---
-
-INSERT INTO `user_pedidos` (`id`, `id_user`, `id_tipo_inmueble`, `id_tipo_op`, `id_ciudad`, `precio_min`, `precio_max`, `activo`) VALUES
-(1, 1, 1, 1, 34, 1000, 6000, NULL),
-(2, 2, 1, 1, 23, 1000, 99999, NULL),
-(3, 10, 1, 1, 2104, 1, 100, 1),
-(4, 10, 3, 3, 25, 1, 1000, 1);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2921,17 +2871,14 @@ CREATE TABLE IF NOT EXISTS `ver_datos` (
   `id_aviso` int(11) NOT NULL,
   `ip_address` varchar(15) NOT NULL,
   `fecha_hora` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ver_datos`
 --
 
 INSERT INTO `ver_datos` (`id`, `id_aviso`, `ip_address`, `fecha_hora`) VALUES
-(1, 54, '127.0.0.1', '2015-03-13 06:44:21'),
-(2, 50, '127.0.0.1', '2015-03-13 06:44:35'),
-(3, 9, '127.0.0.1', '2015-05-27 23:24:17'),
-(25, 17, '127.0.0.1', '2015-05-28 00:42:22');
+(1, 1, '127.0.0.1', '2015-07-01 19:14:26');
 
 -- --------------------------------------------------------
 
@@ -2944,23 +2891,19 @@ CREATE TABLE IF NOT EXISTS `visualizaciones` (
   `id_aviso` int(11) NOT NULL,
   `ip_address` varchar(15) DEFAULT NULL,
   `fecha_hora` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `visualizaciones`
 --
 
 INSERT INTO `visualizaciones` (`id`, `id_aviso`, `ip_address`, `fecha_hora`) VALUES
-(1, 54, '127.0.0.2', '2015-03-12 20:26:40'),
-(5, 50, '127.0.0.1', '2015-03-12 20:26:46'),
-(9, 54, '127.0.0.1', '2015-03-12 20:28:05'),
-(17, 30, '127.0.0.1', '2015-03-15 04:34:07'),
-(18, 40, '127.0.0.1', '2015-03-16 07:42:35'),
-(22, 22, '127.0.0.1', '2015-05-26 17:59:36'),
-(23, 8, '127.0.0.1', '2015-05-26 18:41:52'),
-(24, 9, '127.0.0.1', '2015-05-26 22:27:15'),
-(82, 17, '127.0.0.1', '2015-05-28 00:42:18'),
-(85, 32, '127.0.0.1', '2015-05-28 22:34:48');
+(1, 1, '127.0.0.1', '2015-06-30 20:56:33'),
+(2, 2, '127.0.0.1', '2015-06-30 20:56:59'),
+(3, 3, '127.0.0.1', '2015-06-30 21:00:17'),
+(5, 4, '127.0.0.1', '2015-07-01 19:13:40'),
+(7, 5, '127.0.0.1', '2015-07-06 20:33:09'),
+(8, 6, '127.0.0.1', '2015-07-06 20:33:13');
 
 --
 -- Índices para tablas volcadas
@@ -3100,12 +3043,12 @@ ALTER TABLE `visualizaciones`
 -- AUTO_INCREMENT de la tabla `avisos`
 --
 ALTER TABLE `avisos`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `aviso_fotos`
 --
 ALTER TABLE `aviso_fotos`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `barrios`
 --
@@ -3165,12 +3108,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT de la tabla `users_groups`
 --
 ALTER TABLE `users_groups`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT de la tabla `user_busquedas`
 --
@@ -3180,119 +3123,22 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT de la tabla `user_favoritos`
 --
 ALTER TABLE `user_favoritos`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `user_pedidos`
 --
 ALTER TABLE `user_pedidos`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `ver_datos`
 --
 ALTER TABLE `ver_datos`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `visualizaciones`
 --
 ALTER TABLE `visualizaciones`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=86;
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `avisos`
---
-ALTER TABLE `avisos`
-ADD CONSTRAINT `avisos_id_localidad` FOREIGN KEY (`id_localidad`) REFERENCES `localidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `avisos_id_tipo_inmueble` FOREIGN KEY (`id_tipo_inmueble`) REFERENCES `tipos_inmuebles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `avisos_id_tipo_op` FOREIGN KEY (`id_tipo_op`) REFERENCES `tipos_op` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `avisos_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `aviso_fotos`
---
-ALTER TABLE `aviso_fotos`
-ADD CONSTRAINT `aviso_fotos_id_aviso_fk` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `barrios`
---
-ALTER TABLE `barrios`
-ADD CONSTRAINT `barrios_id_localidad_fk` FOREIGN KEY (`id_localidad`) REFERENCES `localidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `enviado_mail`
---
-ALTER TABLE `enviado_mail`
-ADD CONSTRAINT `enviado_mail_id_aviso_fk` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `inmuebles_caracteristicas`
---
-ALTER TABLE `inmuebles_caracteristicas`
-ADD CONSTRAINT `inm_carac_id_aviso` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `inm_carac_id_tipo_inmuebles_caracteristicas` FOREIGN KEY (`id_tipo_inmuebles_caracteristicas`) REFERENCES `tipos_inmuebles_caracteristicas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `localidades`
---
-ALTER TABLE `localidades`
-ADD CONSTRAINT `localidades_id_provincia_fk` FOREIGN KEY (`id_provincia`) REFERENCES `provincias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `mensajes`
---
-ALTER TABLE `mensajes`
-ADD CONSTRAINT `mensajes_id_aviso_fk` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `mensajes_id_user_fk` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `provincias`
---
-ALTER TABLE `provincias`
-ADD CONSTRAINT `provincias_id_pais_fk` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `users_groups`
---
-ALTER TABLE `users_groups`
-ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `user_busquedas`
---
-ALTER TABLE `user_busquedas`
-ADD CONSTRAINT `user_busquedas_id_user_fk` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `user_favoritos`
---
-ALTER TABLE `user_favoritos`
-ADD CONSTRAINT `user_favoritos_id_aviso_fk` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `user_favoritos_id_user_fk` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `user_pedidos`
---
-ALTER TABLE `user_pedidos`
-ADD CONSTRAINT `user_pedidos_id_tipo_inmueble_fk` FOREIGN KEY (`id_tipo_inmueble`) REFERENCES `tipos_inmuebles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `user_pedidos_id_tipo_op_fk` FOREIGN KEY (`id_tipo_op`) REFERENCES `tipos_op` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `user_pedidos_id_user_fk` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `ver_datos`
---
-ALTER TABLE `ver_datos`
-ADD CONSTRAINT `ver_datos_id_aviso_fk` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `visualizaciones`
---
-ALTER TABLE `visualizaciones`
-ADD CONSTRAINT `visualizaciones_id_aviso_fk` FOREIGN KEY (`id_aviso`) REFERENCES `avisos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
