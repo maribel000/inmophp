@@ -105,6 +105,13 @@ class Buscar extends CI_Controller {
 
         /* Se obtienen los registros a mostrar*/
         $datos['avisos'] = $this->Buscar_model->buscar_avisos_2($datos["tipoop"], $datos["tipopro"], $datos["idLocalidad"], $config['per_page'], $page);
+		
+		if ($this->ion_auth->logged_in()) {
+			$data['user'] = $this->ion_auth->user()->row();
+			$datos["menu"] = $this->load->view('menu_us', $data, true);
+		} else {
+			$datos["menu"] = $this->load->view('menu_nu');
+		}		
 
         $this->load->view('buscar', $datos);
 

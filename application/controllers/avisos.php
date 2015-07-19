@@ -218,26 +218,7 @@ HTML;
 		//print_r($datos);
 		//return;
 		//$todo = $todo[0];
-		/*
-		$datos = array(
-						   'id' => $id,
-						   'tipo_op' => $todo->tipo_op,
-						   'tipo_inm' => $todo->tipo_inm,
-						   'provincia' => $todo->provincia,
-						   'ciudad' => $todo->ciudad,
-						   'barrio' => $todo->barrio,
-						   'direccion' => $todo->direccion,
-						   'ambientes' => $todo->ambientes,
-						   'dormitorios' => $todo->dormitorios,
-						   'banios' => $todo->banios,
-						   'metros2' => $todo->metros2,
-						   'estado' => $todo->estado,
-						   'anio' => $todo->anio,
-						   'precio' => $todo->precio,
-						   'detalles' => utf8_decode($todo->detalles),
-						);
-			*/
-			//$datos['ciudad'] = "ros";
+
 			if ($this->ion_auth->logged_in()){
 				$data['user'] = $this->ion_auth->user()->row();
 				$datos["menu"] = $this->load->view('menu_us', $data, true);
@@ -247,14 +228,24 @@ HTML;
 			$this->load->view('editaviso', $datos);
 			
 		} else {
+			$this->load->model('Avisos_model', '', TRUE); 	
+			$datos_old = $this->Avisos_model->get_aviso($id); 
+			//obtengo los nombres de la foto
+			for ($i=0;$i<4;$i++) {
+				$temp = @explode('/',$datos_old['foto_url'][$i]);
+				@$urlphoto[$i] = $temp[3];
+			}
+			//print_r($urlphoto);
 			//guardo
-
+			//echo "es: ".$this->upload->do_upload('foto1');
+			//die();
 		    $tipoop = $this->input->post('tipoop');
 			$tipoinm = $this->input->post('tipoinm');
 			$provincia = $this->input->post('provincia');
 			$ciudad = $this->input->post('ciudad');
 			$barrio = $this->input->post('barrio');
 			$direccion = $this->input->post('direccion');
+			$idlocalidad = $this->input->post('idLocalidad');
 			$ambientes = $this->input->post('ambientes');
 			$dormitorios = $this->input->post('dormitorios');
 			$banios = $this->input->post('banios');
@@ -265,7 +256,76 @@ HTML;
 			$detalles = $this->input->post('detalles');
 
 			$this->load->model('Avisos_model', '', TRUE); 
-			$res = $this->Avisos_model->edit_aviso($id, $tipoop, $tipoinm, $provincia, $ciudad, $barrio, $direccion, $ambientes, $dormitorios, $banios, $metros2, $estado, $anio, $precio, $detalles); 
+			$res = $this->Avisos_model->edit_aviso($id, $tipoop, $tipoinm, $provincia, $idlocalidad, $barrio, $direccion, $ambientes, $dormitorios, $banios, $metros2, $estado, $anio, $precio, $detalles); 
+			
+            $fotodesc = array();
+            $fotodesc[0] = $this->input->post('foto0desc');
+            $fotodesc[1] = $this->input->post('foto1desc');
+            $fotodesc[2] = $this->input->post('foto2desc');			
+			
+            /* inicio manejo de fotos */
+            $config['upload_path'] = './uploads/fotos/';
+//            $config['allowed_types'] = 'jpg|png|jpeg';
+            $config['allowed_types'] = 'jpg';
+            $config['max_size']  = '0';
+            $config['max_width']  = '0';
+            $config['max_height']  = '0';
+			
+
+            $this->load->library('upload', $config);
+
+            $configThumb = array();
+            $configThumb['image_library'] = 'gd2';
+            $configThumb['source_image'] = '';
+            $configThumb['create_thumb'] = TRUE;
+            $configThumb['maintain_ratio'] = TRUE;
+
+            $configThumb['width'] = 140;
+            $configThumb['height'] = 210;
+
+            $this->load->library('image_lib');
+			
+            for($i = 0; $i < 3; $i++) {
+			
+                /* genero un filename "unico" */
+                //die($urlphoto[$i].'-------------'.'foto'.($i+1));
+				if (isset($urlphoto[$i])) { //chequeamos el nombre, por si es una actualizacion de archivo o un archivo nuevo
+					$config['file_name'] = $urlphoto[$i];
+				}else{
+					$config['file_name'] = 'foto_'.$id.'_'.uniqid(rand()).'_'.$i.'.jpg';
+				}
+				
+				
+                $this->Avisos_model->edit_aviso_foto(
+                    $id,
+                    $config['upload_path'].$config['file_name'],
+                    $fotodesc[$i],
+                    0
+                );				
+				
+				$config['overwrite']  = TRUE;				
+                $this->upload->initialize($config);
+
+                $upload = $this->upload->do_upload('foto'.$i);
+                /* fallo la carga */
+                if($upload === FALSE) continue;
+				
+
+
+
+
+                /* obtengo info para hacer los thumbs */
+                $data = $this->upload->data();
+
+                $uploadedFiles[$i] = $data;
+                /* creo los thumbs */
+                if($data['is_image'] == 1) {
+                    $configThumb['source_image'] = $data['full_path'];
+                    $this->image_lib->initialize($configThumb);
+                    $this->image_lib->resize();
+                }
+            }
+            /* fin manejo de fotos */	
 
 			if ($res) { $msj = "Aviso editado"; } else { $msj = "El aviso no pudo ser editado :(";}
 			$data = array('msj' => $msj);
@@ -279,9 +339,26 @@ HTML;
 		}		
 	}
 
-    public function snd_mail($id, $email, $nombre)
+    public function snd_mail($id, $nombre, $email)
 	{
-		echo "ok. ".$id.$email.$nombre;
+		echo "id: ".$id." nombre:".$nombre." email: ".urldecode($email);
+		//print_r($this->input);
+		$date = date("Y-m-d H:i:s");
+		$ip = $_SERVER['REMOTE_ADDR'];
+		//envio el correo
+		$message = "mensajeeeeeeeeeeeeeeeeeeee
+		
+		
+		";
+		if(mail($email,"$nombre tenemos un aviso inmobiliario que puede interesarte!", $message)) {
+		    $this->load->model('Avisos_model', '', TRUE);
+			//registro el envio en la db
+			$this->Avisos_model->enviado_mail($id, $ip, $nombre, $email, $date);		
+			echo "Gracias! el mensaje fue enviado correctamente.";
+		}else{
+			echo "Ups, hubo un error, el mensaje no puedo ser enviado :(";		
+		}
+		
 	}	
 	
     public function check_fav($idaviso, $iduser)
@@ -300,6 +377,24 @@ HTML;
 		}
 		$this->load->model('Avisos_model', '', TRUE);
 		$res = $this->Avisos_model->make_fav($idaviso, $iduser, $date);		
+		echo $res;
+	}		
+	
+    public function delete_ale($idalert, $iduser)
+	{
+		$this->load->library('ion_auth');
+        if ($this->ion_auth->logged_in()){
+            $idus = $this->ion_auth->user()->row()->id;
+			if ($iduser != $idus) { //si los id de usuarios son distintos, es un hack
+				echo "error";
+				return;
+			}
+		}else{ // si el usuario no esta logueado, no se puede hacer la operacion
+			echo "error";
+			return;
+		}
+		$this->load->model('Avisos_model', '', TRUE);
+		$res = $this->Avisos_model->delete_ale($idalert);		
 		echo $res;
 	}		
 	
@@ -511,6 +606,27 @@ HTML;
 			}
 		}
 	}	
+	
+    public function test($id) {
+		$this->load->model('Avisos_model', '', TRUE);	
+		$this->load->helper('url');
+		$t = $this->Avisos_model->enviar_alertas($id);
+		foreach ($t->result_array() as $row)
+		{
+$message = "Hola ".$row['nombre']." ".$row['apellido']." queriamos avistarte que se ha ingresado un aviso inmobiliario 
+en inmoavisos.com que cumple los requisitos de una de tus alertas, ingresa a consultarlo desde aqui:
+".base_url()."avisos/ver/$id
+
+tambien puedes dar de baja a tus alertas desde aqui:
+
+".base_url()."index.php/auth/user
+ Saludos!
+";
+		   mail($row['email'],$row['nombre']." ".$row['apellido']."tenemos un aviso inmobiliario que puede interesarte!", $message);
+		   //echo $row['nombre'].$row['apellido'].$row['email'].'-';
+		   echo $message;
+		}		
+	}	
 
     public function publicar_aviso($id)
 	{
@@ -521,6 +637,27 @@ HTML;
 			if($this->ion_auth->in_group("admin")){//solo el admin puede hacer esta operacion
 				//publico el aviso
 				$this->Avisos_model->publicar_aviso($id);
+				
+				//chequeo si el nuevo aviso corresponde a alguna alerta activa
+				
+				$this->load->model('Avisos_model', '', TRUE);	
+				$this->load->helper('url');
+				$t = $this->Avisos_model->enviar_alertas($id);
+				foreach ($t->result_array() as $row)
+				{
+		$message = "Hola ".$row['nombre']." ".$row['apellido']." queriamos avistarte que se ha ingresado un aviso inmobiliario 
+		en inmoavisos.com que cumple los requisitos de una de tus alertas, ingresa a consultarlo desde aqui:
+		".base_url()."avisos/ver/$id
+
+		tambien puedes dar de baja a tus alertas desde aqui:
+
+		".base_url()."index.php/auth/user
+		 Saludos!
+		";
+				   mail($row['email'],$row['nombre']." ".$row['apellido']."tenemos un aviso inmobiliario que puede interesarte!", $message);
+				   //echo $row['nombre'].$row['apellido'].$row['email'].'-';
+				   echo $message;
+				}					
 			}
 		}
 	}	

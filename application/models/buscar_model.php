@@ -118,6 +118,7 @@ class Buscar_model extends CI_Model {
 
     // ver que variables necesita buscar.php
     function buscar_avisos($tipoOp,$tipoPro,$idLocalidad) {
+	die("bsu");
 
         $this->load->helper('url');
         $this->load->library('ion_auth');
@@ -178,7 +179,9 @@ class Buscar_model extends CI_Model {
             $this->db->where('localidades.id',$idLocalidad);
         }
 
-		$this->db->where('aviso_fotos.default',1);
+		//$this->db->where('aviso_fotos.default',1);
+		
+		
 		
         $query = $this->db->get();
 
@@ -188,7 +191,6 @@ class Buscar_model extends CI_Model {
 
     // ver que variables necesita buscar.php
     function buscar_avisos_2($tipoOp,$tipoPro,$idLocalidad,$porpagina,$segmento) {
-
         $this->load->helper('url');
         $this->load->library('ion_auth');
 
@@ -221,13 +223,14 @@ class Buscar_model extends CI_Model {
         $this->db->select('users.first_name as first_name');
         $this->db->select('aviso_fotos.url');
 
+
 //        $this->db->from('avisos');
 
         $this->db->join('tipos_inmuebles', 'avisos.id_tipo_inmueble = tipos_inmuebles.id','left');
         $this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
         $this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
         $this->db->join('users', 'avisos.id_usuario = users.id','left');
-        $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
+        $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso AND aviso_fotos.default = 1','left');
 
         // El cero representa todo tipo de operaciones
         if($tipoOp != 0) {
@@ -248,6 +251,11 @@ class Buscar_model extends CI_Model {
             $this->db->where('localidades.id',$idLocalidad);
         }
 
+		//die("llega");
+		//$this->db->where('avisos.id_tipo_inmueble',1);
+		
+		$this->db->where('avisos.estado_aviso',0);
+		$this->db->order_by("avisos.id", "desc");
         $query = $this->db->get('avisos',$porpagina,$segmento);
 
         return $query;
@@ -255,7 +263,7 @@ class Buscar_model extends CI_Model {
 
     function buscar_avisos_total($tipoOp, $tipoPro, $idLocalidad) {
         // esta funcion loguea dato del back-end y performance de los modulos
-        $this->output->enable_profiler(TRUE);
+        /////////////$this->output->enable_profiler(TRUE);
 
         $this->db->select('avisos.id');
         $this->db->select('avisos.direccion');
@@ -283,7 +291,7 @@ class Buscar_model extends CI_Model {
         $this->db->join('tipos_op', 'avisos.id_tipo_op = tipos_op.id','left');
         $this->db->join('localidades', 'avisos.id_localidad = localidades.id','left');
         $this->db->join('users', 'avisos.id_usuario = users.id','left');
-        $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso','left');
+        $this->db->join('aviso_fotos', 'avisos.id = aviso_fotos.id_aviso AND aviso_fotos.default = 1','left');
 
         // El cero representa todo tipo de operaciones
         if($tipoOp != 0) {
@@ -304,6 +312,8 @@ class Buscar_model extends CI_Model {
             $this->db->where('localidades.id',$idLocalidad);
         }
 
+		
+		$this->db->where('avisos.estado_aviso',0);
         $query = $this->db->get();
 
         return $query->num_rows();

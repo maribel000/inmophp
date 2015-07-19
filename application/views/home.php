@@ -43,6 +43,14 @@ mail($to, $subject, $message, $headers);
 
     <script>
         $(document).ready(function(){
+		
+			$('#homeForm').submit(function( event ) {
+				if ($('#localidades').val() != "" && $('#idLocalidad').val() == "") {
+					alert("seleccione una ciudad de la lista");
+					event.preventDefault();
+				}	
+			});			
+		
             $("#localidades").autocomplete({
                 source: "<?=base_url()?>avisos/get_localidades",
                 select: function(e, ui) {
@@ -142,7 +150,7 @@ mail($to, $subject, $message, $headers);
 		        <div class="panel-heading">Ultimas 5 inmobiliarias registradas</div>
 		        <div class="panel-body">
                     <?php foreach ($ultimas_inmobi->result() as $inmobi) { ?>
-                        <a href="<?=base_url()?>users/ver/<?=$inmobi->id?>"><?=$inmobi->company?></a><br />
+                        <a href="#"><?=$inmobi->company?></a><br />
                     <?php } ?>
 		        </div>
 		      </div>

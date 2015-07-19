@@ -266,9 +266,28 @@
 						email: "Por favor ingrese una direccion de correo valida"
 					},					
 
-				}
+				},
+				
+                    //perform an AJAX post to ajax.php
+                    submitHandler: function(form) {
+							var email = encodeURIComponent($('#emailsend').val());
+							$.ajax({
+							  type: "POST",
+							  url: "<?=base_url();?>avisos/snd_mail/"+$('#idaviso').val()+"/"+$('#nombre').val()+"/" + email,
+							}).done(function( msg ) {		
+							  alert( "Mensaje enviado correctamente!" + msg );
+							  $('#sendmail').modal('hide')
+							  
+							});		  
+							  return false;
+                    }
+					//					
 		});			
 		});	
+
+		
+
+               
 
 	</script>
 
@@ -282,7 +301,7 @@
 				return e.preventDefault() // stops modal from being shown
 			}
 		})	
-		
+		/*
 		$('#enviarmail').submit(function() {
 		//return;
 		$.ajax({
@@ -296,7 +315,7 @@
 		});		  
 		  return false;
 		});	
-
+		*/
 		$('#newalert').submit(function() {		
 		//return;
 		$.ajax({

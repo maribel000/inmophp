@@ -12,6 +12,7 @@
   <link href="<?php echo base_url();?>theme/dist/css/propio.css" rel="stylesheet">  
   <link href="<?php echo base_url();?>theme/css/navbar-fixed-top.css" rel="stylesheet">
   <link href="<?php echo base_url();?>theme/css/sticky-footer.css" rel="stylesheet">  
+  <link href="<?php echo base_url();?>theme/assets/jquery/jquery-ui.css" type="text/css" rel="stylesheet">  
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="<?php echo base_url(); ?>theme/assets/js/html5shiv.js"></script>
@@ -24,13 +25,14 @@
 
     <div class="container">
 	<center>
-<div style="max-width:600px">
+<div style="max-width:900px">
 <h1>Editar Aviso</h1>
 <?php if(validation_errors()) {?> 
  <div class="alert alert-danger" role="alert" style="padding:4px"><?php echo validation_errors(); ?></div>
 <?php } ?>
 
-<form name="agregar_aviso" method="post" action="<?php echo base_url();?>avisos/editar/<?php echo $id; ?>">
+
+<form id="editar_aviso" name="editar_aviso" method="post" action="<?=base_url()?>avisos/editar/<?php echo $id; ?>" enctype="multipart/form-data">
 <div class="form-group">
 <div class="input-group"><?php 	  //echo "esssssssssssssss $tipo_op";?>
 <span class="input-group-addon" style="min-width:180px">Tipo de operacion</span>
@@ -75,8 +77,10 @@
 <br>
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Ciudad:</span>
-<input name="ciudad" type="text" id="ciudad" value="<?php echo $nombre_localidad;?>" class="form-control">
+<input name="localidad" type="text" id="localidades" value="<?php echo $nombre_localidad;?>" class="form-control">
+<input name="idLocalidad" type="hidden" id="idLocalidad" value="<?php echo $id_localidad;?>">
 </div>
+
 <br>
 <div class="input-group">
 <span class="input-group-addon" style="min-width:180px">Barrio:</span>
@@ -141,21 +145,55 @@
 </div>
 <br>
 </div>
-		<div class="input-group">
-			<span class="input-group-addon" style="min-width:180px;">Fotos:</span>
-			<div class="btn-group-vertical" role="group" aria-label="..."  style="min-height:150px;">
+
+                    
+
+<div class="input-group">
+	<span class="input-group-addon" style="min-width:180px;">Fotos:</span>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size:11px;border: 1px solid grey;">
+	  <tr>
+		<td id="foto0form" style="margin-top:3em; background-color: #FFFFE0; border: 1px solid grey">
+			<?php if (isset($foto_url[0])){?>
+      <div class="row">	  
+        <div class="col-md-4">Foto 1: <center><a href="javascript:cambiarfoto(0, '<?=@$foto_desc[0]?>');">[cambiar foto]</a></center><br><a href="#" class="thumbnail"><img src="<?=base_url();?><?=$foto_url[0]?>" width="100px"/></a></div>
+        <div class="col-md-8">Texto descripcion foto 1:<input name="foto0desc" type="text" id="foto1desc" value="<?=@$foto_desc[0]?>" class="form-control"></div>
+      </div>			
+			<?php }else{ ?>
+				<input name="foto0" type="file" id="foto0" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
+				<br>descripcion:<input name="foto0desc" type="text" id="foto0desc" value="<?=@$foto_desc[0]?>" class="form-control">
+			<?php } ?>		
+		</td>
+	  </tr>
+	  <tr>
+		<td id="foto1form" style="margin-top:3em; background-color: #FFFFE0; border: 1px solid grey">
+			<?php if (isset($foto_url[1])){?>
+      <div class="row">
+        <div class="col-md-4">Foto 2: <center><a href="javascript:cambiarfoto(1, '<?=@$foto_desc[1]?>');">[cambiar foto]</a></center><br><a href="#" class="thumbnail"><img src="<?=base_url();?><?=$foto_url[1]?>" width="100px"/></a></div>
+        <div class="col-md-8">Texto descripcion foto 2:<input name="foto1desc" type="text" id="foto1desc" value="<?=@$foto_desc[1]?>" class="form-control"></div>
+      </div>			
+			<?php }else{ ?>
 				<input name="foto1" type="file" id="foto1" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
-				<input name="foto1desc" type="text" id="foto1desc" value="" class="form-control" placeholder="Ingrese la descripci&oacute;n...">
-			</div>
-			<div class="btn-group-vertical" role="group" aria-label="..."  style="min-height:150px;">
+				<br>descripcion:<input name="foto1desc" type="text" id="foto1desc" value="<?=@$foto_desc[1]?>" class="form-control">
+			<?php } ?>			
+		</td>
+	  </tr>
+	  <tr>
+		<td id="foto2form" style="margin-top:3em; background-color: #FFFFE0; border: 1px solid grey">
+			<?php if (isset($foto_url[2])){?>
+      <div class="row">
+        <div class="col-md-4">Foto 3: <center><a href="javascript:cambiarfoto(2, '<?=@$foto_desc[2]?>');">[cambiar foto]</a></center><br><a href="#" class="thumbnail"><img src="<?=base_url();?><?=$foto_url[2]?>" width="100px"/></a></div>
+        <div class="col-md-8">Texto descripcion foto 3:<input name="foto2desc" type="text" id="foto2desc" value="<?=@$foto_desc[2]?>" class="form-control"></div>
+      </div>			
+			<?php }else{ ?>
 				<input name="foto2" type="file" id="foto2" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
-				<input name="foto2desc" type="text" id="foto2desc" value="" class="form-control" placeholder="Ingrese la descripci&oacute;n...">
-			</div>
-			<div class="btn-group-vertical" role="group" aria-label="..."  style="min-height:150px;">
-				<input name="foto3" type="file" id="foto3" value="" size="30" class="form-control filestyle" data-buttonName="btn-primary" data-buttonText="&nbsp;Buscar foto">
-				<input name="foto3desc" type="text" id="foto3desc" value="" class="form-control" placeholder="Ingrese la descripci&oacute;n...">
-			</div>
-		</div>
+				<br>descripcion:<input name="foto2desc" type="text" id="foto2desc" value="<?=@$foto_desc[2]?>" class="form-control">
+			<?php } ?>		
+		</td>
+	  </tr>
+	</table>
+</div>
+
+
 <br><br>
 <div class="input-group">
 <span class="input-group-addon" style="vertical-align:top; padding-top:30px; min-width:180px">Detalles:</span>
@@ -174,10 +212,87 @@
 
     <script src="<?php echo base_url();?>theme/assets/js/jquery.js"></script>
     <script src="<?php echo base_url();?>theme/dist/js/bootstrap.min.js"></script>
+	<script src="<?php echo base_url();?>theme/assets/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>theme/assets/jquery/jquery-ui.js"></script>
+	
 	<script type="text/javascript">
+        $(document).ready(function(){
+		
+		$('#editar_aviso').submit(function( event ) {
+			if ($('#idLocalidad').val() == "") {
+				alert( "Seleccione una ciudad de la lista" );
+				return;
+			}
+		});	
+	
+		$('#direccion').popover({
+			container: 'body'
+		});
+		$('#tipoop').popover({
+			container: 'body'
+		});		
+		/* validaciones JS */
+		$('#editar_aviso').validate({
+
+				rules: {
+					precio: {
+						required: true,
+						number: true
+					},
+					direccion: {
+						required: true,
+					},					
+					detalles: {
+						required: true,
+					},
+					localidad: {
+						required: true,
+					},
+					
+				},
+				messages: {
+					precio: {
+						required: "Por favor ingrese el precio",
+						number: "Ingrese un valor numerico",
+					},
+					direccion: {
+						required: "Por favor ingrese la direccion exacta del inmueble",
+					},	
+					detalles: {
+						required: "Por favor ingrese el detalle del inmueble",
+					},	
+					localidad: {
+						required: "Por favor ingrese una localidad",
+					},					
+				}
+		});	
+
+//////////////////		
+		
+            $("#localidades").autocomplete({
+                source: "<?=base_url()?>avisos/get_localidades",
+                select: function(e, ui) {
+                    $('#idLocalidad').val(ui.item.idLocalidad);
+                }
+            }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                var inner_html = '<a><div class="list_item_container"><div class="localidad">' + item.localidad + '</div><div class="provincia">' + item.provincia + '</div></div></a>';
+                return $( "<li></li>" )
+                    .data( "item.autocomplete", item )
+                    .append(inner_html)
+                    .appendTo( ul );
+            };
+        });	
+	
 	$('#direccion').popover();
 	$('#tipoop').popover();
+	function cambiarfoto (fotnum, fotdesc) {
+		alert("click");
+				$('#foto' + fotnum + 'form').html("<br>Foto "+fotnum+":<input name=\"foto"+fotnum+"\" type=\"file\" id=\"foto"+fotnum+"\" value=\"\" size=\"30\" class=\"form-control filestyle\" data-buttonName=\"btn-primary\" data-buttonText=\"&nbsp;Buscar foto\"><br>descripcion:<input name=\"foto"+fotnum+"desc\" type=\"text\" id=\"foto"+fotnum+"desc\" value=\""+fotdesc+"\" class=\"form-control\">");
+	}
 	</script>
+
+	
+	
 </body>
 
 </html>

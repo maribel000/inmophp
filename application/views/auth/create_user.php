@@ -27,8 +27,7 @@
 
 <div id="infoMessage"><?php echo $message;?></div>
 
-
-<?php echo form_open('email/send', array('id' => 'newuser'));?>
+<?php echo form_open('auth/create_user', array('id' => 'newuser'));?>
 
       <p>
             Tipo de usuario: <br />
@@ -98,10 +97,6 @@
 						last_name: {
 							required: true,
 							minlength: 3,
-						},
-						company: {
-							required: true,
-							minlength: 2,
 						},	
 						email: {
 							required: true,
@@ -130,10 +125,6 @@
 						last_name: {
 							required: "Por favor ingrese su apellido",
 							minlength: "Minimo 3 caracteres"							
-						},
-						company: {
-							required: "Por favor ingrese el nombre de su empresa",
-							minlength: "Minimo 2 caracteres"							
 						},	
 						email: {
 							required: "Por favor ingrese correo electronico",

@@ -55,17 +55,36 @@ class Auth extends CI_Controller {
 			$this->_render_page('auth/useradmin', $this->data);
 			return;
 		}
-		if ($this->ion_auth->in_group("inmobiliarias")) $this->data['rol'] = "Inmobiliaria";
-		if ($this->ion_auth->in_group("particulares")) $this->data['rol'] = "Particuares";
 		if ($this->ion_auth->in_group("clientes")) { // si el usuario es cliente
 			$this->data['rol'] = "Clientes";
+			//favoritos
+			$favs = $this->ion_auth->get_favoritos($user->id);
+			$this->data['nfavs'] = $favs->num_rows();
+			$this->data['favoritos'] = $favs->result_array();
+			//alertas
+			$alertas = $this->ion_auth->get_alertas($user->id);
+			$this->data['nalert'] = $alertas->num_rows();
+			$this->data['alertas'] = $alertas->result_array();			
 			$this->_render_page('auth/user', $this->data);		
 			return;
 		}	
+		if ($this->ion_auth->in_group("inmobiliarias")) $this->data['rol'] = "Inmobiliaria";
+		if ($this->ion_auth->in_group("particulares")) $this->data['rol'] = "Particuares";	
 		
-		$this->data['favoritos'] = $this->ion_auth->get_favoritos($user->id);
-		$this->data['infoavisos'] = $this->ion_auth->infoavisos($user->id);
+		//favoritos
+		$favs = $this->ion_auth->get_favoritos($user->id);
+		$this->data['nfavs'] = $favs->num_rows();
+		$this->data['favoritos'] = $favs->result_array();
+		//alertas
+		$alertas = $this->ion_auth->get_alertas($user->id);
+		$this->data['nalert'] = $alertas->num_rows();
+		$this->data['alertas'] = $alertas->result_array();	
+		
 		$this->data['avisospendientes'] = $this->ion_auth->cant_pendientes($user->id);
+		$avisos = $this->ion_auth->avisos_user($user->id);
+		$this->data['avisos_user'] = $avisos->result_array();
+
+		$this->data['navisos'] = $avisos->num_rows();
 		$this->_render_page('auth/user', $this->data);
 		
 	}
@@ -456,7 +475,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
 		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
 		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required');
-		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'required');
+		//$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'required');
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
