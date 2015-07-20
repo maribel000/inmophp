@@ -68,7 +68,7 @@
                             <form id="buscar_avisos" name="buscar_avisos" method="get" action="<?=base_url()?>buscar/s" enctype="multipart/form-data">
 
                                 <div class="col-md-3">
-							        Tipo de Operación:
+							        Tipo de Operaci&oacute;n:
 
                                     <select name="tipoop" class="selectpicker show-tick form-control">
 							            <?php echo $combo_tipoop; ?>
@@ -148,7 +148,7 @@
 								        <?php echo $aviso->metros_cuadrados ;?> mt2, 
 								        <?php echo $aviso->cant_ambientes ;?> ambientes, 
 								        <?php echo $aviso->cant_banios ;?> 
-								        baños. $<?php echo $aviso->precio ;?>
+								        ba&ntilde;os. $<?php echo $aviso->precio ;?>
 								        <br />
 								    </div>
 								</div>

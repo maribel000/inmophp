@@ -164,7 +164,7 @@ class Avisos extends CI_Controller {
 
                 $msj = <<<HTML
                     <div class="alert alert-success" role="alert">
-                    <strong>¡Excelente!</strong> Su <a href="{$base_url}index.php/avisos/ver/$res" class="alert-link">aviso</a> ha sido agregado, pero a&uacute;n se encuentra pendiente de aprobación. Le informaremos cuando &eacute;ste haya sido aprobado.
+                    <strong>¡Excelente!</strong> Su <a href="{$base_url}index.php/avisos/ver/$res" class="alert-link">aviso</a> ha sido agregado, pero a&uacute;n se encuentra pendiente de aprobaci&oacute;n. Le informaremos cuando &eacute;ste haya sido aprobado.
                     </div>
 HTML;
             } else {
@@ -480,7 +480,7 @@ HTML;
         $datos["localidades"] = $this->Buscar_model->localidades();
         $datos["usuarios"] = $this->Buscar_model->usuarios();
 
-        /* URL a la que se desea agregar la paginación*/
+        /* URL a la que se desea agregar la paginaci&oacute;n*/
         $config['base_url'] = base_url().'/';
         $config['prefix'] =  'avisos/listarpendientes/';
         if (count($_GET) > 0) $config['suffix'] =  '?' . http_build_query($_GET, '', "&");
@@ -492,10 +492,10 @@ HTML;
         /*Obtiene el numero de registros a mostrar por pagina */
         $config['per_page'] = 10;
 
-        /*Indica que segmento de la URL tiene la paginación, por default es 3*/
+        /*Indica que segmento de la URL tiene la paginaci&oacute;n, por default es 3*/
         $config['uri_segment'] = 3;
 
-        /*Se personaliza la paginación para que se adapte a bootstrap*/
+        /*Se personaliza la paginaci&oacute;n para que se adapte a bootstrap*/
         $config['cur_tag_open'] = '<li class="active"><a href="#">';
         $config['cur_tag_close'] = '</a></li>';
         $config['num_tag_open'] = '<li>';
@@ -554,7 +554,7 @@ HTML;
         $datos["localidades"] = $this->Buscar_model->localidades();
         $datos["usuarios"] = $this->Buscar_model->usuarios();
 
-        /* URL a la que se desea agregar la paginación*/
+        /* URL a la que se desea agregar la paginaci&oacute;n*/
         $config['base_url'] = base_url().'/';
         $config['prefix'] =  'avisos/listarpublicados/';
         if (count($_GET) > 0) $config['suffix'] =  '?' . http_build_query($_GET, '', "&");
@@ -566,10 +566,10 @@ HTML;
         /*Obtiene el numero de registros a mostrar por pagina */
         $config['per_page'] = 10;
 
-        /*Indica que segmento de la URL tiene la paginación, por default es 3*/
+        /*Indica que segmento de la URL tiene la paginaci&oacute;n, por default es 3*/
         $config['uri_segment'] = 3;
 
-        /*Se personaliza la paginación para que se adapte a bootstrap*/
+        /*Se personaliza la paginaci&oacute;n para que se adapte a bootstrap*/
         $config['cur_tag_open'] = '<li class="active"><a href="#">';
         $config['cur_tag_close'] = '</a></li>';
         $config['num_tag_open'] = '<li>';

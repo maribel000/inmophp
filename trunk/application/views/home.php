@@ -76,7 +76,7 @@ mail($to, $subject, $message, $headers);
 		  <!-- Main component for a primary marketing message or call to action -->
 		  <div class="jumbotron" style="padding:2em; background-color: #E1F5A9;">
 		    <div class="row">
-		      <div class="col-md-8"><h1>InmoAvisos.com</h1><p>La herramienta online para los que buscan y ofrecen inmuebles en Argentina. <br>Venta y alquiler de departamentos, casas, PH, terrenos, locales, oficinas, quintas, cocheras y más en InmoAvisos.com</p></div>
+		      <div class="col-md-8"><h1>InmoAvisos.com</h1><p>La herramienta online para los que buscan y ofrecen inmuebles en Argentina. <br>Venta y alquiler de departamentos, casas, PH, terrenos, locales, oficinas, quintas, cocheras y m&aacute;s en InmoAvisos.com</p></div>
 		      <div class="col-md-4">
 		        <center><img style="padding-top:0.2em" src="<?php echo base_url();?>theme/img/splash.png" class="img-responsive" alt="Responsive image"></img></center>
 		      </div>
@@ -90,7 +90,7 @@ mail($to, $subject, $message, $headers);
 		        <div class="row">
                 <form id="homeForm" name="buscar_avisos" method="get" action="<?=base_url()?>buscar/s" enctype="multipart/form-data">
                     <div class="col-md-3">
-		            Tipo de Operación:
+		            Tipo de Operaci&oacute;n:
                       <select name="tipoop" id="tipoop" class="selectpicker show-tick form-control">
 		             <?php echo $combo_tipoop; ?>
 		            </select>

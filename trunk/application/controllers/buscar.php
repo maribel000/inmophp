@@ -69,7 +69,7 @@ class Buscar extends CI_Controller {
         $datos["localidades"] = $this->Buscar_model->localidades();
 
 
-        /* URL a la que se desea agregar la paginación*/
+        /* URL a la que se desea agregar la paginaci&oacute;n*/
         $config['base_url'] = base_url().'/';
         $config['prefix'] =  'buscar/s/';
         if (count($_GET) > 0) $config['suffix'] =  '?' . http_build_query($_GET, '', "&");
@@ -81,10 +81,10 @@ class Buscar extends CI_Controller {
         /*Obtiene el numero de registros a mostrar por pagina */
         $config['per_page'] = 5;
 
-        /*Indica que segmento de la URL tiene la paginación, por default es 3*/
+        /*Indica que segmento de la URL tiene la paginaci&oacute;n, por default es 3*/
         $config['uri_segment'] = 3;
 
-        /*Se personaliza la paginación para que se adapte a bootstrap*/
+        /*Se personaliza la paginaci&oacute;n para que se adapte a bootstrap*/
         $config['cur_tag_open'] = '<li class="active"><a href="#">';
         $config['cur_tag_close'] = '</a></li>';
         $config['num_tag_open'] = '<li>';

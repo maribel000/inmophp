@@ -34,6 +34,8 @@ if (defined('ENVIRONMENT'))
 	{
 		case 'development':
 			error_reporting(E_ALL);
+			// esta linea se agrega para que php loguee por pantalla los errores que ocurren
+			ini_set('display_errors', 1);
 		break;
 	
 		case 'testing':

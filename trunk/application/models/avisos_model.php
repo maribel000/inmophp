@@ -274,7 +274,7 @@ class Avisos_model extends CI_Model {
 
     function get_provincia($id)
     {
-//        TODO: no trae la provincia que tiene acento, ejemplo: Córdoba
+//        TODO: no trae la provincia que tiene acento, ejemplo: C&oacute;rdoba
         $this->db->select('nombre');
         $this->db->where('id', $id);
         $query = $this->db->get('provincias');
@@ -284,7 +284,7 @@ class Avisos_model extends CI_Model {
 
 	
 	function acentos($cadena) {  
-	   //$cadena = strtr($cadena,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ','aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+	   //$cadena = strtr($cadena,'à&aacute;âãäçè&eacute;êëì&iacute;îï&ntilde;ò&oacute;ôõöùúûüýÿÀ&aacute;ÂÃÄÇÈ&eacute;ÊËÌ&iacute;ÎÏ&ntilde;Ò&oacute;ÔÕÖÙÚÛÜÝ','aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
 	   return $cadena;
 	}	
 	
@@ -410,7 +410,7 @@ class Avisos_model extends CI_Model {
 	}
 
     function get_localidades_rank() {
-        //esta funcion trae las ultimas 5 localidades con más avisos cargados
+        //esta funcion trae las ultimas 5 localidades con m&aacute;s avisos cargados
 
 //    	$this->output->enable_profiler(TRUE);
 

@@ -1,13 +1,13 @@
 <?php
 
-$lang['date_year'] = "Año";
-$lang['date_years'] = "Años";
+$lang['date_year'] = "A&ntilde;o";
+$lang['date_years'] = "A&ntilde;os";
 $lang['date_month'] = "Mes";
 $lang['date_months'] = "Meses";
 $lang['date_week'] = "Semana";
 $lang['date_weeks'] = "Semanas";
-$lang['date_day'] = "Día";
-$lang['date_days'] = "Días";
+$lang['date_day'] = "D&iacute;a";
+$lang['date_days'] = "D&iacute;as";
 $lang['date_hour'] = "Hora";
 $lang['date_hours'] = "Horas";
 $lang['date_minute'] = "Minuto";
